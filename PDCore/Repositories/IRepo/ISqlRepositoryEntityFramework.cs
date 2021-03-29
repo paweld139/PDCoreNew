@@ -39,7 +39,7 @@ namespace PDCore.Repositories.IRepo
 
         IQueryable<TOutput> Find<TOutput>(Expression<Func<T, bool>> predicate);
 
-        Expression<Func<T, bool>> GetByIdPredicate(long id);
+        Expression<Func<T, bool>> GetByIdPredicate<TKey>(TKey id);
 
 
         T FindByKeyValues(params object[] keyValues);
@@ -58,7 +58,7 @@ namespace PDCore.Repositories.IRepo
 
         int GetCount(Expression<Func<T, bool>> predicate);
 
-        bool Exists(int id);
+        bool Exists<TKey>(TKey id);
 
 
         void Attach(T obj);

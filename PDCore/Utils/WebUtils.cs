@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PDCore.Utils
 {
@@ -97,6 +100,27 @@ namespace PDCore.Utils
         public static string GetHTMLA(string url, string text)
         {
             string el = string.Format("<a href='{0}'>{1}</a>", url, text);
+
+            return el;
+        }
+
+        public static string GetHTMLImg(string source, string alternativeText, string title)
+        {
+            string el = string.Format("<img src='{0}' alt='{1}' title='{2}'>", source, alternativeText, title);
+
+            return el;
+        }
+
+        public static string GetHTMLIframe(string source, string alternativeText, string title)
+        {
+            string el = string.Format("<iframe src='{0}' title='{2}'>{1}</iframe>", source, alternativeText, title);
+
+            return el;
+        }
+
+        public static string GetHTMLObject(string source, string alternativeText)
+        {
+            string el = string.Format("<object data='{0}'>{1}</object>", source, alternativeText);
 
             return el;
         }
@@ -252,6 +276,48 @@ namespace PDCore.Utils
         public static TOutput GetResultWithRetryWeb<TInput, TOutput>(Func<TInput, TOutput> input, TInput param)
         {
             return input.Partial(param).WithRetryWeb().Item1;
+        }
+
+        public static TOutput GetResultWithRetryWeb<TInput, TInput2, TOutput>(Func<TInput, TInput2, TOutput> input, TInput param, TInput2 param2)
+        {
+            return input.Partial(param, param2).WithRetryWeb().Item1;
+        }
+
+        public static string GetCookie(HttpResponseMessage message)
+        {
+            var setCookieString = GetSetCookieHeaderString(message);
+            var cookieTokens = setCookieString.Split(';');
+            var firstCookie = cookieTokens.FirstOrDefault();
+            var keyValueTokens = firstCookie.Split('=');
+            var valueString = keyValueTokens[1];
+            var cookieValue = HttpUtility.UrlDecode(valueString);
+
+            return cookieValue;
+        }
+
+        public static string GetHeaderString(string name, HttpResponseMessage message)
+        {
+            message.Headers.TryGetValues(name, out var setCookie);
+
+            return setCookie?.SingleOrDefault();
+        }
+
+        public static string GetSetCookieHeaderString(HttpResponseMessage message) => GetHeaderString("Set-Cookie", message);
+
+        public static string GetCookieHeaderString(HttpResponseMessage message) => GetHeaderString("Cookie", message);
+
+        public static bool AddCookiesToRequest(HttpClient httpClient, HttpResponseMessage message)
+        {
+            string cookie = GetSetCookieHeaderString(message) ?? GetCookieHeaderString(message);
+
+            bool result = !string.IsNullOrEmpty(cookie);
+
+            if (result)
+            {
+                httpClient.DefaultRequestHeaders.Add("Cookie", cookie);
+            }
+
+            return result;
         }
     }
 }

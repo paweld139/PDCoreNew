@@ -12,9 +12,9 @@ namespace PDCore.Helpers.XML
     {
         private readonly dynamic _xml;
 
-        public DynamicXml(string fileName)
+        public DynamicXml(string path)
         {
-            _xml = XDocument.Load(fileName);
+            _xml = XDocument.Load(path);
         }
 
         public DynamicXml(dynamic xml)

@@ -12,6 +12,8 @@ namespace PDCore.Extensions
     /// </summary>
     public static class DateTimeExtension
     {
+        public const string ISO8601Format = "yyyy-MM-ddTHH:mm:ssZ";
+
         /// <summary>
         /// Zwrócenie łańcucha znaków o formacie "rok-miesiąc-dzień", opcjonalnie także z czasem dla zadanej daty
         /// </summary>
@@ -63,6 +65,16 @@ namespace PDCore.Extensions
         public static long GetLong(this DateTime dateTime, bool withHours = true)
         {
             return long.Parse(dateTime.ToString("yyyyMMdd" + (withHours ? "HHmmss" : string.Empty)));
+        }
+
+        public static string GetMonthWordly(this DateTime dateTime)
+        {
+            return GetMonthWordly(dateTime, CultureInfo.CurrentCulture);
+        }
+
+        public static string GetMonthWordly(this DateTime dateTime, CultureInfo cultureInfo)
+        {
+            return string.Format(cultureInfo, "{0:MMMM} '{0:yy}", dateTime);
         }
 
         public static string GetWordly(this DateTime dateTime, CultureInfo cultureInfo)
@@ -121,6 +133,11 @@ namespace PDCore.Extensions
 
         public static bool IsBetween(this DateTime source, DateTime start, DateTime end) => source > start && source < end;
 
+        public static bool IsActive(this DateTime source, DateTime? start, DateTime? end)
+        {
+            return (start != default(DateTime) && source >= (start ?? DateTime.MaxValue)) && (end != default(DateTime) && source < (end ?? DateTime.MinValue));
+        }
+
         public static DateTimeOffset GetEndDate(this IPeriod period) => period.StartDate.Add(period.Duration);
 
         public static TimeSpan GetTimeSince(this IPeriod period) => DateTimeOffset.UtcNow.ToOffset(period.StartDate.Offset) - period.StartDate;
@@ -148,6 +165,11 @@ namespace PDCore.Extensions
         public static DateTime ToTimeZoneTime(this DateTime time, TimeZoneInfo tzi)
         {
             return TimeZoneInfo.ConvertTimeFromUtc(time, tzi);
+        }
+
+        public static DateTime Trim(this DateTime date, long roundTicks)
+        {
+            return new DateTime(date.Ticks - date.Ticks % roundTicks, date.Kind);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using PDCore.Commands.Shop;
 using PDCore.MVVM.ViewModels;
 using PDCore.Repositories.Repo.Shop.Interfaces;
-using PDCore.WPF.Commands.WPF;
+using PDCore.WPF.Commands;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;

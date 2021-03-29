@@ -1,5 +1,6 @@
 ﻿using PDCore.Attributes;
 using PDCore.Common.Context.IContext;
+using PDCore.Enums;
 using PDCore.Extensions;
 using PDCore.Interfaces;
 using PDCore.Utils;
@@ -13,7 +14,6 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.Extensions
@@ -59,7 +59,7 @@ namespace PDCore.Common.Extensions
                 entity = history.Entity;
                 entityState = history.State;
 
-                if (entityState == EntityState.Modified)
+                if (entityState == EntityState.Modified && dbContext.Entry(entity).Property(e => e.DateCreated).IsModified)
                     dbContext.Entry(entity).Property(e => e.DateCreated).IsModified = false;
 
                 if (entityState == EntityState.Added)

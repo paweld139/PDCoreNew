@@ -23,6 +23,11 @@ namespace PDCore.Builders.Account
             };
         }
 
+        public static AccountBuilder Default()
+        {
+            return new AccountBuilder();
+        }
+
         public AccountBuilder WithLatePaymentStatus()
         {
             _object.DueDate = DateTime.Now.AddDays(-1);

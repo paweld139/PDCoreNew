@@ -1,6 +1,11 @@
-﻿using System.Data;
+﻿using PDCore.Utils;
+using System;
+using System.Data;
 using System.Data.Common;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace PDCore.Extensions
 {
@@ -36,6 +41,34 @@ namespace PDCore.Extensions
         {
             if (dbConnection.State != ConnectionState.Open)
                 dbConnection.Open();
+        }
+
+        public static Task OpenConnectionIfClosedAsync(this DbConnection dbConnection)
+        {
+            Task task = Task.CompletedTask;
+
+            if (dbConnection.State != ConnectionState.Open)
+                task = dbConnection.OpenAsync();
+
+            return task;
+        }
+
+        /// <summary>
+        /// Zwraca tablicę bajtów dla zadanego obiektu Image i formatu zdjęcia
+        /// </summary>
+        /// <param name="image">Zdjęcea</param>
+        /// <param name="imageFormat">Format zdjęcia</param>
+        /// <returns>Tablica bajtów będąca odzwierciedleniem przekazanego zdjęcia i biorąca pod uwagę format</returns>
+        public static byte[] GetBuffer(this Image image, ImageFormat imageFormat)
+        {
+            using (MemoryStream ms = new MemoryStream()) //Utworzenie strumienia danych
+            {
+                image.Save(ms, imageFormat); //Zapisuje zdjęcie w zadanym formacie do strumienia danych
+
+                byte[] buf = ms.GetBuffer(); //Pobranie tablicy bajtów ze strumienia danych
+
+                return buf; //Zwrócenie tablicy najtów
+            }
         }
     }
 }

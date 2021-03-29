@@ -5,6 +5,9 @@ using PDCore.Interfaces;
 using PDCore.Models;
 using PDCore.Repositories.IRepo;
 using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.UnitOfWork
@@ -106,6 +109,29 @@ namespace PDCore.Common.UnitOfWork
         protected T GetRepo<T>() where T : class
         {
             return RepositoryProvider.GetRepository<T>();
+        }
+
+
+        public void CleanUp()
+        {
+            foreach (DbEntityEntry dbEntityEntry in dbContext.ChangeTracker.Entries().ToArray())
+            {
+                if (dbEntityEntry.Entity != null)
+                {
+                    dbEntityEntry.State = EntityState.Detached;
+                }
+            }
+        }
+
+        public void CleanUp<TEntity>() where TEntity : class
+        {
+            foreach (DbEntityEntry dbEntityEntry in dbContext.ChangeTracker.Entries<TEntity>())
+            {
+                if (dbEntityEntry.Entity != null)
+                {
+                    dbEntityEntry.State = EntityState.Detached;
+                }
+            }
         }
 
 

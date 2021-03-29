@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PDCore.Utils
 {
@@ -177,6 +177,19 @@ namespace PDCore.Utils
             var primes = Enumerable.Range(start, end - start).ToList();
 
             return primes.AsParallel().Where(n => n.IsPrime()).ToList();
+        }
+
+        public static Task<Tuple<TOutput, Exception>> GetResultWithRetryAsync<TInput, TInput2, TOutput>(Func<TInput, TInput2, Task<TOutput>> input,
+            TInput param, TInput2 param2)
+        {
+            return input.Partial(param, param2).WithRetry();
+        }
+
+        public static Task<Tuple<TOutput, Exception>> GetResultWithRetryAsync<TInput, TInput2, TInput3, TOutput>(
+            Func<TInput, TInput2, TInput3, Task<TOutput>> input,
+            TInput param, TInput2 param2, TInput3 param3)
+        {
+            return input.Partial(param, param2, param3).WithRetry();
         }
     }
 }

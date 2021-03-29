@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PDCore.Enums
+﻿namespace PDCore.Enums
 {
     /// <summary>
-    /// Sposób wyrównania tekstu określonym kontenerze, czyli do której strony ma być wyrównany
+    /// Sposób wyrównania tekstu w określonym kontenerze, czyli do której strony ma być wyrównany
     /// </summary>
     public enum HorizontalTextAlignment
     {

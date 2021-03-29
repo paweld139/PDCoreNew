@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.Repositories.Repo
@@ -19,12 +20,12 @@ namespace PDCore.Common.Repositories.Repo
         {
         }
 
-        public virtual Task<T> FindByIdAsync(long id, bool asNoTracking)
+        public virtual Task<T> FindByIdAsync(int id, bool asNoTracking)
         {
             return FindAll(asNoTracking).SingleOrDefaultAsync(GetByIdPredicate(id));
         }
 
-        public virtual Task<T> FindByIdAsync(long id)
+        public virtual Task<T> FindByIdAsync(int id)
         {
             return FindAll().SingleOrDefaultAsync(GetByIdPredicate(id));
         }
@@ -49,6 +50,11 @@ namespace PDCore.Common.Repositories.Repo
         public virtual Task<List<T>> GetAllAsync()
         {
             return FindAll().ToListAsync();
+        }
+
+        public virtual Task<List<TOutput>> GetAllAsync<TOutput>()
+        {
+            return FindAll<TOutput>().ToListAsync();
         }
 
         public virtual async Task<List<KeyValuePair<TKey, TValue>>> GetKeyValuePairsAsync<TKey, TValue>(Func<T, TKey> keySelector, Func<T, TValue> valueSelector, bool sortByValue = true) where TValue : IComparable<TValue>
@@ -124,7 +130,7 @@ namespace PDCore.Common.Repositories.Repo
             return Find<TOutput>(predicate).ToListAsync();
         }
 
-        public Task<TOutput> FindByIdAsync<TOutput>(long id)
+        public Task<TOutput> FindByIdAsync<TOutput>(int id)
         {
             return Find<TOutput>(GetByIdPredicate(id)).SingleOrDefaultAsync();
         }
@@ -132,6 +138,18 @@ namespace PDCore.Common.Repositories.Repo
         public Task<T> FindByKeyValuesAsync(params object[] keyValues)
         {
             return set.FindAsync(keyValues);
+        }
+
+        public Task<T> FindByKeyValuesAsync(CancellationToken cancellationToken, params object[] keyValues)
+        {
+            return set.FindAsync(cancellationToken, keyValues);
+        }
+
+        public Task<bool> ExistsAsync<TKey>(TKey id)
+        {
+            var predicate = GetByIdPredicate(id);
+
+            return FindAll().AnyAsync(predicate);
         }
     }
 }

@@ -72,6 +72,18 @@ namespace PDCore.Common.UnitOfWork
             return ServiceLocator.Current.GetInstance<T>();
         }
 
+
+        public void CleanUp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CleanUp<TEntity>() where TEntity : class
+        {
+            throw new NotImplementedException();
+        }
+
+
         #region IDisposable
 
         public void Dispose()

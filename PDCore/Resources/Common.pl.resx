@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActiveInExternalSystem" xml:space="preserve">
+    <value>Aktywny w systemach zewnętrznych</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Dodaj</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="already" xml:space="preserve">
     <value>już</value>
   </data>
+  <data name="Application" xml:space="preserve">
+    <value>Aplikacja</value>
+  </data>
   <data name="Archived" xml:space="preserve">
     <value>Archiwalny</value>
   </data>
   <data name="AttachmentList" xml:space="preserve">
     <value>Lista załączników</value>
+  </data>
+  <data name="AvailableInEshop" xml:space="preserve">
+    <value>Aktywny w sklepie internetowym</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Powrót</value>
@@ -141,8 +150,17 @@
   <data name="Budget" xml:space="preserve">
     <value>Budżet</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
   <data name="Canceled" xml:space="preserve">
     <value>Anulowane</value>
+  </data>
+  <data name="CancellationRequested" xml:space="preserve">
+    <value>Zażądano anulowania</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Zmień hasło</value>
@@ -189,11 +207,17 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Potwierdzenie hasła</value>
   </data>
+  <data name="Console" xml:space="preserve">
+    <value>Konsola</value>
+  </data>
   <data name="Content" xml:space="preserve">
     <value>Zawartość</value>
   </data>
   <data name="Contractor" xml:space="preserve">
     <value>Kontrahent</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Kraje</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Utwórz</value>
@@ -207,8 +231,17 @@
   <data name="CreateTask" xml:space="preserve">
     <value>Utwórz nowe zadanie</value>
   </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Waluty</value>
+  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Obecne hasło</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>dane</value>
+  </data>
+  <data name="DataPreparation" xml:space="preserve">
+    <value>Przygotowanie danych</value>
   </data>
   <data name="DateModified" xml:space="preserve">
     <value>Data modyfikacji</value>
@@ -255,6 +288,9 @@
   <data name="ErrorOccuredDetailsWeb" xml:space="preserve">
     <value>Wystąpił błąd podczas wykonywania żądania. Szczegóły błędu:</value>
   </data>
+  <data name="ExchangeRate" xml:space="preserve">
+    <value>Kursy wymiany walut</value>
+  </data>
   <data name="ExecutionDate" xml:space="preserve">
     <value>Data wykonania</value>
   </data>
@@ -278,6 +314,9 @@
   </data>
   <data name="ForgotPasswordConfirmation" xml:space="preserve">
     <value>Link do resetu hasła został wysłany</value>
+  </data>
+  <data name="ForLater" xml:space="preserve">
+    <value>Odłożony</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Znajomi</value>
@@ -306,11 +345,17 @@
   <data name="Id" xml:space="preserve">
     <value>Identyfikator</value>
   </data>
+  <data name="In" xml:space="preserve">
+    <value>w</value>
+  </data>
   <data name="Indefinite" xml:space="preserve">
     <value>Nieokreślony</value>
   </data>
   <data name="Internal" xml:space="preserve">
     <value>Wewnętrzne</value>
+  </data>
+  <data name="Interrupted" xml:space="preserve">
+    <value>Przerwany</value>
   </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Próba logowania zakończyła się niepowodzeniem</value>
@@ -333,6 +378,9 @@
   <data name="List" xml:space="preserve">
     <value>Lista</value>
   </data>
+  <data name="Loaded" xml:space="preserve">
+    <value>Załadowano</value>
+  </data>
   <data name="LoggingIn" xml:space="preserve">
     <value>Logowanie</value>
   </data>
@@ -354,6 +402,12 @@
   <data name="ManageAccount" xml:space="preserve">
     <value>Zarządzaj kontem</value>
   </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Producenci</value>
+  </data>
+  <data name="Measure" xml:space="preserve">
+    <value>Miary</value>
+  </data>
   <data name="Medium" xml:space="preserve">
     <value>Średni</value>
   </data>
@@ -374,6 +428,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>nie</value>
+  </data>
+  <data name="NoDataLoaded" xml:space="preserve">
+    <value>Brak wczytanych danych</value>
   </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
@@ -399,8 +456,20 @@
   <data name="Please" xml:space="preserve">
     <value>Proszę</value>
   </data>
+  <data name="PriceList" xml:space="preserve">
+    <value>Cenniki</value>
+  </data>
   <data name="Priority" xml:space="preserve">
     <value>Priorytet</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Produkty</value>
+  </data>
+  <data name="ProductAlternative" xml:space="preserve">
+    <value>Zamienniki</value>
+  </data>
+  <data name="ProductImage" xml:space="preserve">
+    <value>Zdjęcia produktów</value>
   </data>
   <data name="ProviderKey" xml:space="preserve">
     <value>Klucz dostawcy</value>
@@ -459,6 +528,9 @@
   <data name="Saved" xml:space="preserve">
     <value>Zapisano</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
   <data name="Send" xml:space="preserve">
     <value>Wyślij</value>
   </data>
@@ -469,16 +541,40 @@
     <value>Serwer otrzymał dane</value>
   </data>
   <data name="Service" xml:space="preserve">
-    <value>Serwis</value>
+    <value>Usługa</value>
+  </data>
+  <data name="Sessions" xml:space="preserve">
+    <value>sesji</value>
   </data>
   <data name="SortingInstruction" xml:space="preserve">
     <value>Naciśnij na kolumnę, by posortować dane</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statystyki</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Temat</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Sukces</value>
+  </data>
+  <data name="SynchronizationPlan" xml:space="preserve">
+    <value>Plany synchronizacji</value>
+  </data>
+  <data name="SynchronizationToCentral" xml:space="preserve">
+    <value>Wysłanie danych</value>
+  </data>
+  <data name="SynchronizationToLocal" xml:space="preserve">
+    <value>Pobranie danych</value>
+  </data>
+  <data name="Synchronize" xml:space="preserve">
+    <value>Synchronizuj</value>
+  </data>
+  <data name="Synchronized" xml:space="preserve">
+    <value>Zsynchronizowano</value>
   </data>
   <data name="Tag" xml:space="preserve">
     <value>Tag</value>
@@ -515,5 +611,32 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>tak</value>
+  </data>
+  <data name="Abstore" xml:space="preserve">
+    <value>Abstore</value>
+  </data>
+  <data name="Auctions" xml:space="preserve">
+    <value>Aukcje</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Domyślne</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Uwagi</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="NameAndName2" xml:space="preserve">
+    <value>Nazwa + nazwa_cd</value>
+  </data>
+  <data name="OriginalName" xml:space="preserve">
+    <value>Nazwa oryginalna</value>
+  </data>
+  <data name="ProductRelated" xml:space="preserve">
+    <value>Artykuły powiązane</value>
+  </data>
+  <data name="TaxRate" xml:space="preserve">
+    <value>Stawki VAT</value>
   </data>
 </root>

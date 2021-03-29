@@ -12,5 +12,6 @@ namespace PDCore.Repositories.IRepo
 
 
         T Add();
+        T AddAndReturn(T entity);
     }
 }

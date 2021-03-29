@@ -2,15 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCore.Repositories.IRepo
 {
     public interface ISqlRepositoryEntityFrameworkAsync<T> : ISqlRepositoryEntityFramework<T> where T : class, IModificationHistory
     {
-        Task<T> FindByIdAsync(long id);
+        Task<T> FindByIdAsync(int id);
 
-        Task<T> FindByIdAsync(long id, bool asNoTracking);
+        Task<T> FindByIdAsync(int id, bool asNoTracking);
 
         Task<List<T>> GetByQueryAsync(string query);
 
@@ -22,6 +23,8 @@ namespace PDCore.Repositories.IRepo
 
         Task<List<T>> GetAsync(Expression<Func<T, bool>> predicate);
 
+        Task<List<TOutput>> GetAllAsync<TOutput>();
+
         Task<List<KeyValuePair<TKey, TValue>>> GetKeyValuePairsAsync<TKey, TValue>(Func<T, TKey> keySelector, Func<T, TValue> valueSelector, bool sortByValue = true) where TValue : IComparable<TValue>;
 
         Task<List<T>> GetByFilterAsync(Expression<Func<T, string>> propertySelector, string substring);
@@ -32,7 +35,7 @@ namespace PDCore.Repositories.IRepo
 
         Task<List<TOutput>> GetAsync<TOutput>(Expression<Func<T, bool>> predicate);
 
-        Task<TOutput> FindByIdAsync<TOutput>(long id);
+        Task<TOutput> FindByIdAsync<TOutput>(int id);
 
 
         Task<int> CommitAsync();
@@ -47,5 +50,7 @@ namespace PDCore.Repositories.IRepo
 
         Task<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError);
         Task<T> FindByKeyValuesAsync(params object[] keyValues);
+        Task<T> FindByKeyValuesAsync(CancellationToken cancellationToken, params object[] keyValues);
+        Task<bool> ExistsAsync<TKey>(TKey id);
     }
 }

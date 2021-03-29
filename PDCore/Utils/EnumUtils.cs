@@ -1,9 +1,9 @@
 ﻿using PDCore.Extensions;
+using PDCore.Helpers.DataStructures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace PDCore.Utils
 {
@@ -59,6 +59,16 @@ namespace PDCore.Utils
             }
 
             throw new ArgumentException($"unknow value: {value}");
+        }
+
+        public static string GetTranslated<TValueSet, TEnum>(TEnum? value) where TValueSet : ValueSet<TEnum>, new() where TEnum : struct
+        {
+            if (value == null)
+                return null;
+
+            var valueSet = new TValueSet();
+
+            return valueSet[value.Value].ToString();
         }
     }
 }

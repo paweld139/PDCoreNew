@@ -25,11 +25,11 @@ namespace PDCore.Factories.Fac
                    .Where(t => typeof(TIFactory).IsAssignableFrom(t) && !t.IsAbstract);
         }
 
-        public virtual TIFactory CreateFactoryFor(string name)
+        public virtual TIFactory CreateFactoryFor(string name, params object[] parameters)
         {
             var factory = GetFactoryTypeFor(name);
 
-            return (TIFactory)Activator.CreateInstance(factory);
+            return (TIFactory)Activator.CreateInstance(factory, parameters);
         }
 
         public virtual Type GetFactoryTypeFor(string name)

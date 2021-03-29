@@ -32,8 +32,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Local|AnyCPU'">
+    <OutputPath>bin\Local\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SynchronizerSetup|AnyCPU'">
+    <OutputPath>bin\SynchronizerSetup\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -49,70 +73,65 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\WPF\RelayCommand.cs" />
-    <Compile Include="Commands\WPF\RelayCommand2.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\ApplicationCloseCheck.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\ConductorDocumentBase.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IDialogManager.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IDocumentWorkspace.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IHaveShutdownTask.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IMessageBox.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IShell.cs" />
-    <Compile Include="Helpers\WPF\CaliburnMicro\IWorkspace.cs" />
-    <Compile Include="Helpers\WPF\Converters\BooleanToVisibilityMultiConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\BoolToCursorConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\BoolToStringConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\BoolToVisibilityRevConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\CapitalizeFirstLetterConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\ColorPlToColorEnConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\ErrorToBrushConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\IntAndNotNullToBooleanMultiConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\IntToPlusConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\IntToRomanIntConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\IntToUriConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\InverseBooleanConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\PriorityToForegroundConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\SomeBooleanToVisibilityMultiConverter.cs" />
-    <Compile Include="Helpers\WPF\Converters\StringLengthToVisibilityConverter.cs" />
-    <Compile Include="Helpers\WPF\DataValidation\NumberValidator.cs" />
-    <Compile Include="Helpers\WPF\DialogViewModelBase.cs" />
-    <Compile Include="Helpers\WPF\PageViewModelBase.cs" />
-    <Compile Include="Helpers\WPF\ViewModelBase.cs" />
-    <Compile Include="Helpers\WPF\WIndows\Prompt\PromptView.xaml.cs">
+    <Compile Include="Commands\AsyncCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Commands\RelayCommand2.cs" />
+    <Compile Include="Helpers\BindingProxy.cs" />
+    <Compile Include="Helpers\CaliburnMicro\ApplicationCloseCheck.cs" />
+    <Compile Include="Helpers\CaliburnMicro\ConductorDocumentBase.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IDialogManager.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IDocumentWorkspace.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IHaveShutdownTask.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IMessageBox.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IShell.cs" />
+    <Compile Include="Helpers\CaliburnMicro\IWorkspace.cs" />
+    <Compile Include="Helpers\Controls\ChartData.cs" />
+    <Compile Include="Helpers\Controls\MultiChart.cs" />
+    <Compile Include="Helpers\Converters\BooleanToVisibilityMultiConverter.cs" />
+    <Compile Include="Helpers\Converters\BoolToCursorConverter.cs" />
+    <Compile Include="Helpers\Converters\BoolToStringConverter.cs" />
+    <Compile Include="Helpers\Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\BoolToVisibilityRevConverter.cs" />
+    <Compile Include="Helpers\Converters\CapitalizeFirstLetterConverter.cs" />
+    <Compile Include="Helpers\Converters\ColorPlToColorEnConverter.cs" />
+    <Compile Include="Helpers\Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\ErrorToBrushConverter.cs" />
+    <Compile Include="Helpers\Converters\IntAndNotNullToBooleanMultiConverter.cs" />
+    <Compile Include="Helpers\Converters\IntToPlusConverter.cs" />
+    <Compile Include="Helpers\Converters\IntToRomanIntConverter.cs" />
+    <Compile Include="Helpers\Converters\IntToUriConverter.cs" />
+    <Compile Include="Helpers\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Helpers\Converters\PriorityToForegroundConverter.cs" />
+    <Compile Include="Helpers\Converters\SomeBooleanToVisibilityMultiConverter.cs" />
+    <Compile Include="Helpers\Converters\StringLengthToVisibilityConverter.cs" />
+    <Compile Include="Helpers\Converters\StringToBooleanCoverter.cs" />
+    <Compile Include="Helpers\Converters\UtcToLocalDateTimeConverter.cs" />
+    <Compile Include="Helpers\DataValidation\NumberValidator.cs" />
+    <Compile Include="Helpers\DialogViewModelBase.cs" />
+    <Compile Include="Helpers\PageViewModelBase.cs" />
+    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Helpers\WIndows\Prompt\PromptView.xaml.cs">
       <DependentUpon>PromptView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\WPF\WIndows\Prompt\PromptViewModel.cs" />
-    <Compile Include="Helpers\WPF\WIndows\WebViewer\WebViewerView.xaml.cs">
+    <Compile Include="Helpers\WIndows\Prompt\PromptViewModel.cs" />
+    <Compile Include="Helpers\WIndows\WebViewer\WebViewerView.xaml.cs">
       <DependentUpon>WebViewerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\WPF\WIndows\WebViewer\WebViewerViewModel.cs" />
+    <Compile Include="Helpers\WIndows\WebViewer\WebViewerViewModel.cs" />
     <Compile Include="MVVM\ViewModels\Shop\ProductViewModel.cs" />
     <Compile Include="MVVM\ViewModels\Shop\ShoppingCartViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Serv\TemporaryStorageService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Helpers\WPF\WIndows\Prompt\PromptView.xaml">
+    <Page Include="Helpers\WIndows\Prompt\PromptView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Helpers\WPF\WIndows\WebViewer\WebViewerView.xaml">
+    <Page Include="Helpers\WIndows\WebViewer\WebViewerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="MSHTML">
-      <Guid>{3050F1C5-98B5-11CF-BB82-00AA00BDCE0B}</Guid>
-      <VersionMajor>4</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PDCore\PDCore.csproj">
@@ -123,6 +142,9 @@
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro.Core">
       <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Windows.Controls.DataVisualization.Toolkit">
+      <Version>4.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

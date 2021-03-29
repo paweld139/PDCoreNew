@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace PDCore.Extensions
 {
@@ -52,6 +53,26 @@ namespace PDCore.Extensions
             foreach (T element in source) //Następuje iteracja po źródłowym module wyliczającym, który przechodzi po każdym elemencie kolekcji
             {
                 action(element); //Wywołanie przekazanej metody dla elementu
+            }
+        }
+
+        public static async Task ForEachAsync<T>(this IEnumerable<T> source, Func<T, Task> func)
+        {
+            foreach (T element in source) //Następuje iteracja po źródłowym module wyliczającym, który przechodzi po każdym elemencie kolekcji
+            {
+                await func(element); //Wywołanie przekazanej metody dla elementu
+            }
+        }
+
+        public static async Task ForEachAsync<T>(this IEnumerable<T> source, Func<T, int, Task> func)
+        {
+            int index = 0;
+
+            foreach (T element in source) //Następuje iteracja po źródłowym module wyliczającym, który przechodzi po każdym elemencie kolekcji
+            {
+                await func(element, index); //Wywołanie przekazanej metody dla elementu
+
+                index++;
             }
         }
 
@@ -364,7 +385,7 @@ namespace PDCore.Extensions
 
         public static IQueryable<T> Filter<T>(this IQueryable<T> input, string substring, Expression<Func<T, string>> propertySelector)
         {
-            var methodInfo = typeof(string).GetMethod("Contains");
+            var methodInfo = typeof(string).GetMethod("Contains", types: new[] { typeof(string) });
 
             string propertyName = ReflectionUtils.GetNameOf(propertySelector);
 

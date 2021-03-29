@@ -171,5 +171,15 @@ namespace PDCore.Utils
 
             return input.Substring(start, length);
         }
+
+        public static string ReplaceCaseToDash(string name)
+        {
+            name = Regex.Replace(name, "([A-Z])", "_$1").ToLower();
+
+            if (name.StartsWith("_"))
+                name = name.Substring(1);
+
+            return name;
+        }
     }
 }

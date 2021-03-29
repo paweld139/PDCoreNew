@@ -1,18 +1,32 @@
-﻿using PDCore.Helpers;
+﻿using Newtonsoft.Json;
+using Npgsql;
+using NpgsqlTypes;
+using PDCore.Helpers;
 using PDCore.Helpers.Wrappers.DisposableWrapper;
 using PDCore.Interfaces;
 using PDCore.Models;
+using PDCore.Repositories.IRepo;
 using PDCore.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Security.Claims;
+using System.Security.Principal;
+using System.Text;
+using System.Threading.Tasks;
+using Unity;
 
 namespace PDCore.Extensions
 {
@@ -119,17 +133,31 @@ namespace PDCore.Extensions
             return new StopWatchDisposableWrapper(disposableStopwatch);
         }
 
+        public static bool IsNullable<T>(this T obj)
+        {
+            if (obj == null) return true; // obvious
+            Type type = typeof(T);
+            if (!type.IsValueType) return true; // ref-type
+            if (Nullable.GetUnderlyingType(type) != null) return true; // Nullable<T>
+            return false; // value-type
+        }
+
         public static TOutput ConvertOrCastTo<TInput, TOutput>(this TInput input, Converter<TInput, TOutput> converter = null)
         {
-            if (input is TOutput)
-                return input.CastObject<TOutput>();
-
             if (converter != null)
                 return converter(input);
 
+            if (input == null)
+                return default(TOutput);
+
+            if (input is TOutput)
+                return input.CastObject<TOutput>();
+
             //var simpleConverter = TypeDescriptor.GetConverter(typeof(TInput));
 
-            return input.ConvertObject<TOutput>();
+            Type type = Nullable.GetUnderlyingType(typeof(TOutput)) ?? typeof(TOutput);
+
+            return (TOutput)input.ConvertObject(type);
         }
 
         public static bool TryConvertOrCastTo<TInput, TOutput>(this TInput input, out TOutput output, Converter<TInput, TOutput> converter = null)
@@ -220,9 +248,14 @@ namespace PDCore.Extensions
             return value.ConvertOrCastTo<TEnum, int>();
         }
 
+        public static string ToNumberString<T>(this T value, int precision, CultureInfo cultureInfo)
+        {
+            return value.ToString().ToNumberString(precision, cultureInfo);
+        }
+
         public static string ToNumberString<T>(this T value, int precision)
         {
-            return value.ToString().ToNumberString(precision);
+            return ToNumberString(value, precision, CultureInfo.CurrentUICulture);
         }
 
         public static bool ValueIn<TInput>(this TInput input, params TInput[] values) where TInput : IEquatable<TInput>
@@ -251,7 +284,7 @@ namespace PDCore.Extensions
 
         public static EntityInfo<TKey> GetEntityInfo<TKey>(this IEntity<TKey> entity) where TKey : IEquatable<TKey>
         {
-           return new EntityInfo<TKey>(entity);
+            return new EntityInfo<TKey>(entity);
         }
 
         public static string GetDisplayName(this Enum enumValue)
@@ -264,5 +297,180 @@ namespace PDCore.Extensions
         }
 
         public static string ToLowerString(this bool input) => input.ToString().ToLowerInvariant();
+
+        public static IDisposableWrapper<ISqlRepositoryEntityFramework<TModel>> WrapRepo<TModel>(this ISqlRepositoryEntityFramework<TModel> repo, bool withoutValidation = false) where TModel : class, IModificationHistory
+        {
+            return new SaveChangesWrapper<TModel>(repo, withoutValidation);
+        }
+
+        public static void RemoveRegistrations(this IUnityContainer container, string name, Type registeredType, Type lifetimeManager)
+        {
+            foreach (var registration in container.Registrations
+                .Where(p => p.RegisteredType == (registeredType ?? p.RegisteredType)
+                            && p.Name == (name ?? p.Name)
+                            && p.LifetimeManager.GetType() == (lifetimeManager ?? p.LifetimeManager.GetType())))
+            {
+                registration.LifetimeManager.RemoveValue();
+            }
+        }
+
+        public static void RemoveRegistrations<TReg, TLife>(this IUnityContainer container, string name = null)
+        {
+            container.RemoveRegistrations(name, typeof(TReg), typeof(TLife));
+        }
+
+        public static void RemoveAllRegistrations(this IUnityContainer container)
+        {
+            container.RemoveRegistrations(null, null, null);
+        }
+
+        private async static Task<Tuple<TResult, TException>> DoWithRetry<TResult, TException>(Func<TResult> func, Func<Task<TResult>> task, bool sync) where TException : Exception
+        {
+            var result = default(TResult);
+
+            TException exception = null;
+
+            int retryCount = 0;
+
+            bool succesful = false;
+
+            do
+            {
+                try
+                {
+                    if (sync)
+                        result = func();
+                    else
+                        result = await task();
+
+                    succesful = true;
+                }
+                catch (TException ex)
+                {
+                    exception = ex;
+
+                    if (ex is TaskCanceledException)
+                        succesful = true;
+                    else
+                        retryCount++;
+                }
+            } while (retryCount < 3 && !succesful);
+
+            return Tuple.Create(result, exception);
+        }
+
+        public static Tuple<TResult, TException> WithRetry<TResult, TException>(this Func<TResult> func) where TException : Exception
+        {
+            return DoWithRetry<TResult, TException>(func, null, true).Result;
+        }
+
+        public static Task<Tuple<TResult, TException>> WithRetry<TResult, TException>(this Func<Task<TResult>> task) where TException : Exception
+        {
+            return DoWithRetry<TResult, TException>(null, task, false);
+        }
+
+        public static Tuple<T, WebException> WithRetryWeb<T>(this Func<T> func)
+        {
+            return func.WithRetry<T, WebException>();
+        }
+
+        public static Task<Tuple<T, WebException>> WithRetryWeb<T>(this Func<Task<T>> task)
+        {
+            return task.WithRetry<T, WebException>();
+        }
+
+        public static Tuple<TResult, Exception> WithRetry<TResult>(this Func<TResult> func)
+        {
+            return func.WithRetry<TResult, Exception>();
+        }
+
+        public static Task<Tuple<TResult, Exception>> WithRetry<TResult>(this Func<Task<TResult>> task)
+        {
+            return task.WithRetry<TResult, Exception>();
+        }
+
+        public static IEnumerable<string> GetRoles(this IIdentity identity)
+        {
+            return ((ClaimsIdentity)identity)?.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+        }
+
+        public static string GetContrahentId(this IIdentity identity)
+        {
+            var claim = ((ClaimsIdentity)identity)?.FindFirst("ContrahentId");
+
+            return (claim != null) ? claim.Value : string.Empty;
+        }
+
+        public static string GetEmployeeId(this IIdentity identity)
+        {
+            var claim = ((ClaimsIdentity)identity)?.FindFirst("EmployeeId");
+
+            return (claim != null) ? claim.Value : string.Empty;
+        }
+
+        public static StringContent GetJsonContent(this object input)
+        {
+            string json = JsonConvert.SerializeObject(input);
+
+            return GetJsonContent(json);
+        }
+
+        public static StringContent GetJsonContent(this string json) => new StringContent(json, Encoding.UTF8, "application/json");
+
+        public static NpgsqlParameter GetNpgsqlParameter(this object value, string name, NpgsqlDbType? type = null)
+        {
+            name = "@" + name.ToLower();
+
+            NpgsqlParameter result;
+
+            if (type != null)
+                result = new NpgsqlParameter(name, type.Value) { Value = value };
+            else
+                result = new NpgsqlParameter(name, value);
+
+            return result;
+        }
+
+        public static string GetErrorString(this Tuple<HttpResponseMessage, Exception> result, bool brief = false)
+        {
+            string error = null;
+
+            var response = result.Item1;
+
+            if (response == null)
+            {
+                error = brief ? result.Item2?.Message : result.Item2?.ToString();
+            }
+            else if (!response.IsSuccessStatusCode)
+            {
+                error = response.ReasonPhrase + " " + response.Content.ReadAsStringAsync().Result;
+            }
+
+            return error;
+        }
+
+        public static bool IsSucceeded(this Tuple<HttpResponseMessage, Exception> result) => result.Item1.IsSucceeded();
+
+        public static bool IsSucceeded(this HttpResponseMessage response) => response?.IsSuccessStatusCode ?? false;
+
+        public static int GetMaxId(this IEnumerable<IEntity<int>> entity) => entity.Max(e => e.Id);
+
+        public static int ToInt(this decimal input) => Convert.ToInt32(input.RoundAwayFromZero(0));
+
+        public static decimal RoundAwayFromZero(this decimal input, int decimals) => Math.Round(input, decimals, MidpointRounding.AwayFromZero);
+
+        public static int? GetSize(this object input) => input == null ? null : JsonConvert.SerializeObject(input).GetSize();
+
+        public static T DeepClone<T>(this T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
+        }
     }
 }

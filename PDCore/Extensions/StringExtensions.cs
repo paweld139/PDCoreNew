@@ -147,16 +147,21 @@ namespace PDCore.Extensions
 
         public static bool IsUrl(this string urlOrFilename) => urlOrFilename.ToLower().StartsWith("http");
 
-        public static string ToNumberString(this string value, int precision)
+        public static string ToNumberString(this string value, int precision, CultureInfo cultureInfo)
         {
             if (!double.TryParse(value, out double numberValue))
                 return value;
 
-            string format = string.Format("{{0:N{0}}}", precision);
+            string format = string.Format(cultureInfo, "{{0:F{0}}}", precision);
 
-            string valuestring = string.Format(format, numberValue);
+            string valuestring = string.Format(cultureInfo, format, numberValue);
 
             return valuestring;
+        }
+
+        public static string ToNumberString(this string value, int precision)
+        {
+            return ToNumberString(value, precision, CultureInfo.CurrentUICulture);
         }
 
         public static T ToEnumValue<T>(this string enumerationDescription) where T : struct
@@ -232,6 +237,8 @@ namespace PDCore.Extensions
 
         public static int? ParseAsNullableInteger(this string input) => int.TryParse(input, out int i) ? (int?)i : null;
 
+        public static decimal? ParseAsNullableDecimal(this string input) => decimal.TryParse(input.Trim(), out decimal i) ? (decimal?)i : null;
+
         public static Uri Append(this Uri uri, params string[] paths)
         {
             return new Uri(paths.Aggregate(uri.AbsoluteUri, (current, path) => string.Format("{0}/{1}", current.TrimEnd('/'), path.TrimStart('/'))));
@@ -281,5 +288,28 @@ namespace PDCore.Extensions
 
             return data;
         }
+
+        public static bool ToBoolean(this string value)
+        {
+            switch (value.ToLower())
+            {
+                case "true":
+                    return true;
+                case "t":
+                    return true;
+                case "1":
+                    return true;
+                case "0":
+                    return false;
+                case "false":
+                    return false;
+                case "f":
+                    return false;
+                default:
+                    throw new InvalidCastException("You can't cast that value to a bool!");
+            }
+        }
+
+        public static int? GetSize(this string value) => value == null ? null : (int?)(value.Length * sizeof(char));
     }
 }

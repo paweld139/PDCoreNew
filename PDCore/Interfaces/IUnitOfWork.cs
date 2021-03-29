@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PDCore.Interfaces
@@ -10,5 +7,9 @@ namespace PDCore.Interfaces
     {
         void Commit();
         Task CommitAsync();
+
+        void CleanUp();
+
+        void CleanUp<TEntity>() where TEntity : class;
     }
 }

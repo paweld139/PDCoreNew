@@ -1,6 +1,6 @@
-﻿using PDCore.Interfaces;
-using PDCore.Helpers.Calculation.StockQuoteAnalysis.Interfaces;
+﻿using PDCore.Helpers.Calculation.StockQuoteAnalysis.Interfaces;
 using PDCore.Helpers.Calculation.StockQuoteAnalysis.Models;
+using PDCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -80,5 +80,12 @@ namespace PDCore.Common.Repositories.Repo
 
             return base.CommitAsync();
         }
+
+        public T AddAndReturn(T entity)
+        {
+            Add(entity);
+
+            return entity;
+        }
     }
 }

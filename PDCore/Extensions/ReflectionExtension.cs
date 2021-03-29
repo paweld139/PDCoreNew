@@ -20,6 +20,11 @@ namespace PDCore.Extensions
             return propertyInfo.GetValue(entity, null);
         }
 
+        public static TValue GetPropertyValue<TValue>(this PropertyInfo propertyInfo, object entity)
+        {
+            return (TValue)propertyInfo.GetPropertyValue(entity);
+        }
+
         public static string GetPropertyValueString<T>(this PropertyInfo propertyInfo, T entity)
         {
             return propertyInfo.GetPropertyValue(entity).EmptyIfNull();
@@ -187,12 +192,17 @@ namespace PDCore.Extensions
             return self == to;
         }
 
+        public static string GetPropertyName<U>(this Expression<Func<U>> propertyExpression)
+        {
+            var memberExpr = propertyExpression.Body as MemberExpression;
+            return memberExpr.Member.Name;
+        }
+
         public static string GetPropertyName<T, U>(this T obj, Expression<Func<U>> propertyExpression)
         {
             _ = obj;
 
-            var memberExpr = propertyExpression.Body as MemberExpression;
-            return memberExpr.Member.Name;
+            return propertyExpression.GetPropertyName();
         }
 
         public static object GetPropertyValue<T>(this T obj, string name)
@@ -274,6 +284,11 @@ namespace PDCore.Extensions
             return default(TValue);
         }
 
+        public static TProperty GetPropertyValue<TSource, TProperty>(this TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
+        {
+            return source.GetPropertyInfo(propertyLambda).GetPropertyValue<TProperty>(source);
+        }
+
         public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
         {
             _ = source;
@@ -299,6 +314,27 @@ namespace PDCore.Extensions
                     type));
 
             return propInfo;
+        }
+
+        public static bool IsGreaterThan<T>(this T value, T other) where T : IComparable
+        {
+            return value.CompareTo(other) > 0;
+        }
+
+        public static bool IsLessThan<T>(this T value, T other) where T : IComparable
+        {
+            return value.CompareTo(other) < 0;
+        }
+
+        public static TValue GetValue<TSource, TValue>(this Expression<Func<TSource, TValue>> expression)
+        {
+            var objectMember = Expression.Convert(expression.Body as MemberExpression, typeof(TValue));
+
+            var getterLambda = Expression.Lambda<Func<TValue>>(objectMember);
+
+            var getter = getterLambda.Compile();
+
+            return getter();
         }
     }
 }

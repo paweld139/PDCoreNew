@@ -24,14 +24,14 @@ namespace PDCore.Common.Utils
         {
             DbProviderFactory dbProviderFactory = GetDbProviderFactory(provider);
 
-            return PDCore.Utils.SqlUtils.GetDbConnection(nameOrConnectionString, open, dbProviderFactory);
+            return PDCore.Utils.SqlUtils.GetDbConnectionAsync(nameOrConnectionString, open, dbProviderFactory).Result;
         }
 
         public static bool TestConnectionString(string text, string provider = null)
         {
             DbProviderFactory dbProviderFactory = GetDbProviderFactory(provider);
 
-            return PDCore.Utils.SqlUtils.TestConnectionString(text, dbProviderFactory);
+            return PDCore.Utils.SqlUtils.TestConnectionString(text, dbProviderFactory).Result;
         }
 
         public static IEnumerable<string> GetTables(string nameOrConnectionString, string provider = null)

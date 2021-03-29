@@ -483,7 +483,7 @@ namespace PDCore.Common.Repositories.Repo
 
         public virtual bool Exists(int id)
         {
-            var predicate = RepositoryUtils.GetByIdPredicate<T>(id);
+            var predicate = GetByIdPredicate(id);
 
             return FindAll().Any(predicate);
         }
@@ -503,7 +503,7 @@ namespace PDCore.Common.Repositories.Repo
             return mapper.ProjectTo<TOutput>(Find(predicate));
         }
 
-        public Expression<Func<T, bool>> GetByIdPredicate(long id) => RepositoryUtils.GetByIdPredicate<T>(id);
+        public Expression<Func<T, bool>> GetByIdPredicate<TKey>(TKey id) => RepositoryUtils.GetByIdPredicate<T, TKey>(id);
 
         public virtual bool UpdateWithIncludeOrExcludeProperties(T item, bool include, IEnumerable<string> propertyNames)
         {
@@ -575,6 +575,13 @@ namespace PDCore.Common.Repositories.Repo
             var propertyNames = properties.ConvertArray(ReflectionUtils.GetNameOf);
 
             return UpdateWithIncludeOrExcludeProperties(source, destination, include, propertyNames);
+        }
+
+        public bool Exists<TKey>(TKey id)
+        {
+            var predicate = RepositoryUtils.GetByIdPredicate<T, TKey>(id);
+
+            return FindAll().Any(predicate);
         }
     }
 }

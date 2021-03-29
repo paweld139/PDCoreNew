@@ -297,5 +297,19 @@ namespace PDCore.Utils
             var callExpressionReturningObject = Expression.Call(changeTypeMethod, sourceExpressionProperty, Expression.Constant(typeCode));
             return callExpressionReturningObject;
         }
+
+        public static Expression<T> CreateExpression<T>(Type type, string propertyName)
+        {
+            var param = Expression.Parameter(type, "x");
+
+            Expression body = param;
+
+            foreach (var member in propertyName.Split('.'))
+            {
+                body = Expression.PropertyOrField(body, member);
+            }
+
+            return Expression.Lambda<T>(body, param);
+        }
     }
 }

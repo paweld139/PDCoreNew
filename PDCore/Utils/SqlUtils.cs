@@ -1,4 +1,5 @@
-﻿using PDCore.Extensions;
+﻿using Npgsql;
+using PDCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,6 +13,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace PDCore.Utils
 {
@@ -317,6 +319,50 @@ namespace PDCore.Utils
             return dataSet;
         }
 
+        public static async Task ExecuteNonQueryAsync(string query, DbConnection dbConnection)
+        {
+            DbProviderFactory dbProviderFactory = GetDbProviderFactory(dbConnection);
+
+            using (DbCommand dbCommand = dbProviderFactory.CreateCommand())
+            {
+                dbCommand.Connection = dbConnection;
+                dbCommand.CommandType = CommandType.Text;
+                dbCommand.CommandText = query;
+
+                await dbConnection.OpenConnectionIfClosedAsync();
+
+                await dbCommand.ExecuteNonQueryAsync();
+            }
+        }
+
+        public static async Task ExecuteBatchNonQueryAsync(string sql, SqlConnection conn)
+        {
+            string sqlBatch = string.Empty;
+            SqlCommand cmd = new SqlCommand(string.Empty, conn);
+            conn.Open();
+            sql += "\nGO";   // make sure last batch is executed.
+            try
+            {
+                foreach (string line in sql.Split(new string[2] { "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (line.ToUpperInvariant().Trim() == "GO" && !string.IsNullOrWhiteSpace(sqlBatch))
+                    {
+                        cmd.CommandText = sqlBatch;
+                        await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                        sqlBatch = string.Empty;
+                    }
+                    else
+                    {
+                        sqlBatch += line + "\n";
+                    }
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public static DataTable GetDataTable(string query, DbConnection dbConnection)
         {
             DataSet dataSet = GetDataSet(query, dbConnection);
@@ -336,7 +382,7 @@ namespace PDCore.Utils
             return result.GetValue();
         }
 
-        public static DbConnection GetDbConnection(string nameOrConnectionString, bool open, DbProviderFactory factory = null)
+        public static async Task<DbConnection> GetDbConnectionAsync(string nameOrConnectionString, bool open, DbProviderFactory factory = null)
         {
             string connectionString = GetConnectionString(nameOrConnectionString);
 
@@ -354,23 +400,23 @@ namespace PDCore.Utils
             }
 
             if (open)
-                dbConnection.OpenConnectionIfClosed();
+                await dbConnection.OpenConnectionIfClosedAsync().ConfigureAwait(false);
 
 
             return dbConnection;
         }
 
-        public static bool TestConnectionString(string text, DbProviderFactory factory = null)
+        public static async Task<bool> TestConnectionString(string text, DbProviderFactory factory = null)
         {
             bool isConnectionString = text.IsConnectionString();
 
             if (isConnectionString)
             {
-                var dbConnection = GetDbConnection(text, false, factory);
+                var dbConnection = await GetDbConnectionAsync(text, false, factory).ConfigureAwait(false);
 
                 try
                 {
-                    dbConnection.Open(); // throws if invalid
+                    await dbConnection.OpenAsync(); // throws if invalid
                 }
                 catch
                 {
@@ -387,7 +433,7 @@ namespace PDCore.Utils
 
         public static IEnumerable<string> GetTables(string nameOrConnectionString)
         {
-            using (DbConnection dbConnection = GetDbConnection(nameOrConnectionString, true))
+            using (DbConnection dbConnection = GetDbConnectionAsync(nameOrConnectionString, true).Result)
             {
                 return GetTables(dbConnection);
             }
@@ -395,7 +441,7 @@ namespace PDCore.Utils
 
         public static DataSet GetDataSet(string query, string nameOrConnectionString)
         {
-            using (DbConnection dbConnection = GetDbConnection(nameOrConnectionString, true))
+            using (DbConnection dbConnection = GetDbConnectionAsync(nameOrConnectionString, true).Result)
             {
                 return GetDataSet(query, dbConnection);
             }
@@ -403,9 +449,18 @@ namespace PDCore.Utils
 
         public static DataTable GetDataTable(string query, string nameOrConnectionString)
         {
-            using (DbConnection dbConnection = GetDbConnection(nameOrConnectionString, true))
+            using (DbConnection dbConnection = GetDbConnectionAsync(nameOrConnectionString, true).Result)
             {
                 return GetDataTable(query, dbConnection);
+            }
+        }
+
+
+        public static async Task ExecuteNonQueryAsync(string query, string nameOrConnectionString)
+        {
+            using (DbConnection dbConnection = await GetDbConnectionAsync(nameOrConnectionString, true).ConfigureAwait(false))
+            {
+                await ExecuteNonQueryAsync(query, dbConnection).ConfigureAwait(false);
             }
         }
 
@@ -421,6 +476,27 @@ namespace PDCore.Utils
             string connectionString = GetConnectionString("DefaultConnection");
 
             return GetDataSet(query, connectionString);
+        }
+
+        public static string GetFunctionPostgreSql(string functionName, string schemaPrefix = null)
+        {
+            return $"select * from {ObjectNamePostgre(functionName, schemaPrefix)}()";
+        }
+
+        public static string GetProcedurePostgreSql(string storedProcedureName, string schemaPrefix = null, params NpgsqlParameter[] parameters)
+        {
+            storedProcedureName = ObjectNamePostgre(storedProcedureName, schemaPrefix);
+
+            var sql = parameters == null
+           ? $"call {storedProcedureName.ToLower()}()"
+           : $"call {storedProcedureName.ToLower()}({string.Join(", ", parameters.Select(p => p.ParameterName.ToLower()))})";
+
+            return sql;
+        }
+
+        public static string ObjectNamePostgre(string name, string schemaPrefix = null)
+        {
+            return (string.IsNullOrEmpty(schemaPrefix) ? "" : schemaPrefix + ".") + StringUtils.ReplaceCaseToDash(name);
         }
     }
 }

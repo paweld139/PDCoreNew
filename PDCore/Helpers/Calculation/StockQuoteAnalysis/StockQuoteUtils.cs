@@ -1,8 +1,7 @@
 ﻿using PDCore.Extensions;
-using PDCore.Utils;
-using PDCore.Helpers.Calculation.StockQuoteAnalysis;
 using PDCore.Helpers.Calculation.StockQuoteAnalysis.Enums;
 using PDCore.Helpers.Calculation.StockQuoteAnalysis.Models;
+using PDCore.Utils;
 using System;
 using System.Drawing;
 

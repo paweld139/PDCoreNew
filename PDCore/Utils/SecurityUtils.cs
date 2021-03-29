@@ -194,10 +194,8 @@ namespace PDCore.Utils
             return st;
         }
 
-        public static StreamReader GetAssemblyStreamReaderByPath(string path)
+        public static StreamReader GetAssemblyStreamReaderByPath(Assembly assembly, string path)
         {
-            Assembly assembly = Assembly.GetCallingAssembly();
-
             Stream st = assembly.GetManifestResourceStream(path);
 
             if (st == null)
@@ -208,6 +206,20 @@ namespace PDCore.Utils
             StreamReader sr = new StreamReader(st);
 
             return sr;
+        }
+
+        public static StreamReader GetAssemblyStreamReaderByPath(Type type, string path)
+        {
+            var assembly = type.Assembly;
+
+            return GetAssemblyStreamReaderByPath(assembly, assembly.GetName().Name + "." + path);
+        }
+
+        public static StreamReader GetAssemblyStreamReaderByPath(string path)
+        {
+            var assembly = Assembly.GetCallingAssembly();
+
+            return GetAssemblyStreamReaderByPath(assembly, path);
         }
 
         public static X509Certificate2 GetCertificateFromAssembly(string path)

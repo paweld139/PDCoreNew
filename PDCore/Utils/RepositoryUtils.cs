@@ -68,15 +68,15 @@ namespace PDCore.Utils
         /// "f => f.Id == 42" and can be used to get the Foo with Id==42 by writing
         /// aFooDbSet.FirstOrDefault(predicate)".
         /// </Example>
-        public static Expression<Func<T, bool>> GetByIdPredicate<T>(long id)
+        public static Expression<Func<TEntity, bool>> GetByIdPredicate<TEntity, TKey>(TKey id)
         {
-            var itemParam = Expression.Parameter(typeof(T), "item"); //Parametr wyrażenia
+            var itemParam = Expression.Parameter(typeof(TEntity), "item"); //Parametr wyrażenia
             var itemPropertyExpr = Expression.Property(itemParam, "Id"); //Wyrażenie pozwalające na wyciągnięcie właściwości
             var idParam = Expression.Constant(id); //Wartość
             var newBody = Expression.MakeBinary(ExpressionType.Equal, itemPropertyExpr, idParam); //Wyrażenie przyrównujące właściwość parametru z wartością
             var newLambda = Expression.Lambda(newBody, itemParam); //Utworzenie wyrażenia lambda na podstawie ciała wyrażenia i parametru
 
-            return newLambda as Expression<Func<T, bool>>;
+            return newLambda as Expression<Func<TEntity, bool>>;
         }
     }
 }
