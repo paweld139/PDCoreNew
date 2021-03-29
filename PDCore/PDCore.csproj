@@ -7,6 +7,7 @@
 
   <PropertyGroup>
     <LangVersion>7.0</LangVersion>
+    <Authors>Paweł Dywan</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
