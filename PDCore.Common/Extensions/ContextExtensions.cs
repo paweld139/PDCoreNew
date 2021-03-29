@@ -289,5 +289,16 @@ namespace PDCore.Common.Extensions
 
             context.SaveChanges();
         }
+
+        public static Task<TSource> FirstAsyncSafe<TSource>(this IQueryable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (!(source is IDbAsyncEnumerable<TSource>))
+                return Task.FromResult(source.First());
+
+            return source.FirstAsync();
+        }
     }
 }
