@@ -2,6 +2,7 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.Context.IContext
@@ -11,6 +12,8 @@ namespace PDCore.Common.Context.IContext
         int SaveChanges();
 
         Task<int> SaveChangesAsync();
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         Database Database { get; }
 

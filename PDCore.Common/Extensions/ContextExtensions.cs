@@ -14,6 +14,7 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.Extensions
@@ -90,11 +91,11 @@ namespace PDCore.Common.Extensions
             return result;
         }
 
-        public static async Task<int> SaveChangesWithModificationHistoryAsync(this IEntityFrameworkDbContext dbContext)
+        public static async Task<int> SaveChangesWithModificationHistoryAsync(this IEntityFrameworkDbContext dbContext, CancellationToken? cancellationToken = null)
         {
             BeforeSaveChangesWithHistory(dbContext);
 
-            int result = await dbContext.SaveChangesAsync();
+            int result = await dbContext.SaveChangesAsync(cancellationToken ?? CancellationToken.None);
 
             AfterSaveChangesWithHistory(dbContext);
 

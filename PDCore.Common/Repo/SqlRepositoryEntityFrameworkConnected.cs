@@ -5,6 +5,7 @@ using PDCore.Interfaces;
 using PDCore.Repositories.IRepo;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCore.Common.Repositories.Repo
@@ -74,12 +75,14 @@ namespace PDCore.Common.Repositories.Repo
             return base.Commit();
         }
 
-        public override Task<int> CommitAsync()
+        public override Task<int> CommitAsync(CancellationToken cancellationToken)
         {
             RemoveEmptyEntries();
 
-            return base.CommitAsync();
+            return base.CommitAsync(cancellationToken);
         }
+
+        public override Task<int> CommitAsync() => CommitAsync(CancellationToken.None);
 
         public T AddAndReturn(T entity)
         {

@@ -40,6 +40,8 @@ namespace PDCore.Repositories.IRepo
 
         Task<int> CommitAsync();
 
+        Task<int> CommitAsync(CancellationToken cancellationToken);
+
         Task DeleteAndCommitAsync(T entity);
 
         Task<int> CommitAsClientWinsAsync();

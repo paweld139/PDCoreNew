@@ -142,10 +142,12 @@ namespace PDCore.Repositories
             return DoCommitAsDatabaseWins(false, CommitAsync);
         }
 
-        public Task<int> CommitAsync()
+        public Task<int> CommitAsync(CancellationToken cancellationToken)
         {
             return ctx.SaveChangesWithModificationHistoryAsync();
         }
+
+        public Task<int> CommitAsync() => CommitAsync(CancellationToken.None);
 
         /// <summary>
         /// DbPropertyValues currentValues, DbPropertyValues databaseValues, DbPropertyValues resolvedValues

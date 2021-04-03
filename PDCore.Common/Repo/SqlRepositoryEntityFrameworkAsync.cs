@@ -88,10 +88,12 @@ namespace PDCore.Common.Repositories.Repo
         }
 
 
-        public virtual Task<int> CommitAsync()
+        public virtual Task<int> CommitAsync(CancellationToken cancellationToken)
         {
-            return ctx.SaveChangesWithModificationHistoryAsync(); //Zwraca ilość wierszy wziętych po uwagę
+            return ctx.SaveChangesWithModificationHistoryAsync(cancellationToken); //Zwraca ilość wierszy wziętych po uwagę
         }
+
+        public virtual Task<int> CommitAsync() => CommitAsync(CancellationToken.None);
 
         public virtual Task DeleteAndCommitAsync(T entity)
         {
