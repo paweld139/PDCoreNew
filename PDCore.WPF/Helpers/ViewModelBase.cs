@@ -20,7 +20,7 @@ namespace PDCore.WPF.Helpers
 
         public bool SuppressIsInitialized;
 
-        protected bool IsLoading { get => isLoading; private set => SetProperty(ref isLoading, value); }
+        public bool IsLoading { get => isLoading; private set => SetProperty(ref isLoading, value); }
 
         protected ViewModelBase()
         {
