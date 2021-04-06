@@ -639,4 +639,10 @@
   <data name="TaxRate" xml:space="preserve">
     <value>Stawki VAT</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>Wszystko</value>
+  </data>
+  <data name="OperationSucceed" xml:space="preserve">
+    <value>Operacja zakończona sukcesem</value>
+  </data>
 </root>

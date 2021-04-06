@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to already.
         /// </summary>
         public static string already {
@@ -1083,6 +1092,15 @@ namespace Resources {
         public static string OnlyNotBinded {
             get {
                 return ResourceManager.GetString("OnlyNotBinded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operation succeed.
+        /// </summary>
+        public static string OperationSucceed {
+            get {
+                return ResourceManager.GetString("OperationSucceed", resourceCulture);
             }
         }
         

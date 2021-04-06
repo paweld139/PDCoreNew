@@ -1,5 +1,4 @@
-﻿using PDCore.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -13,12 +12,15 @@ namespace PDCore.WPF.Helpers
 
         public event EventHandler<bool> LoadingChanged;
 
-        public event EventHandler TaskSuccessfullyCompleted;
+        public event EventHandler TaskCompleted;
 
 
         private bool isInitialized;
+        private bool isLoading;
 
         public bool SuppressIsInitialized;
+
+        protected bool IsLoading { get => isLoading; private set => SetProperty(ref isLoading, value); }
 
         protected ViewModelBase()
         {
@@ -30,9 +32,14 @@ namespace PDCore.WPF.Helpers
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void OnLoadingChanged(bool isLoading) => LoadingChanged?.Invoke(this, isLoading);
+        protected virtual void OnLoadingChanged(bool isLoading)
+        {
+            IsLoading = isLoading;
 
-        protected virtual void OnTaskSuccessfullyCompleted() => TaskSuccessfullyCompleted?.Invoke(this, EventArgs.Empty);
+            LoadingChanged?.Invoke(this, isLoading);
+        }
+
+        protected virtual void OnTaskCompleted() => TaskCompleted?.Invoke(this, EventArgs.Empty);
 
         protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
         {
@@ -56,7 +63,7 @@ namespace PDCore.WPF.Helpers
 
             if (SuppressIsInitialized || !isInitialized)
             {
-                result = Execute(Refresh);
+                result = Refresh();
 
                 isInitialized = true;
             }
@@ -71,12 +78,12 @@ namespace PDCore.WPF.Helpers
                 OnLoadingChanged(true);
 
                 await func();
-
-                OnTaskSuccessfullyCompleted();
             }
             finally
             {
                 OnLoadingChanged(false);
+
+                OnTaskCompleted();
             }
         }
 

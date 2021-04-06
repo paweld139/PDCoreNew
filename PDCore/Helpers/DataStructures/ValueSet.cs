@@ -35,7 +35,7 @@ namespace PDCore.Helpers.DataStructures
         {
             var result = Dictionary.GetKVP(x => (TEnum?)x.Key, x => (x.Value.DisplayName ?? x.Value.Code)).OrderBy(x => x.Value).ToList();
 
-            result.Insert(0, new KeyValuePair<TEnum?, string>(null, string.Empty));
+            result.Insert(0, new KeyValuePair<TEnum?, string>(null, Resources.Common.All));
 
 
             return result;

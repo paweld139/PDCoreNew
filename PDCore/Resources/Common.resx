@@ -639,4 +639,10 @@
   <data name="TaxRate" xml:space="preserve">
     <value>Tax rates</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="OperationSucceed" xml:space="preserve">
+    <value>Operation succeed</value>
+  </data>
 </root>
