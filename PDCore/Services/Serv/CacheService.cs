@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿
+using Microsoft.Extensions.Caching.Memory;
 using PDCore.Services.IServ;
 using System;
 
@@ -6,7 +7,7 @@ namespace PDCore.Services.Serv
 {
     public class CacheService : ICacheService
     {
-        private readonly Lazy<MemoryCache> memoryCache = new Lazy<MemoryCache>();
+        private readonly Lazy<MemoryCache> memoryCache = new Lazy<MemoryCache>(() => new MemoryCache(new MemoryCacheOptions()));
 
         public T GetOrSet<T>(string cacheKey, Func<T> getItemCallback) where T : class
         {

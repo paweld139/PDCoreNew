@@ -27,8 +27,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
-using PDCore.Common.Utils;
 
 namespace PDCoreTest
 {
@@ -378,14 +378,23 @@ namespace PDCoreTest
 
         private static void TestOpenTextFile()
         {
-            var fileNames = WinFormsUtils.OpenFiles(requiredFilesCount: 4);
+            var thread = new Thread(() =>
+            {
+                var fileNames = WinFormsUtils.OpenFiles(requiredFilesCount: 4);
 
-            if (fileNames != null)
-                ConsoleUtils.WriteLines(fileNames);
+                if (fileNames != null)
+                    ConsoleUtils.WriteLines(fileNames);
 
-            var result = WinFormsUtils.OpenTextFile();
+                var result = WinFormsUtils.OpenTextFile();
 
-            ConsoleUtils.WriteResult("Zawartość otworzonego pliku", result?.Item1);
+                ConsoleUtils.WriteResult("Zawartość otworzonego pliku", result?.Item1);
+            });
+
+            thread.SetApartmentState(ApartmentState.STA); //Set the thread to STA
+
+            thread.Start();
+
+            thread.Join(); //Wait for the thread to end
         }
 
         private static void TestOrderBy()
@@ -420,25 +429,30 @@ namespace PDCoreTest
 
         private static void TestCsvParsing()
         {
-            string path = @"D:\Downloads\1253a5fc75280025995fa7f3cb61000e-6b4989b6cf20ddc619c28a2e51eb9e27eb185709\fuel.csv";
-            //string path = @"D:\Downloads\582e9c044eee5882d54a6e5997c0be52-1c6cd2fe0bda9c63178fda1f313370479ff0bc8a\manufacturers.csv";
+            const string pathFormat = "Csv\\{0}.csv";
+
+            string path = string.Format(pathFormat, "fuel");
 
             ConsoleUtils.WriteTableFromCSV(path);
 
 
-            var dt = PDCore.Utils.CSVUtils.ParseCSVToDataTable(path);
+            path = string.Format(pathFormat, "manufacturers");
+
+            var dt = CSVUtils.ParseCSVToDataTable(path);
 
             ConsoleUtils.WriteDataTable(dt);
 
-            if (!path.EndsWith("fuel.csv"))
+            if (path.EndsWith("fuel.csv"))
                 return;
 
-            var customers = PDCore.Utils.CSVUtils.ParseCSV<Customer, CustomerMap>(path);
+            path = string.Format(pathFormat, "customers");
+
+            var customers = CSVUtils.ParseCSV<Customer, CustomerMap>(path);
 
             ConsoleUtils.WriteLine(customers.Last().Name);
 
 
-            var customers2 = PDCore.Utils.CSVUtils.ParseCSV<Customer>(path);
+            var customers2 = CSVUtils.ParseCSV<Customer>(path);
 
             ConsoleUtils.WriteLine(customers2.First().Name);
         }
@@ -555,24 +569,24 @@ namespace PDCoreTest
 
         private static void TestConvertCSVToDataTableAndWriteDataTable()
         {
-            string filePath = @"D:\Users\User\OneDrive\Magisterka\Semestr 2\Big Data\Laboratoria\Koronawirus - Zadanie\CSVs\Podzielone pliki\20.csv";
+            string filePath = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 2\Big Data\Laboratoria\Koronawirus - Zadanie\CSVs\Podzielone pliki\20.csv";
 
-            string filePath2 = @"D:\Users\User\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
+            string filePath2 = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
 
-            string filePath3 = @"D:\Users\User\OneDrive\Magisterka\Semestr 2\Data Mining\Ćwiczenia\Dane\datasets_12603_17232_Life Expectancy Data.csv";
-
-
-            DataTable dataTable = PDCore.Utils.CSVUtils.ParseCSVToDataTable(filePath);
-
-            ConsoleUtils.WriteDataTable(dataTable);
+            string filePath3 = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 2\Data Mining\Ćwiczenia\Dane\datasets_12603_17232_Life Expectancy Data.csv";
 
 
-            dataTable = PDCore.Utils.CSVUtils.ParseCSVToDataTable(filePath2, delimiter: "\t");
+            DataTable dataTable = CSVUtils.ParseCSVToDataTable(filePath);
 
             ConsoleUtils.WriteDataTable(dataTable);
 
 
-            dataTable = PDCore.Utils.CSVUtils.ParseCSVToDataTable(filePath3);
+            dataTable = CSVUtils.ParseCSVToDataTable(filePath2, delimiter: "\t");
+
+            ConsoleUtils.WriteDataTable(dataTable);
+
+
+            dataTable = CSVUtils.ParseCSVToDataTable(filePath3);
 
             ConsoleUtils.WriteDataTable(dataTable);
         }
@@ -584,16 +598,16 @@ namespace PDCoreTest
 
         private static void TestParseCSVToObjectAndDisplayObject()
         {
-            const string filePathFormat = @"D:\Users\User\OneDrive\Magisterka\Semestr 2\Business Intelligence w przedsięborstwie\Laboratoria\Zadanie 3\Zadanie\Dane\{0}_DATA_TABLE.csv";
+            const string filePathFormat = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 2\Business Intelligence w przedsięborstwie\Laboratoria\Zadanie 3\Zadanie\Dane\{0}_DATA_TABLE.csv";
 
             string tableName = "klient";
 
             string filePath = string.Format(filePathFormat, tableName.ToUpper());
 
 
-            var customers = PDCore.Utils.CSVUtils.ParseCSV<Customer>(filePath);
+            var customers = CSVUtils.ParseCSV<Customer>(filePath);
 
-            var customersFromMap = PDCore.Utils.CSVUtils.ParseCSV<Customer, CustomerMap>(filePath, false);
+            var customersFromMap = CSVUtils.ParseCSV<Customer, CustomerMap>(filePath, false);
 
 
             ConsoleUtils.WriteTableFromObjects(customers, false);
@@ -610,21 +624,21 @@ namespace PDCoreTest
 
         private static void TestStopWatchTime()
         {
-            string filePath = @"D:\Users\User\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
+            string filePath = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
 
             Stopwatch stopwatch = new Stopwatch();
 
             long time = stopwatch.TimeMillis(() =>
             {
-                PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
-                PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
-                PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
+                CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
+                CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
+                CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
             });
 
             Console.WriteLine(time);
 
 
-            time = ObjectUtils.Time(() => PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList());
+            time = ObjectUtils.Time(() => CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList());
 
             Console.WriteLine(time);
 
@@ -636,17 +650,17 @@ namespace PDCoreTest
 
         private static void TestDisposableStopwatch()
         {
-            string filePath = @"D:\Users\User\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
+            string filePath = @"C:\Users\pawek\OneDrive\Magisterka\Semestr 1\Python\Notebooki\Dane\orders\orders.csv";
 
             using (new DisposableStopwatch(t => Console.WriteLine("{0} elapsed", t)))
             {
                 // do stuff that I want to measure
-                PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
+                CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
             }
 
             using (new DisposableStopwatch())
             {
-                PDCore.Utils.CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
+                CSVUtils.ParseCSVLines(filePath, delimiter: "\t").ToList();
             }
         }
 
@@ -655,6 +669,7 @@ namespace PDCoreTest
             ICacheService inMemoryCache = new CacheService();
 
             IEnumerable<string> lines = ConsoleUtils.ReadLines();
+
 
             string text = inMemoryCache.GetOrSet("text", () => Console.ReadLine());
             Console.WriteLine(text);

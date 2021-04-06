@@ -26,7 +26,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\ExceptionHandling\**" />
+    <EmbeddedResource Remove="Helpers\ExceptionHandling\**" />
+    <None Remove="Helpers\ExceptionHandling\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Utils\bgufvruz.j3b~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Helpers\ExceptionHandling\ActionWrapper.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,10 +63,6 @@
     <PackageReference Include="System.Reactive" Version="4.4.1" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
     <PackageReference Include="Unity" Version="5.11.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Helpers\ExceptionHandling\" />
   </ItemGroup>
 
   <ItemGroup>
