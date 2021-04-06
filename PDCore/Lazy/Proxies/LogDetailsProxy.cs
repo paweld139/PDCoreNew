@@ -1,4 +1,4 @@
-﻿using PDCore.Entities;
+﻿using PDCore.Entities.Details;
 using PDCore.Enums;
 using PDCore.Utils;
 using PDCore.ValueSets;
