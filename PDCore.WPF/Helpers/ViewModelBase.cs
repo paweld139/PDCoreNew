@@ -19,12 +19,10 @@ namespace PDCore.WPF.Helpers
         private bool isInitialized;
 
         public bool SuppressIsInitialized;
-        private readonly ILogger logger;
 
-        protected ViewModelBase(ILogger logger)
+        protected ViewModelBase()
         {
             OnInitialize();
-            this.logger = logger;
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -58,7 +56,7 @@ namespace PDCore.WPF.Helpers
 
             if (SuppressIsInitialized || !isInitialized)
             {
-                result = Refresh();
+                result = Execute(Refresh);
 
                 isInitialized = true;
             }

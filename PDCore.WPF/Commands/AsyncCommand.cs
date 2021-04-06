@@ -6,6 +6,8 @@ namespace PDCore.WPF.Commands
 {
     public static class TaskUtilities
     {
+        public static IErrorHandler GlobalErrorHandler;
+
 #pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
         public static async void FireAndForgetSafeAsync(this Task task, IErrorHandler handler = null)
 #pragma warning restore RECS0165 // Asynchronous methods should return a Task instead of void
@@ -16,7 +18,7 @@ namespace PDCore.WPF.Commands
             }
             catch (Exception ex)
             {
-                handler?.HandleError(ex);
+                (handler ?? GlobalErrorHandler)?.HandleError(ex);
 
                 if (handler == null)
                     throw;
@@ -43,17 +45,22 @@ namespace PDCore.WPF.Commands
         private readonly Func<T, Task> _execute;
         private readonly Func<T, bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
+        private readonly bool suppressIsExecuting;
 
-        public AsyncCommand(Func<T, Task> execute, Func<T, bool> canExecute = null, IErrorHandler errorHandler = null)
+        public AsyncCommand(Func<T, Task> execute,
+            Func<T, bool> canExecute = null,
+            IErrorHandler errorHandler = null,
+            bool suppressIsExecuting = false)
         {
             _execute = execute;
             _canExecute = canExecute;
             _errorHandler = errorHandler;
+            this.suppressIsExecuting = suppressIsExecuting;
         }
 
         public bool CanExecute(T parameter)
         {
-            return !_isExecuting && (_canExecute?.Invoke(parameter) ?? true);
+            return (suppressIsExecuting || !_isExecuting) && (_canExecute?.Invoke(parameter) ?? true);
         }
 
         public async Task ExecuteAsync(T parameter)
@@ -79,7 +86,9 @@ namespace PDCore.WPF.Commands
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
+
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute((T)parameter);
@@ -89,6 +98,7 @@ namespace PDCore.WPF.Commands
         {
             ExecuteAsync((T)parameter).FireAndForgetSafeAsync(_errorHandler);
         }
+
         #endregion
     }
 
@@ -110,23 +120,23 @@ namespace PDCore.WPF.Commands
         private readonly Func<Task> _execute;
         private readonly Func<bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
-        private readonly bool suspressIsExecuting;
+        private readonly bool suppressIsExecuting;
 
         public AsyncCommand(
             Func<Task> execute,
             Func<bool> canExecute = null,
             IErrorHandler errorHandler = null,
-            bool suspressIsExecuting = false)
+            bool suppressIsExecuting = false)
         {
             _execute = execute;
             _canExecute = canExecute;
             _errorHandler = errorHandler;
-            this.suspressIsExecuting = suspressIsExecuting;
+            this.suppressIsExecuting = suppressIsExecuting;
         }
 
         public bool CanExecute()
         {
-            return (suspressIsExecuting || !_isExecuting) && (_canExecute?.Invoke() ?? true);
+            return (suppressIsExecuting || !_isExecuting) && (_canExecute?.Invoke() ?? true);
         }
 
         public async Task ExecuteAsync()
@@ -152,7 +162,9 @@ namespace PDCore.WPF.Commands
             CommandManager.InvalidateRequerySuggested();
         }
 
+
         #region Explicit implementations
+
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute();
@@ -162,6 +174,7 @@ namespace PDCore.WPF.Commands
         {
             ExecuteAsync().FireAndForgetSafeAsync(_errorHandler);
         }
+
         #endregion
     }
 }
