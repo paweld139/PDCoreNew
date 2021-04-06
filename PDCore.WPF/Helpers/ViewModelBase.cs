@@ -32,11 +32,12 @@ namespace PDCore.WPF.Helpers
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected virtual void OnLoadingChanged(bool isLoading)
+        protected virtual void OnLoadingChanged(bool isLoading, bool executeOnLoadingChanged)
         {
             IsLoading = isLoading;
 
-            LoadingChanged?.Invoke(this, isLoading);
+            if (executeOnLoadingChanged)
+                LoadingChanged?.Invoke(this, isLoading);
         }
 
         protected virtual void OnTaskCompleted() => TaskCompleted?.Invoke(this, EventArgs.Empty);
@@ -75,15 +76,13 @@ namespace PDCore.WPF.Helpers
         {
             try
             {
-                if (executeOnLoadingChanged)
-                    OnLoadingChanged(true);
+                OnLoadingChanged(true, executeOnLoadingChanged);
 
                 await func();
             }
             finally
             {
-                if (executeOnLoadingChanged)
-                    OnLoadingChanged(false);
+                OnLoadingChanged(false, executeOnLoadingChanged);
 
                 if (executeOnTaskCompleted)
                     OnTaskCompleted();
