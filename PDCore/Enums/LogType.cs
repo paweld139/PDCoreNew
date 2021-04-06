@@ -1,6 +1,6 @@
 ﻿namespace PDCore.Enums
 {
-    public enum LogType
+    public enum LogType : byte
     {
         Debug,
         Error,

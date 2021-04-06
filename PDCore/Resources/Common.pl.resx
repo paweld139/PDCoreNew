@@ -645,4 +645,19 @@
   <data name="OperationSucceed" xml:space="preserve">
     <value>Operacja zakończona sukcesem</value>
   </data>
+  <data name="Debug" xml:space="preserve">
+    <value>Monitorowanie problemów</value>
+  </data>
+  <data name="Fatal" xml:space="preserve">
+    <value>Poważny błąd</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Informacja</value>
+  </data>
+  <data name="OperationCompleted" xml:space="preserve">
+    <value>Operacja zakończona</value>
+  </data>
+  <data name="Warn" xml:space="preserve">
+    <value>Ostrzeżenie</value>
+  </data>
 </root>

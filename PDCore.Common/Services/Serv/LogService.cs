@@ -142,7 +142,7 @@ namespace PDCore.Common.Services.Serv
             {
                 using (var dbContext = (IEntityFrameworkDbContext)Activator.CreateInstance(DbContext))
                 {
-                    using (var logRepository = new LogRepo(dbContext))
+                    using (var logRepository = new LogRepo(dbContext, null))
                     {
                         using (var sqlServerLogger = (IAsyncLogger)Activator.CreateInstance(SqlLogger, logRepository))
                         {

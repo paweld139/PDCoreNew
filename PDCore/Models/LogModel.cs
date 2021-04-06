@@ -1,4 +1,5 @@
-﻿using PDCore.Enums;
+﻿using PDCore.Entities.Briefs;
+using PDCore.Enums;
 using PDCore.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PDCore.Models
 {
     [Table("Log")]
-    public class LogModel : IModificationHistory
+    public class LogModel : LogBrief, IModificationHistory
     {
         public LogModel(string message, LogType logType, string requestUri, Exception exception = null)
         {
@@ -47,8 +48,6 @@ namespace PDCore.Models
 
 
         public DateTime DateModified { get; set; }
-
-        public DateTime DateCreated { get; set; }
 
         public bool IsDirty { get; set; }
 

@@ -71,30 +71,33 @@ namespace PDCore.WPF.Helpers
             return result;
         }
 
-        protected async Task Execute(Func<Task> func)
+        protected async Task Execute(Func<Task> func, bool executeOnLoadingChanged = true, bool executeOnTaskCompleted = true)
         {
             try
             {
-                OnLoadingChanged(true);
+                if (executeOnLoadingChanged)
+                    OnLoadingChanged(true);
 
                 await func();
             }
             finally
             {
-                OnLoadingChanged(false);
+                if (executeOnLoadingChanged)
+                    OnLoadingChanged(false);
 
-                OnTaskCompleted();
+                if (executeOnTaskCompleted)
+                    OnTaskCompleted();
             }
         }
 
-        protected void Execute(Action action)
+        protected void Execute(Action action, bool executeOnLoadingChanged = true, bool executeOnTaskCompleted = true)
         {
             Execute(() =>
             {
                 action();
 
                 return Task.CompletedTask;
-            }).Wait();
+            }, executeOnLoadingChanged, executeOnTaskCompleted).Wait();
         }
     }
 }

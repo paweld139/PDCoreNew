@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Query;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-using PDCore.Attributes;
 using PDCore.Context.IContext;
 using PDCore.Enums;
 using PDCore.Interfaces;
