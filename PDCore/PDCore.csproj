@@ -8,9 +8,10 @@
   <PropertyGroup>
     <LangVersion>7.0</LangVersion>
     <Authors>Paweł Dywan</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.1.1</Version>
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
+    <Company />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
