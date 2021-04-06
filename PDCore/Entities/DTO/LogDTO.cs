@@ -19,6 +19,8 @@ namespace PDCore.Entities.DTO
 
         public static LogDTO Default() => new LogDTO();
 
+        public bool IsDefault() => this == Default();
+
         public override bool Equals(object obj)
         {
             return Equals(obj as LogDTO);
