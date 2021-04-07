@@ -11,7 +11,7 @@ namespace PDCore.ValueSets
             [LogType.Debug] = new ValueSetItem(Resources.Common.Debug),
             [LogType.Error] = new ValueSetItem(Resources.Common.Error),
             [LogType.Fatal] = new ValueSetItem(Resources.Common.Fatal),
-            [LogType.Info] = new ValueSetItem(Resources.Common.Indefinite),
+            [LogType.Info] = new ValueSetItem(Resources.Common.Info),
             [LogType.Warn] = new ValueSetItem(Resources.Common.Warn)
         };
 
