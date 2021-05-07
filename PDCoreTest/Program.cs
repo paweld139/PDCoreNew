@@ -794,7 +794,7 @@ namespace PDCoreTest
 
                     var rg = scope.Eval("np.random.default_rng(1)");
                     
-                    scope.SetAttr("rg", rg);
+                    scope.Set("rg", rg);
 
 
                     var result3 = scope.Eval<double>("rg.random((2,3)).sum()");
