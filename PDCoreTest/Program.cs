@@ -761,11 +761,11 @@ namespace PDCoreTest
 
         private static void TestPythonNet()
         {
-            string pythonHomePath = Path.Combine("C" + Path.VolumeSeparatorChar + Path.DirectorySeparatorChar, "Python39");
+            string pythonHomePath = Path.Combine("C" + Path.VolumeSeparatorChar, "Python39");
 
             Environment.SetEnvironmentVariable("PYTHONHOME", pythonHomePath, EnvironmentVariableTarget.Process);
 
-            Runtime.PythonDLL = pythonHomePath + Path.DirectorySeparatorChar + "python39.dll";
+            Runtime.PythonDLL = Path.Combine(pythonHomePath, "python39.dll");
 
             using (Py.GIL())
             {           
