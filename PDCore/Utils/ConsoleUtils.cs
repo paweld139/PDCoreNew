@@ -202,6 +202,13 @@ namespace PDCore.Utils
             WriteRows(rowsFields, columnsWidths, horizontalTextAlignment); //Wyświetlenie pozostałych wierszy na podstawie kolekcji pól wierszy biorąc pod uwagę szerokość kolumn
         }
 
+        public static void WriteTableFromFields<T>(IList<T[]> rowsFields, bool hasHeader = true, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.Left)
+        {
+            var rowFieldsStringArray = rowsFields.ToArray(r => r.ToArrayString());
+
+            WriteTableFromFields(rowFieldsStringArray, hasHeader, horizontalTextAlignment);
+        }
+
         /// <summary>
         /// Wyświetlenie kolekcji obiektów w formie tabeli z nagłówkiem lub bez
         /// </summary>

@@ -7,6 +7,7 @@ using PDCore.Handlers.Payment;
 using PDCore.Handlers.Payment.Receivers;
 using PDCore.Helpers;
 using PDCore.Helpers.DataStructures;
+using PDCore.Helpers.PythonExecute;
 using PDCore.Interfaces;
 using PDCore.Loggers;
 using PDCore.Loggers.Factory;
@@ -20,11 +21,13 @@ using PDCore.Services.Serv;
 using PDCore.Utils;
 using PDCore.WinForms.Utils;
 using PDCoreTest.Factory;
+using Python.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -34,132 +37,143 @@ namespace PDCoreTest
 {
     class Program
     {
-        [STAThread]
         static async Task Main(string[] args)
         {
             _ = args;
 
-            TestCommand();
+            //TestCommand();
+
+            //WriteSeparator();
+
+            //UserProcessor();
+
+            //WriteSeparator();
+
+            //PaymentProcessor();
+
+            //WriteSeparator();
+
+            //TestEventLog();
+
+            //WriteSeparator();
+
+            //TestDateWordly();
+
+            //WriteSeparator();
+
+            //TestConfigEncryption();
+
+            //WriteSeparator();
+
+            //TestIronRuby();
+
+            //WriteSeparator();
+
+            //await TestMail();
+
+            //WriteSeparator();
+
+            //TestExcel();
+
+            //WriteSeparator();
+
+            //TestDateTime();
+
+            //WriteSeparator();
+
+            //TestGetSummary();
+
+            //WriteSeparator();
+
+            //TestAccumulator();
+
+            //WriteSeparator();
+
+            //TestOpenTextFile();
+
+            //WriteSeparator();
+
+            //TestOrderBy();
+
+            //WriteSeparator();
+
+            //TestCsvParsing();
+
+            //WriteSeparator();
+
+            //TestGetEnumValues();
+
+            //WriteSeparator();
+
+            //TestLoggerFactory();
+
+            //WriteSeparator();
+
+            //TestFactory();
+
+            //WriteSeparator();
+
+            //TestLogMessageFactory();
+
+            //WriteSeparator();
+
+            //TestNameOf();
+
+            //WriteSeparator();
+
+            //TestCategoryCollection();
+
+            //WriteSeparator();
+
+            //TestConvertCSVToDataTableAndWriteDataTable();
+
+            //WriteSeparator();
+
+            //TestParseCSVToObjectAndDisplayObject();
+
+            //WriteSeparator();
+
+            //TestWriteResultAndWriteByte();
+
+            //WriteSeparator();
+
+            //TestStopWatchTime();
+
+            //WriteSeparator();
+
+            //TestDisposableStopwatch();
+
+            //WriteSeparator();
+
+            //TestCacheService();
+
+            //WriteSeparator();
+
+            //TestObjectConvertTo();
+
+            //WriteSeparator();
+
+            //TestIEnumerableConvertTo();
+
+            //WriteSeparator();
+
+            //TestSampledAverage();
+
+            //WriteSeparator();
+
+            //TestMultiply();
+
+            //WriteSeparator();
+
+            TestIronPython();
 
             WriteSeparator();
 
-            UserProcessor();
+            TestPython();
 
             WriteSeparator();
 
-            PaymentProcessor();
-
-            WriteSeparator();
-
-            TestEventLog();
-
-            WriteSeparator();
-
-            TestDateWordly();
-
-            WriteSeparator();
-
-            TestConfigEncryption();
-
-            WriteSeparator();
-
-            TestIronRuby();
-
-            WriteSeparator();
-
-            await TestMail();
-
-            WriteSeparator();
-
-            TestExcel();
-
-            WriteSeparator();
-
-            TestDateTime();
-
-            WriteSeparator();
-
-            TestGetSummary();
-
-            WriteSeparator();
-
-            TestAccumulator();
-
-            WriteSeparator();
-
-            TestOpenTextFile();
-
-            WriteSeparator();
-
-            TestOrderBy();
-
-            WriteSeparator();
-
-            TestCsvParsing();
-
-            WriteSeparator();
-
-            TestGetEnumValues();
-
-            WriteSeparator();
-
-            TestLoggerFactory();
-
-            WriteSeparator();
-
-            TestFactory();
-
-            WriteSeparator();
-
-            TestLogMessageFactory();
-
-            WriteSeparator();
-
-            TestNameOf();
-
-            WriteSeparator();
-
-            TestCategoryCollection();
-
-            WriteSeparator();
-
-            TestConvertCSVToDataTableAndWriteDataTable();
-
-            WriteSeparator();
-
-            TestParseCSVToObjectAndDisplayObject();
-
-            WriteSeparator();
-
-            TestWriteResultAndWriteByte();
-
-            WriteSeparator();
-
-            TestStopWatchTime();
-
-            WriteSeparator();
-
-            TestDisposableStopwatch();
-
-            WriteSeparator();
-
-            TestCacheService();
-
-            WriteSeparator();
-
-            TestObjectConvertTo();
-
-            WriteSeparator();
-
-            TestIEnumerableConvertTo();
-
-            WriteSeparator();
-
-            TestSampledAverage();
-
-            WriteSeparator();
-
-            TestMultiply();
+            TestPythonNet();
 
 
             Console.ReadKey();
@@ -721,6 +735,73 @@ namespace PDCoreTest
             var result = item.Multiply(multiplier);
 
             Console.WriteLine(result);
+        }
+
+        private static void TestIronPython()
+        {
+            var pythonScript = new PythonScript();
+
+
+            var result = pythonScript.RunFromFile<string>("PythonScriptSimple.py", "z");
+
+            Console.WriteLine(result);
+
+
+            var result2 = pythonScript.RunFromFile<IEnumerable<string>>("PythonScriptSimple2.py", "cars");
+
+            ConsoleUtils.WriteLines(result2);
+        }
+
+        private static void TestPython()
+        {
+            var result = PythonUtils.Run("PythonScript.py");
+
+            Console.WriteLine(result);
+        }
+
+        private static void TestPythonNet()
+        {
+            string pythonHomePath = Path.Combine("C" + Path.VolumeSeparatorChar + Path.DirectorySeparatorChar, "Python39");
+
+            Environment.SetEnvironmentVariable("PYTHONHOME", pythonHomePath, EnvironmentVariableTarget.Process);
+
+            Runtime.PythonDLL = pythonHomePath + Path.DirectorySeparatorChar + "python39.dll";
+
+            using (Py.GIL())
+            {           
+                using (PyScope scope = Py.CreateScope())
+                {
+                    scope.Set("canPrint", false);
+
+
+                    string code = File.ReadAllText("PythonScript.py");
+
+                    scope.Exec(code);
+
+                    var result = scope.Get<double[]>("r");
+
+                    ConsoleUtils.WriteLines(result);
+
+
+                    code = File.ReadAllText("PythonScript2.py");
+
+                    scope.Exec(code);
+
+                    var result2 = scope.Get<double[][]>("a");
+
+                    ConsoleUtils.WriteTableFromFields(result2, false);
+
+
+                    var rg = scope.Eval("np.random.default_rng(1)");
+                    
+                    scope.SetAttr("rg", rg);
+
+
+                    var result3 = scope.Eval<double>("rg.random((2,3)).sum()");
+
+                    Console.WriteLine(result3);
+                }
+            }
         }
     }
 }
