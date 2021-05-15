@@ -41,129 +41,129 @@ namespace PDCoreTest
         {
             _ = args;
 
-            //TestCommand();
+            TestCommand();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //UserProcessor();
+            UserProcessor();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //PaymentProcessor();
+            PaymentProcessor();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestEventLog();
+            TestEventLog();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestDateWordly();
+            TestDateWordly();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestConfigEncryption();
+            TestConfigEncryption();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            ////TestIronRuby();
+            //TestIronRuby();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //await TestMail();
+            await TestMail();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestExcel();
+            TestExcel();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestDateTime();
+            TestDateTime();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestGetSummary();
+            TestGetSummary();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestAccumulator();
+            TestAccumulator();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestOpenTextFile();
+            TestOpenTextFile();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestOrderBy();
+            TestOrderBy();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestCsvParsing();
+            TestCsvParsing();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestGetEnumValues();
+            TestGetEnumValues();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestLoggerFactory();
+            TestLoggerFactory();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestFactory();
+            TestFactory();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestLogMessageFactory();
+            TestLogMessageFactory();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestNameOf();
+            TestNameOf();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestCategoryCollection();
+            TestCategoryCollection();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestConvertCSVToDataTableAndWriteDataTable();
+            TestConvertCSVToDataTableAndWriteDataTable();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestParseCSVToObjectAndDisplayObject();
+            TestParseCSVToObjectAndDisplayObject();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestWriteResultAndWriteByte();
+            TestWriteResultAndWriteByte();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestStopWatchTime();
+            TestStopWatchTime();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestDisposableStopwatch();
+            TestDisposableStopwatch();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestCacheService();
+            TestCacheService();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestObjectConvertTo();
+            TestObjectConvertTo();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestIEnumerableConvertTo();
+            TestIEnumerableConvertTo();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestSampledAverage();
+            TestSampledAverage();
 
-            //WriteSeparator();
+            WriteSeparator();
 
-            //TestMultiply();
+            TestMultiply();
 
-            //WriteSeparator();
+            WriteSeparator();
 
             TestIronPython();
 
@@ -768,7 +768,7 @@ namespace PDCoreTest
             Runtime.PythonDLL = Path.Combine(pythonHomePath, "python39.dll");
 
             using (Py.GIL())
-            {           
+            {
                 using (PyScope scope = Py.CreateScope())
                 {
                     scope.Set("canPrint", false);
@@ -793,7 +793,7 @@ namespace PDCoreTest
 
 
                     var rg = scope.Eval("np.random.default_rng(1)");
-                    
+
                     scope.Set("rg", rg);
 
 
