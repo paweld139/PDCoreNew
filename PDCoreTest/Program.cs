@@ -65,7 +65,7 @@ namespace PDCoreTest
 
             //WriteSeparator();
 
-            //TestIronRuby();
+            ////TestIronRuby();
 
             //WriteSeparator();
 

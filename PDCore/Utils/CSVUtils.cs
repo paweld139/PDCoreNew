@@ -25,7 +25,7 @@ namespace PDCore.Utils
             {
                 while (csvReader.Read())
                 {
-                    yield return csvReader.GetRecords<string>().ToArray();
+                    yield return csvReader.Parser.Record;
                 }
             }
         }
@@ -106,10 +106,9 @@ namespace PDCore.Utils
                 {
                     Delimiter = delimiter,
                     HasHeaderRecord = skipFirstLine,
-                    ShouldSkipRecord = shouldSkipRecord,
+                    ShouldSkipRecord = shouldSkipRecord ?? (r => r.Record.All(string.IsNullOrWhiteSpace)),
                     IgnoreBlankLines = true,
                     DetectColumnCountChanges = true,
-                    MissingFieldFound = null,
                     Encoding = encoding ?? Encoding.UTF8
                 });
 
