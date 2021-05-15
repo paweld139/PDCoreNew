@@ -1,8 +1,10 @@
-﻿using PDCore.Enums;
+﻿using CsvHelper;
+using PDCore.Enums;
 using PDCore.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -233,9 +235,10 @@ namespace PDCore.Utils
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
         /// <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
-        public static void WriteTableFromCSV(string filePath, bool hasHeader = true, bool skipFirstLine = false, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.Left)
+        public static void WriteTableFromCSV(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true, 
+            bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.Left)
         {
-            List<string[]> rowsFields = CSVUtils.ParseCSVLines(filePath, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Zwrócenie kolekcji pól dla wybranych linii pliku CSV
+            List<string[]> rowsFields = CSVUtils.ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Zwrócenie kolekcji pól dla wybranych linii pliku CSV
 
             WriteTableFromFields(rowsFields, hasHeader, horizontalTextAlignment); //Wyświetlenie kolekcji pól w formie tabeli z nagłówkiem lub bez
         }

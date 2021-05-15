@@ -296,5 +296,7 @@ namespace PDCore.Utils
                 return Convert.ToBase64String(hash);
             }
         }
+
+        public static string GetApplicationExeDirectory() => Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
     }
 }

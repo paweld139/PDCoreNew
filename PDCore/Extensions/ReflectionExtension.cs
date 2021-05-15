@@ -336,5 +336,14 @@ namespace PDCore.Extensions
 
             return getter();
         }
+
+        public static string ToCamelCase(this PropertyInfo propertyInfo) => propertyInfo.Name.ToCamelCase();
+
+        public static bool IsFloatingPointNumber(this Type objectType)
+        {
+            return (objectType == typeof(decimal) ||
+                    objectType == typeof(double) ||
+                    objectType == typeof(float));
+        }
     }
 }

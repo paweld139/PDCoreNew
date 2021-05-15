@@ -472,5 +472,48 @@ namespace PDCore.Extensions
                 return (T)formatter.Deserialize(ms);
             }
         }
+
+        public static TDestination MapTo<TDestination>(this object source) where TDestination : class, new()
+        {
+            var destination = new TDestination();
+
+            var destinationPublicProperties = destination.GetProperties().Where(p => p.PropertyType.IsPublic);
+
+            var sourcePublicProperties = source.GetProperties().Where(p => p.PropertyType.IsPublic).ToDictionary(
+                p => p.Name,
+                p => p
+            );
+
+            foreach (var destinationProperty in destinationPublicProperties)
+            {
+                if (sourcePublicProperties.TryGetValue(destinationProperty.Name, out PropertyInfo sourceProperty))
+                {
+                    if (destinationProperty.PropertyType.FullName == sourceProperty.PropertyType.FullName)
+                    {
+                        var sourcePropertyValue = sourceProperty.GetValue(source);
+
+                        destinationProperty.SetValue(destination, sourcePropertyValue);
+                    }
+                }
+            }
+
+            return destination;
+        }
+
+        public static TDestination MapTo<TSource, TDestination>(this TSource source, Action<TSource, TDestination> modifier) where TSource : class where TDestination : class, new()
+        {
+            var destination = source.MapTo<TDestination>();
+
+            modifier?.Invoke(source, destination);
+
+            return destination;
+        }
+
+        public static T? NullIf<T>(this T left, T right) where T : struct
+        {
+            return EqualityComparer<T>.Default.Equals(left, right) ? (T?)null : left;
+        }
+
+        public static T? AsNullable<T>(this T input) where T : struct => (T?)input;
     }
 }

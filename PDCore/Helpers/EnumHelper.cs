@@ -59,7 +59,7 @@ namespace PDCore.Helpers
             if (descriptionAttributes[0].ResourceType != null)
                 return LookupResource(descriptionAttributes[0].ResourceType, descriptionAttributes[0].Name);
 
-            if (descriptionAttributes == null) 
+            if (descriptionAttributes == null)
                 return string.Empty;
 
             return (descriptionAttributes.Length > 0) ? descriptionAttributes[0].Name : value.ToString();

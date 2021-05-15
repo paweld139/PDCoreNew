@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PDCore.Extensions;
 using System;
 using System.Globalization;
 using System.Threading;
@@ -16,17 +17,11 @@ namespace PDCore.Converters
 
         public FormattedDecimalConverter()
         {
-
         }
 
         private CultureInfo Culture => culture ?? Thread.CurrentThread.CurrentCulture;
 
-        public override bool CanConvert(Type objectType)
-        {
-            return (objectType == typeof(decimal) ||
-                    objectType == typeof(double) ||
-                    objectType == typeof(float));
-        }
+        public override bool CanConvert(Type objectType) => objectType.IsFloatingPointNumber();
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

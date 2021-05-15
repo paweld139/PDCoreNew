@@ -1,8 +1,11 @@
-﻿using PDCore.Utils;
+﻿using CsvHelper;
+using PDCore.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 
 namespace PDCore.Extensions
 {
@@ -157,9 +160,10 @@ namespace PDCore.Extensions
             rows.ForEach(x => dt.Rows.Add(x));
         }
 
-        public static void WriteCsv(this DataTable dt, string filePath, bool csvHasHeader = true, bool skipFirstLine = false, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null)
+        public static void WriteCsv(this DataTable dt, string filePath, Encoding encoding, CultureInfo cultureInfo, 
+            bool csvHasHeader = true, bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
-            IEnumerable<string[]> linesFields = CSVUtils.ParseCSVLines(filePath, skipFirstLine, delimiter, shouldSkipRecord);
+            IEnumerable<string[]> linesFields = CSVUtils.ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord);
 
             if (!dt.HasColumns())
             {

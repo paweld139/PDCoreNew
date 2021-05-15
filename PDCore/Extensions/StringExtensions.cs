@@ -4,6 +4,7 @@ using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Serialization;
 using PDCore.Utils;
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Globalization;
 using System.Linq;
@@ -145,7 +146,12 @@ namespace PDCore.Extensions
             return source?.IndexOf(toCheck, comp) >= 0;
         }
 
-        public static bool IsUrl(this string urlOrFilename) => urlOrFilename.ToLower().StartsWith("http");
+        public static bool IsUrl(this string urlOrFilename)
+        {
+            string lower = urlOrFilename.ToLower();
+
+            return lower.StartsWith("http") || lower.StartsWith("ftp");
+        }
 
         public static string ToNumberString(this string value, int precision, CultureInfo cultureInfo)
         {
@@ -311,5 +317,62 @@ namespace PDCore.Extensions
         }
 
         public static int? GetSize(this string value) => value == null ? null : (int?)(value.Length * sizeof(char));
+
+        public static string PadForFrontend(this string s)
+        {
+            return "".PadLeft(s?.Length ?? 0, ' ');
+        }
+
+        public static string ToCamelCase(this string value)
+        {
+            return $"{value.First().ToString().ToLowerInvariant()}{value.Substring(1)}";
+        }
+
+        public static bool IsNullOrWhitespace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s);
+        }
+
+        public static List<string> SplitCsv(this string csvList, bool nullOrWhitespaceInputReturnsNull = false)
+        {
+            if (string.IsNullOrWhiteSpace(csvList))
+                return nullOrWhitespaceInputReturnsNull ? null : new List<string>();
+
+            return csvList
+                .TrimEnd(',')
+                .Split(',')
+                .AsEnumerable()
+                .Select(s => s.Trim())
+                .ToList();
+        }
+
+        public static string FixPathSlashes(this string url)
+        {
+            var ret = Regex.Replace(url, @"([^:][/|\\]\s*[/|\\]+|\\)", "/");
+
+            ret = ret.Trim('/', '\\', ' ', '\n');
+
+            return ret;
+        }
+
+        public static T ToEnum<T>(this string value, T defaultValue = default(T)) where T : struct
+        {
+            if (string.IsNullOrEmpty(value))
+                return defaultValue;
+
+            return Enum.TryParse(value, true, out T result) ? result : defaultValue;
+        }
+
+        public static bool IsInt(this string value, out int result)
+        {
+            bool isInt = false;
+
+            if (!string.IsNullOrWhiteSpace(value) && int.TryParse(value, out result))
+                isInt = true;
+            else
+                result = 0;
+
+            return isInt;
+        }
     }
 }

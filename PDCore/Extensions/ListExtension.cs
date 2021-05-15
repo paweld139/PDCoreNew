@@ -107,6 +107,6 @@ namespace PDCore.Extensions
             }
         }
 
-        public static SearchResult<TInput> GetSearchResult<TInput>(this ICollection<TInput> inputs) => new SearchResult<TInput>(inputs);
+        public static Result<TInput> GetSearchResult<TInput>(this ICollection<TInput> inputs) => new Result<TInput>(inputs);
     }
 }

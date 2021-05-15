@@ -6,7 +6,6 @@ using PDCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
@@ -205,6 +204,14 @@ namespace PDCore.Utils
             return result;
         }
 
+        public static async Task WriteAllTextAsync(string path, string text)
+        {
+            using (var streamWriter = File.CreateText(path))
+            {
+                await streamWriter.WriteAsync(text);
+            }
+        }
+
         /// <summary>
         /// This is the same default buffer size as
         /// <see cref="StreamReader"/> and <see cref="FileStream"/>.
@@ -310,19 +317,6 @@ namespace PDCore.Utils
                 default:
                     throw new NotImplementedException();
             }
-        }
-
-        public static void SaveConnectionString(string connectionStringName, string connectionString)
-        {
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-            var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
-
-            connectionStringsSection.ConnectionStrings[connectionStringName].ConnectionString = connectionString;
-
-            config.Save();
-
-            ConfigurationManager.RefreshSection("connectionStrings");
         }
 
         static readonly string[] SizeSuffixes =

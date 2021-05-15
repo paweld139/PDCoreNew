@@ -85,7 +85,6 @@
     <Compile Include="Helpers\CaliburnMicro\IMessageBox.cs" />
     <Compile Include="Helpers\CaliburnMicro\IShell.cs" />
     <Compile Include="Helpers\CaliburnMicro\IWorkspace.cs" />
-    <Compile Include="Helpers\Controls\ChartData.cs" />
     <Compile Include="Helpers\Controls\MultiChart.cs" />
     <Compile Include="Helpers\Converters\BooleanToVisibilityMultiConverter.cs" />
     <Compile Include="Helpers\Converters\BoolToCursorConverter.cs" />
@@ -107,9 +106,9 @@
     <Compile Include="Helpers\Converters\StringToBooleanCoverter.cs" />
     <Compile Include="Helpers\Converters\UtcToLocalDateTimeConverter.cs" />
     <Compile Include="Helpers\DataValidation\NumberValidator.cs" />
-    <Compile Include="Helpers\DialogViewModelBase.cs" />
-    <Compile Include="Helpers\PageViewModelBase.cs" />
-    <Compile Include="Helpers\ViewModelBase.cs" />
+    <Compile Include="Helpers\ViewModel\DialogViewModelBase.cs" />
+    <Compile Include="Helpers\ViewModel\PageViewModelBase.cs" />
+    <Compile Include="Helpers\ViewModel\ViewModelBase.cs" />
     <Compile Include="Helpers\WIndows\Prompt\PromptView.xaml.cs">
       <DependentUpon>PromptView.xaml</DependentUpon>
     </Compile>
@@ -147,5 +146,6 @@
       <Version>4.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

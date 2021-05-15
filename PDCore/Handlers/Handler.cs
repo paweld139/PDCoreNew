@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace PDCore.Handlers
+﻿namespace PDCore.Handlers
 {
     public class Handler<T> : IHandler<T> where T : class
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PDCore.WPF.Helpers.Controls
+namespace PDCore.Models
 {
     public class ChartData<TKey, TValue>
     {

@@ -1,12 +1,16 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using PDCore.Extensions;
 using PDCore.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace PDCore.Utils
 {
@@ -14,13 +18,14 @@ namespace PDCore.Utils
     {
         #region CSV lines parsing
 
-        public static IEnumerable<string[]> ParseCSVLines(string filePath, bool skipFirstLine = false, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null)
+        public static IEnumerable<string[]> ParseCSVLines(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool skipFirstLine = false,
+            string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
-            using (var csvReader = GetCsvReader(filePath, skipFirstLine, delimiter, shouldSkipRecord))
+            using (var csvReader = GetCsvReader(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord))
             {
                 while (csvReader.Read())
                 {
-                    yield return csvReader.CurrentRecord;
+                    yield return csvReader.GetRecords<string>().ToArray();
                 }
             }
         }
@@ -40,9 +45,10 @@ namespace PDCore.Utils
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
         /// <returns>Lista obiektów z przetworzonego pliku CSV</returns>
-        public static IEnumerable<T> ParseCSV<T>(string filePath, Func<string[], T> fieldsParser, bool skipFirstLine = true, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null)
+        public static IEnumerable<T> ParseCSV<T>(string filePath, Func<string[], T> fieldsParser, Encoding encoding = null, CultureInfo cultureInfo = null,
+            bool skipFirstLine = true, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
-            List<string[]> linesFields = ParseCSVLines(filePath, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Utworzenie kolekcji pól dla każdej linii pliku CSV, wybór linii następuje wg wskazanych warunków.
+            List<string[]> linesFields = ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Utworzenie kolekcji pól dla każdej linii pliku CSV, wybór linii następuje wg wskazanych warunków.
 
             return linesFields.Select(x => fieldsParser(x)); //Przetworzenie pól z każdej linii i zwrócenie otrzymanej kolekcji obiektów
         }
@@ -56,7 +62,8 @@ namespace PDCore.Utils
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
         /// <returns>Lista obiektów z przetworzonego pliku CSV</returns>
-        public static IEnumerable<T> ParseCSV<T>(string filePath, bool skipFirstLine = true, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null) where T : IFromCSVParseable, new() //Typ musi posiadać konstruktor
+        public static IEnumerable<T> ParseCSV<T>(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool skipFirstLine = true,
+            string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null) where T : IFromCSVParseable, new() //Typ musi posiadać konstruktor
         {
             return ParseCSV(
                 filePath,
@@ -65,46 +72,113 @@ namespace PDCore.Utils
                     var t = new T();
                     t.ParseFromCSV(x);
                     return t;
-                }, skipFirstLine, delimiter, shouldSkipRecord); //Przetworzenie pliku na kolekcję obiektów. Przekazano metodę do przetwarzania pól z danej linii na obiekt. Wybór linii następuje wg wskazanych warunków.
+                }, 
+                encoding,
+                cultureInfo,
+                skipFirstLine, delimiter, shouldSkipRecord); //Przetworzenie pliku na kolekcję obiektów. Przekazano metodę do przetwarzania pól z danej linii na obiekt. Wybór linii następuje wg wskazanych warunków.
         }
 
-        public static List<T> ParseCSV<T, TMap>(string filePath, bool skipFirstLine = true, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null) where TMap : CsvClassMap<T>, new()
+        public static List<T> ParseCSV<T, TMap>(string filePath, bool skipFirstLine = true, Encoding encoding = null, CultureInfo cultureInfo = null,
+            string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null) where TMap : ClassMap<T>, new()
         {
-            using (var csvReader = GetCsvReader(filePath, skipFirstLine, delimiter, shouldSkipRecord, new TMap()))
+            using (var csvReader = GetCsvReader(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord, new TMap()))
             {
                 return csvReader.GetRecords<T>().ToList();
             }
         }
 
-        public static DataTable ParseCSVToDataTable(string filePath, bool hasHeader = true, bool skipFirstLine = false, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null)
+        public static DataTable ParseCSVToDataTable(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true, 
+            bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
             var dt = new DataTable();
 
-            dt.WriteCsv(filePath, hasHeader, skipFirstLine, delimiter, shouldSkipRecord);
+            dt.WriteCsv(filePath, encoding, cultureInfo, hasHeader, skipFirstLine, delimiter, shouldSkipRecord);
 
             return dt;
         }
 
-        public static CsvReader GetCsvReader(string filePath, bool skipFirstLine = true, string delimiter = ",", Func<string[], bool> shouldSkipRecord = null, CsvClassMap csvClassMap = null)
+        public static CsvReader GetCsvReader(string filePath, Encoding encoding, CultureInfo cultureInfo, bool skipFirstLine = true,
+            string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null, ClassMap csvClassMap = null)
         {
             CsvReader csvReader = new CsvReader(
                 File.OpenText(filePath),
-                new CsvConfiguration
+                new CsvConfiguration(cultureInfo ?? CultureInfo.InvariantCulture)
                 {
                     Delimiter = delimiter,
                     HasHeaderRecord = skipFirstLine,
-                    SkipEmptyRecords = true,
                     ShouldSkipRecord = shouldSkipRecord,
                     IgnoreBlankLines = true,
                     DetectColumnCountChanges = true,
-                    WillThrowOnMissingField = true
+                    MissingFieldFound = null,
+                    Encoding = encoding ?? Encoding.UTF8
                 });
 
             if (csvClassMap != null)
-                csvReader.Configuration.RegisterClassMap(csvClassMap);
+                csvReader.Context.RegisterClassMap(csvClassMap);
 
             return csvReader;
         }
+
+
+        #region Writer
+
+        public static CsvWriter GetCsvWriter(TextWriter textWriter, Encoding encoding, CultureInfo cultureInfo,
+           bool hasHeaderRecord = true, string delimiter = ",", bool isoDateTime = true)
+        {
+            CsvWriter csvWriter = new CsvWriter(
+                textWriter,
+                new CsvConfiguration(cultureInfo)
+                {
+                    Delimiter = delimiter,
+                    HasHeaderRecord = hasHeaderRecord,
+                    ShouldSkipRecord = record => record.Record.All(string.IsNullOrEmpty),
+                    IgnoreBlankLines = true,
+                    DetectColumnCountChanges = true,
+                    MissingFieldFound = null,
+                    Encoding = encoding
+                });
+
+            if (isoDateTime)
+            {
+                var options = new TypeConverterOptions
+                {
+                    Formats = new[] { "o" }
+                };
+
+                //apply options to datetime
+                csvWriter.Context.TypeConverterOptionsCache.AddOptions<DateTime>(options);
+                csvWriter.Context.TypeConverterOptionsCache.AddOptions<DateTime?>(options);
+            }
+
+            return csvWriter;
+        }
+
+        public static CsvWriter GetCsvWriter(string filePath, Encoding encoding, CultureInfo cultureInfo,
+            bool hasHeaderRecord = true, string delimiter = ",", bool isoDateTime = true)
+        {
+            return GetCsvWriter(File.CreateText(filePath), encoding, cultureInfo, hasHeaderRecord, delimiter, isoDateTime);
+        }
+
+        public static string GetCSV(IEnumerable records, TextWriter textWriter, Encoding encoding, CultureInfo cultureInfo,
+            bool hasHeaderRecord = true, string delimiter = ",", bool isoDateTime = true)
+        {
+            using (var csvWriter = GetCsvWriter(textWriter, encoding, cultureInfo, hasHeaderRecord, delimiter, isoDateTime))
+            {
+                csvWriter.WriteRecords(records);
+
+                return textWriter.ToString();
+            }
+        }
+
+        public static string GetCSV(IEnumerable records, Encoding encoding, CultureInfo cultureInfo,
+            bool hasHeaderRecord = true, string delimiter = ",", bool isoDateTime = true)
+        {
+            using (var stringWriter = new StringWriter())
+                return GetCSV(records, stringWriter, encoding, cultureInfo, hasHeaderRecord, delimiter, isoDateTime);
+        }
+
+        #endregion
+
 
         #endregion
     }

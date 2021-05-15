@@ -2,7 +2,7 @@
 
 namespace PDCoreTest
 {
-    class CustomerMap : CsvClassMap<Customer>
+    class CustomerMap : ClassMap<Customer>
     {
         public CustomerMap()
         {

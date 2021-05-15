@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace PDCore.Utils
@@ -190,6 +192,42 @@ namespace PDCore.Utils
             TInput param, TInput2 param2, TInput3 param3)
         {
             return input.Partial(param, param2, param3).WithRetry();
+        }
+
+        public static byte[] ObjectToByteArray(object obj)
+        {
+            if (obj == null)
+                return null;
+
+            BinaryFormatter bf = new BinaryFormatter();
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+
+                return ms.ToArray();
+            }
+        }
+
+        public static object ByteArrayToObject(byte[] byteArray)
+        {
+            if (byteArray == null)
+                return null;
+
+            object obj = null;
+
+            BinaryFormatter bf = new BinaryFormatter();
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(byteArray, 0, byteArray.Length);
+
+                ms.Seek(0, SeekOrigin.Begin);
+
+                obj = bf.Deserialize(ms);
+            }
+
+            return obj;
         }
     }
 }
