@@ -8,9 +8,9 @@
   <PropertyGroup>
     <LangVersion>7.0</LangVersion>
     <Authors>Paweł Dywan</Authors>
-    <Version>1.0.1.6</Version>
-    <AssemblyVersion>1.0.1.6</AssemblyVersion>
-    <FileVersion>1.0.1.6</FileVersion>
+    <Version>1.0.1.7</Version>
+    <AssemblyVersion>1.0.1.7</AssemblyVersion>
+    <FileVersion>1.0.1.7</FileVersion>
     <Company />
   </PropertyGroup>
 
