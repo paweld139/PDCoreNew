@@ -473,7 +473,7 @@ namespace PDCore.Extensions
             }
         }
 
-        public static TDestination MapTo<TDestination>(this object source) where TDestination : class, new()
+        public static TDestination Map<TDestination>(this object source) where TDestination : class, new()
         {
             var destination = new TDestination();
 
@@ -500,9 +500,9 @@ namespace PDCore.Extensions
             return destination;
         }
 
-        public static TDestination MapTo<TSource, TDestination>(this TSource source, Action<TSource, TDestination> modifier) where TSource : class where TDestination : class, new()
+        public static TDestination Map<TSource, TDestination>(this TSource source, Action<TSource, TDestination> modifier) where TSource : class where TDestination : class, new()
         {
-            var destination = source.MapTo<TDestination>();
+            var destination = source.Map<TDestination>();
 
             modifier?.Invoke(source, destination);
 

@@ -477,17 +477,17 @@ namespace PDCore.Extensions
             return index;
         }
 
-        public static IEnumerable<TDestination> MapTo<TDestination>(this IEnumerable<object> source) where TDestination : class, new()
+        public static IEnumerable<TDestination> Map<TDestination>(this IEnumerable<object> source) where TDestination : class, new()
         {
             foreach (var s in source)
-                yield return s.MapTo<TDestination>();
+                yield return s.Map<TDestination>();
         }
 
-        public static IEnumerable<TDestination> MapTo<TSource, TDestination>(this IEnumerable<TSource> source, Action<TSource, TDestination> modifier)
+        public static IEnumerable<TDestination> Map<TSource, TDestination>(this IEnumerable<TSource> source, Action<TSource, TDestination> modifier)
             where TSource : class where TDestination : class, new()
         {
             foreach (var s in source)
-                yield return s.MapTo(modifier);
+                yield return s.Map(modifier);
         }
 
         public static string GetString<TEnum>(this IEnumerable<int> source) where TEnum : struct
