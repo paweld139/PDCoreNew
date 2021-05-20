@@ -23,16 +23,15 @@
 using System;
 using System.Xml;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// UnsignedSignatureProperties may contain properties that qualify XML
-	/// signature itself or the signer
-	/// </summary>
-	public class UnsignedSignatureProperties
+    /// <summary>
+    /// UnsignedSignatureProperties may contain properties that qualify XML
+    /// signature itself or the signer
+    /// </summary>
+    public class UnsignedSignatureProperties
 	{
 		#region Private variables
 		private CounterSignatureCollection counterSignatureCollection;

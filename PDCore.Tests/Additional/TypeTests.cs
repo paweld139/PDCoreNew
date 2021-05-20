@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PDCore.Helpers.DataStructures.Book;
 
 namespace PDCore.Tests.Additional
-{  
+{
     public delegate string WriteLogDelegate(string logMessage);
 
     [TestClass]

@@ -22,16 +22,15 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The UnsignedDataObjectProperties element may contain properties that
-	/// qualify some of the signed data objects.
-	/// </summary>
-	public class UnsignedDataObjectProperties
+    /// <summary>
+    /// The UnsignedDataObjectProperties element may contain properties that
+    /// qualify some of the signed data objects.
+    /// </summary>
+    public class UnsignedDataObjectProperties
 	{
 		#region Private variables
 		private UnsignedDataObjectPropertyCollection unsignedDataObjectPropertyCollection;

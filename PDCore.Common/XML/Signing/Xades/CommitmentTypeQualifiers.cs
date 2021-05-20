@@ -22,17 +22,15 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The CommitmentTypeQualifier element provides means to include
-	/// additional qualifying information on the commitment made by the signer
-	/// </summary>
-	public class CommitmentTypeQualifiers
+    /// <summary>
+    /// The CommitmentTypeQualifier element provides means to include
+    /// additional qualifying information on the commitment made by the signer
+    /// </summary>
+    public class CommitmentTypeQualifiers
 	{
 		#region Private variables
 		private CommitmentTypeQualifierCollection commitmentTypeQualifierCollection;

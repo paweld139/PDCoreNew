@@ -22,16 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class contains a collection of DocumentationReferences
-	/// </summary>
-	public class DocumentationReferences
+    /// <summary>
+    /// This class contains a collection of DocumentationReferences
+    /// </summary>
+    public class DocumentationReferences
 	{
 		#region Private variables
 		private DocumentationReferenceCollection documentationReferenceCollection;

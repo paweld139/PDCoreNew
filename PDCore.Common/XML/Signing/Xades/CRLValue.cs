@@ -20,17 +20,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
-using System.Xml;
-
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class consist of a sequence of at least one Certificate Revocation
-	/// List. Each EncapsulatedCRLValue will contain the base64 encoding of a
-	/// DER-encoded X509 CRL.
-	/// </summary>
-	public class CRLValue : EncapsulatedPKIData
+    /// <summary>
+    /// This class consist of a sequence of at least one Certificate Revocation
+    /// List. Each EncapsulatedCRLValue will contain the base64 encoding of a
+    /// DER-encoded X509 CRL.
+    /// </summary>
+    public class CRLValue : EncapsulatedPKIData
 	{
 		#region Constructors
 		/// <summary>

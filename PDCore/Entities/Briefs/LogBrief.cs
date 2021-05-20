@@ -1,5 +1,4 @@
-﻿using PDCore.Enums;
-using System;
+﻿using System;
 
 namespace PDCore.Entities.Briefs
 {

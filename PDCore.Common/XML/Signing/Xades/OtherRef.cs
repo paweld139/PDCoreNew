@@ -20,15 +20,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// Alternative forms of validation data can be included in this class
-	/// </summary>
-	public class OtherRef
+    /// <summary>
+    /// Alternative forms of validation data can be included in this class
+    /// </summary>
+    public class OtherRef
 	{
 		#region Private variables
 		private XmlElement anyXmlElement;

@@ -20,17 +20,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The CommitmentTypeQualifiers element provides means to include
-	/// additional qualifying information on the commitment made by the signer
-	/// </summary>
-	public class CommitmentTypeQualifier
+    /// <summary>
+    /// The CommitmentTypeQualifiers element provides means to include
+    /// additional qualifying information on the commitment made by the signer
+    /// </summary>
+    public class CommitmentTypeQualifier
 	{
 		#region Private variables
 		private XmlElement anyXmlElement;

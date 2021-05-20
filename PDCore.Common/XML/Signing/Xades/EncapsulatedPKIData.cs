@@ -22,19 +22,18 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// EncapsulatedPKIData is used to incorporate a piece of PKI data
-	/// into an XML structure whereas the PKI data is encoded using an ASN.1
-	/// encoding mechanism. Examples of such PKI data that are widely used at
-	/// the time include X509 certificates and revocation lists, OCSP responses,
-	/// attribute certificates and time-stamps.
-	/// </summary>
-	public class EncapsulatedPKIData
+    /// <summary>
+    /// EncapsulatedPKIData is used to incorporate a piece of PKI data
+    /// into an XML structure whereas the PKI data is encoded using an ASN.1
+    /// encoding mechanism. Examples of such PKI data that are widely used at
+    /// the time include X509 certificates and revocation lists, OCSP responses,
+    /// attribute certificates and time-stamps.
+    /// </summary>
+    public class EncapsulatedPKIData
 	{
 		#region Private variables
 		private string tagName;

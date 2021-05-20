@@ -22,20 +22,19 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This clause defines the XML element containing a full set of
-	/// references to the revocation data that have been used in the
-	/// validation of the signer and CA certificates.
-	/// This is an unsigned property that qualifies the signature.
-	/// The XML electronic signature aligned with the present document
-	/// MAY contain at most one CompleteRevocationRefs element.
-	/// </summary>
-	public class CompleteRevocationRefs
+    /// <summary>
+    /// This clause defines the XML element containing a full set of
+    /// references to the revocation data that have been used in the
+    /// validation of the signer and CA certificates.
+    /// This is an unsigned property that qualifies the signature.
+    /// The XML electronic signature aligned with the present document
+    /// MAY contain at most one CompleteRevocationRefs element.
+    /// </summary>
+    public class CompleteRevocationRefs
 	{
 		#region Private variables
 		private string id;

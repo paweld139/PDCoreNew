@@ -20,16 +20,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class contains a timestamp encoded as XML
-	/// </summary>
-	public class XMLTimeStamp
+    /// <summary>
+    /// This class contains a timestamp encoded as XML
+    /// </summary>
+    public class XMLTimeStamp
 	{
 		#region Private variables
 		private XmlElement anyXmlElement;

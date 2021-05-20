@@ -22,19 +22,18 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class refers to one ds:Reference element of the ds:SignedInfo
-	/// corresponding with one data object qualified by this property.
-	/// If some but not all the signed data objects share the same commitment,
-	/// one ObjectReference element must appear for each one of them.
-	/// However, if all the signed data objects share the same commitment,
-	/// the AllSignedDataObjects empty element must be present.
-	/// </summary>
-	public class ObjectReference
+    /// <summary>
+    /// This class refers to one ds:Reference element of the ds:SignedInfo
+    /// corresponding with one data object qualified by this property.
+    /// If some but not all the signed data objects share the same commitment,
+    /// one ObjectReference element must appear for each one of them.
+    /// However, if all the signed data objects share the same commitment,
+    /// the AllSignedDataObjects empty element must be present.
+    /// </summary>
+    public class ObjectReference
 	{
 		#region Private variables
 		private string objectReferenceUri;

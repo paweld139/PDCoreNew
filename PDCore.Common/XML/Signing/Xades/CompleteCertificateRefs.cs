@@ -22,21 +22,20 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This clause defines the XML element containing the sequence of
-	/// references to the full set of CA certificates that have been used
-	/// to validate the electronic signature up to (but not including) the
-	/// signer's certificate. This is an unsigned property that qualifies
-	/// the signature.
-	/// An XML electronic signature aligned with the XAdES standard may
-	/// contain at most one CompleteCertificateRefs element.
-	/// </summary>
-	public class CompleteCertificateRefs
+    /// <summary>
+    /// This clause defines the XML element containing the sequence of
+    /// references to the full set of CA certificates that have been used
+    /// to validate the electronic signature up to (but not including) the
+    /// signer's certificate. This is an unsigned property that qualifies
+    /// the signature.
+    /// An XML electronic signature aligned with the XAdES standard may
+    /// contain at most one CompleteCertificateRefs element.
+    /// </summary>
+    public class CompleteCertificateRefs
 	{
 		#region Private variables
 		private string id;

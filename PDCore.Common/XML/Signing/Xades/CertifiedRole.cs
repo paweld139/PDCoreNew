@@ -20,16 +20,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
-using System.Xml;
-
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The CertifiedRoles element contains one or more wrapped attribute
-	/// certificates for the signer
-	/// </summary>
-	public class CertifiedRole : EncapsulatedPKIData
+    /// <summary>
+    /// The CertifiedRoles element contains one or more wrapped attribute
+    /// certificates for the signer
+    /// </summary>
+    public class CertifiedRole : EncapsulatedPKIData
 	{
 		#region Constructors
 		/// <summary>

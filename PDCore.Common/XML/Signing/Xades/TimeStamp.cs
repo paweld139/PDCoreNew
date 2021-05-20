@@ -25,7 +25,6 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Collections;
 using System.Security.Cryptography.Xml;
-using System.IO;
 
 namespace Microsoft.Xades
 {

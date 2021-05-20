@@ -20,16 +20,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
-using System.Xml;
-
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The EncapsulatedX509Certificate element is able to contain the
-	/// base64 encoding of a DER-encoded X.509 certificate
-	/// </summary>
-	public class EncapsulatedX509Certificate : EncapsulatedPKIData
+    /// <summary>
+    /// The EncapsulatedX509Certificate element is able to contain the
+    /// base64 encoding of a DER-encoded X.509 certificate
+    /// </summary>
+    public class EncapsulatedX509Certificate : EncapsulatedPKIData
 	{
 		#region Constructors
 		/// <summary>

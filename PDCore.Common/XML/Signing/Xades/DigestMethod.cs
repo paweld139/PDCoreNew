@@ -22,15 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// DigestMethod indicates the digest algorithm
-	/// </summary>
-	public class DigestMethod
+    /// <summary>
+    /// DigestMethod indicates the digest algorithm
+    /// </summary>
+    public class DigestMethod
 	{
 		#region Private variables
 		private string algorithm;

@@ -1,6 +1,4 @@
-﻿using PDCore.Utils;
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Imaging;

@@ -22,15 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// DocumentationReference points to further explanatory documentation
-	/// of the object identifier
-	/// </summary>
-	public class DocumentationReference
+    /// <summary>
+    /// DocumentationReference points to further explanatory documentation
+    /// of the object identifier
+    /// </summary>
+    public class DocumentationReference
 	{
 		#region Private variables
 		private string documentationReferenceUri;

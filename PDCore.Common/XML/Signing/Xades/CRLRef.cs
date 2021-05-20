@@ -23,14 +23,13 @@
 using System;
 using System.Xml;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class contains information about a Certificate Revocation List (CRL)
-	/// </summary>
-	public class CRLRef
+    /// <summary>
+    /// This class contains information about a Certificate Revocation List (CRL)
+    /// </summary>
+    public class CRLRef
 	{
 		#region Private variables
 		private DigestAlgAndValueType digestAlgAndValue;

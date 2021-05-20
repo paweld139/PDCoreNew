@@ -1,9 +1,6 @@
 ﻿using PDCore.Helpers.Calculation;
 using PDCore.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace PDCore.Helpers.DataStructures.Book
 {

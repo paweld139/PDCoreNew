@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 
 namespace PDCore.Helpers.XML

@@ -1,11 +1,9 @@
 ﻿using PDCore.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Security;
-using System.Text;
 using System.Xml.Linq;
 
 namespace PDCore.WebService.Helpers.Soap.ExceptionHandling

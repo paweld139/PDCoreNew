@@ -22,16 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class contains a collection of SigPolicyQualifiers
-	/// </summary>
-	public class SigPolicyQualifiers
+    /// <summary>
+    /// This class contains a collection of SigPolicyQualifiers
+    /// </summary>
+    public class SigPolicyQualifiers
 	{
 		#region Private variables
 		private SigPolicyQualifierCollection sigPolicyQualifierCollection;

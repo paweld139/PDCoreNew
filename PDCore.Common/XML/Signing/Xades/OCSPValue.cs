@@ -20,17 +20,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
-using System.Xml;
-
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class consist of a sequence of at least one OCSP Response. The
-	/// EncapsulatedOCSPValue element contains the base64 encoding of a
-	/// DER-encoded OCSP Response
-	/// </summary>
-	public class OCSPValue : EncapsulatedPKIData
+    /// <summary>
+    /// This class consist of a sequence of at least one OCSP Response. The
+    /// EncapsulatedOCSPValue element contains the base64 encoding of a
+    /// DER-encoded OCSP Response
+    /// </summary>
+    public class OCSPValue : EncapsulatedPKIData
 	{
 		#region Constructors
 		/// <summary>

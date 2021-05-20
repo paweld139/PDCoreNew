@@ -42,8 +42,8 @@ namespace PDCore.WebService.Clients.Soap
         /// <param name="dNSEndpointIndentity">Tożsamość DNS usługi. Nie jest wymagana.</param>
         /// <param name="certificateEndpointIdentity">Certyfikat świadczący o toższamości usługi. Nie jest wymagany.</param>
         public SoapWebServiceTwoCertificatesClient
-            (string endpointAddressUrl, X509Certificate2 transportCertificate, X509Certificate2 signCertificate, X509Certificate2 serviceCertificate,  
-            string dNSEndpointIndentity = null, X509Certificate2 certificateEndpointIdentity = null) : 
+            (string endpointAddressUrl, X509Certificate2 transportCertificate, X509Certificate2 signCertificate, X509Certificate2 serviceCertificate,
+            string dNSEndpointIndentity = null, X509Certificate2 certificateEndpointIdentity = null) :
             base(endpointAddressUrl, dNSEndpointIndentity, certificateEndpointIdentity)
         {
             //Ustawienie zmiennej zawierającej certyfikat do transportu
@@ -127,7 +127,7 @@ namespace PDCore.WebService.Clients.Soap
              * to jaka opcja będzie tutaj ustawiona nie ma większego znaczenia, bo
              * wiadomość nie będzie szyfrowana.
              */
-            sec.MessageProtectionOrder = MessageProtectionOrder.SignBeforeEncrypt; 
+            sec.MessageProtectionOrder = MessageProtectionOrder.SignBeforeEncrypt;
 
             sec.AllowSerializedSigningTokenOnReply = true; //Serializowanie tokena podpisującego w komunikacie odpowiedzi jest dozwolone.
 

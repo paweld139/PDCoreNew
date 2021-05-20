@@ -23,16 +23,15 @@
 using System;
 using System.Xml;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The NoticeRef element names an organization and identifies by
-	/// numbers a group of textual statements prepared by that organization,
-	/// so that the application could get the explicit notices from a notices file.
-	/// </summary>
-	public class NoticeRef
+    /// <summary>
+    /// The NoticeRef element names an organization and identifies by
+    /// numbers a group of textual statements prepared by that organization,
+    /// so that the application could get the explicit notices from a notices file.
+    /// </summary>
+    public class NoticeRef
 	{
 		#region Private variables
 		private string organization;

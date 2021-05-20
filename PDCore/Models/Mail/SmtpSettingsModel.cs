@@ -1,13 +1,9 @@
 ﻿using PDCore.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace PDCore.Models
 {

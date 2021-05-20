@@ -32,7 +32,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using FirmaXadesNet.Utils;
 
 namespace FirmaXadesNet.Clients
 {

@@ -22,14 +22,13 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// Possible values for Qualifier
-	/// </summary>
-	public enum KnownQualifier
+    /// <summary>
+    /// Possible values for Qualifier
+    /// </summary>
+    public enum KnownQualifier
 	{
 		/// <summary>
 		/// Value has not been set

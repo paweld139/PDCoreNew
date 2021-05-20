@@ -22,15 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The Transform element contains a single transformation
-	/// </summary>
-	public class Transform
+    /// <summary>
+    /// The Transform element contains a single transformation
+    /// </summary>
+    public class Transform
 	{
 		#region Private variables
 		private string algorithm;

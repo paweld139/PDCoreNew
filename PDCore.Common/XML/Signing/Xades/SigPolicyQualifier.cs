@@ -20,17 +20,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// This class can contain additional information qualifying the signature
-	/// policy identifier
-	/// </summary>
-	public class SigPolicyQualifier
+    /// <summary>
+    /// This class can contain additional information qualifying the signature
+    /// policy identifier
+    /// </summary>
+    public class SigPolicyQualifier
 	{
 		#region Private variables
 		private XmlElement anyXmlElement;

@@ -78,6 +78,7 @@
     <Compile Include="Context\IContext\IMainDbContext.cs" />
     <Compile Include="Context\MainDbContext.cs" />
     <Compile Include="Extensions\ContextExtensions.cs" />
+    <Compile Include="Extensions\EFExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Factories\Fac\Repository\IRepositoryProvider.cs" />
     <Compile Include="Factories\Fac\Repository\RepositoryFactories.cs" />

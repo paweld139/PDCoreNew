@@ -1,6 +1,5 @@
 ﻿using PDCore.Models;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace PDCore.Services.IServ
 {

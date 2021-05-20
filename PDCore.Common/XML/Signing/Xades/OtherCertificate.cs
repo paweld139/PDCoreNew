@@ -20,17 +20,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The OtherCertificate element is a placeholder for potential future
-	/// new formats of certificates
-	/// </summary>
-	public class OtherCertificate : ArrayList
+    /// <summary>
+    /// The OtherCertificate element is a placeholder for potential future
+    /// new formats of certificates
+    /// </summary>
+    public class OtherCertificate : ArrayList
 	{
 		#region Private variables
 		private XmlElement anyXmlElement;

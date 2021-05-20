@@ -22,15 +22,14 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The UnsignedProperties element contains a number of properties that are
-	/// not signed by the XMLDSIG signature
-	/// </summary>
-	public class UnsignedProperties
+    /// <summary>
+    /// The UnsignedProperties element contains a number of properties that are
+    /// not signed by the XMLDSIG signature
+    /// </summary>
+    public class UnsignedProperties
 	{
 		#region Private variables
 		private string id;

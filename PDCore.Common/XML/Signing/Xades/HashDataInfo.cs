@@ -23,19 +23,18 @@
 using System;
 using System.Xml;
 using System.Security.Cryptography;
-using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The HashDataInfo class contains a uri attribute referencing a data object
-	/// and a ds:Transforms element indicating the transformations to make to this
-	/// data object.
-	/// The sequence of HashDataInfo elements will be used to produce the input of
-	/// the hash computation process whose result will be included in the
-	/// timestamp request to be sent to the TSA.
-	/// </summary>
-	public class HashDataInfo
+    /// <summary>
+    /// The HashDataInfo class contains a uri attribute referencing a data object
+    /// and a ds:Transforms element indicating the transformations to make to this
+    /// data object.
+    /// The sequence of HashDataInfo elements will be used to produce the input of
+    /// the hash computation process whose result will be included in the
+    /// timestamp request to be sent to the TSA.
+    /// </summary>
+    public class HashDataInfo
 	{
 		#region Private variables
 		private string uriAttribute;

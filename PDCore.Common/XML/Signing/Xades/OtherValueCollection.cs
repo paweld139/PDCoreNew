@@ -20,17 +20,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// Collection class that derives from ArrayList.  It provides the minimally
-	/// required functionality to add instances of typed classes and obtain typed
-	/// elements through a custom indexer.
-	/// </summary>
-	public class OtherValueCollection : ArrayList
+    /// <summary>
+    /// Collection class that derives from ArrayList.  It provides the minimally
+    /// required functionality to add instances of typed classes and obtain typed
+    /// elements through a custom indexer.
+    /// </summary>
+    public class OtherValueCollection : ArrayList
 	{
 		/// <summary>
 		/// New typed indexer for the collection

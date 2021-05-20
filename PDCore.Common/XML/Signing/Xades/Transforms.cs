@@ -22,16 +22,15 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The Transforms element contains a collection of transformations
-	/// </summary>
-	public class Transforms
+    /// <summary>
+    /// The Transforms element contains a collection of transformations
+    /// </summary>
+    public class Transforms
 	{
 		#region Private variables
 		private TransformCollection transformCollection;

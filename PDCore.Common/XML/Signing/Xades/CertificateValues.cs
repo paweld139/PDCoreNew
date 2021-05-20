@@ -22,25 +22,24 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Collections;
 using System.Security.Cryptography.Xml;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The CertificateValues element contains the full set of certificates
-	/// that have been used to validate	the electronic signature, including the
-	/// signer's certificate. However, it is not necessary to include one of
-	/// those certificates into this property, if the certificate is already
-	/// present in the ds:KeyInfo element of the signature.
-	/// In fact, both the signer certificate (referenced in the mandatory
-	/// SigningCertificate property element) and all certificates referenced in
-	/// the CompleteCertificateRefs property element must be present either in
-	/// the ds:KeyInfo element of the signature or in the CertificateValues
-	/// property element.
-	/// </summary>
-	public class CertificateValues
+    /// <summary>
+    /// The CertificateValues element contains the full set of certificates
+    /// that have been used to validate	the electronic signature, including the
+    /// signer's certificate. However, it is not necessary to include one of
+    /// those certificates into this property, if the certificate is already
+    /// present in the ds:KeyInfo element of the signature.
+    /// In fact, both the signer certificate (referenced in the mandatory
+    /// SigningCertificate property element) and all certificates referenced in
+    /// the CompleteCertificateRefs property element must be present either in
+    /// the ds:KeyInfo element of the signature or in the CertificateValues
+    /// property element.
+    /// </summary>
+    public class CertificateValues
 	{
 		#region Private variables
 		private string id;

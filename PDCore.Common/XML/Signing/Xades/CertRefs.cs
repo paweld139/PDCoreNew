@@ -22,16 +22,15 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Collections;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// The CertRefs element contains a collection of Cert elements
-	/// </summary>
-	public class CertRefs
+    /// <summary>
+    /// The CertRefs element contains a collection of Cert elements
+    /// </summary>
+    public class CertRefs
 	{
 		#region Private variables
 		private CertCollection certCollection;

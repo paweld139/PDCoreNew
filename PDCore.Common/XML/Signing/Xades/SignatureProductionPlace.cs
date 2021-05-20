@@ -22,21 +22,20 @@
 
 using System;
 using System.Xml;
-using System.Security.Cryptography;
 
 namespace Microsoft.Xades
 {
-	/// <summary>
-	/// In some transactions the purported place where the signer was at the time
-	/// of signature creation may need to be indicated. In order to provide this
-	/// information a new property may be included in the signature.
-	/// This property specifies an address associated with the signer at a
-	/// particular geographical (e.g. city) location.
-	/// This is a signed property that qualifies the signer.
-	/// An XML electronic signature aligned with the present document MAY contain
-	/// at most one SignatureProductionPlace element.
-	/// </summary>
-	public class SignatureProductionPlace
+    /// <summary>
+    /// In some transactions the purported place where the signer was at the time
+    /// of signature creation may need to be indicated. In order to provide this
+    /// information a new property may be included in the signature.
+    /// This property specifies an address associated with the signer at a
+    /// particular geographical (e.g. city) location.
+    /// This is a signed property that qualifies the signer.
+    /// An XML electronic signature aligned with the present document MAY contain
+    /// at most one SignatureProductionPlace element.
+    /// </summary>
+    public class SignatureProductionPlace
 	{
 		#region Private variables
 		private string city;
