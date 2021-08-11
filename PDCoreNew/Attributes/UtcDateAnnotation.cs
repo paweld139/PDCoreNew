@@ -19,7 +19,7 @@ namespace PDCoreNew.Attributes
 
         public static bool IsUtc(this IMutableProperty property)
         {
-            var attribute = property.PropertyInfo.GetCustomAttribute<IsUtcAttribute>();
+            var attribute = property.PropertyInfo?.GetCustomAttribute<IsUtcAttribute>();
 
             if (attribute != null && attribute.IsUtc)
             {
