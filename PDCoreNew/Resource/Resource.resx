@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AdditionalInfo" xml:space="preserve">
+    <value>Additional info</value>
+  </data>
+  <data name="AddMore" xml:space="preserve">
+    <value>Add more</value>
+  </data>
+  <data name="ArticleButtonSuccess" xml:space="preserve">
+    <value>Added to cart</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="ChangeCurrency" xml:space="preserve">
+    <value>Change currency</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company name</value>
+  </data>
+  <data name="Comparison" xml:space="preserve">
+    <value>Comparison</value>
+  </data>
+  <data name="ConnecticoInfo" xml:space="preserve">
+    <value>© Connectico {0}. All rights reserved.</value>
+  </data>
+  <data name="CookieAgreementConfirm" xml:space="preserve">
+    <value>Confirm your selection</value>
+  </data>
+  <data name="CookieAgreementMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="CookieAgreementSelectAll" xml:space="preserve">
+    <value>Select all consents</value>
+  </data>
+  <data name="CookieAgreementTitle" xml:space="preserve">
+    <value>You must agree to continue</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date from</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Date to</value>
+  </data>
+  <data name="EmailInvalid" xml:space="preserve">
+    <value>E-mail address is invalid</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>Additional features</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="FooterBackgroundColor" xml:space="preserve">
+    <value>Footer background color</value>
+  </data>
+  <data name="FooterFontColor" xml:space="preserve">
+    <value>Footer font color</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Hello</value>
+  </data>
+  <data name="InvalidError" xml:space="preserve">
+    <value>The {0} field is invalid</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="MainFeatures" xml:space="preserve">
+    <value>Main features</value>
+  </data>
+  <data name="Many" xml:space="preserve">
+    <value>Many</value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>{0} cannot be longer than {1} characters</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>{0} must be at least {1} characters long</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewsletterBackgroundColor" xml:space="preserve">
+    <value>Newsletter background color</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Nones" xml:space="preserve">
+    <value>Lack of information</value>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
+  <data name="NotDefine" xml:space="preserve">
+    <value>Not defined</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Range" xml:space="preserve">
+    <value>{0} must be between {1} and {2}</value>
+  </data>
+  <data name="RequiredError" xml:space="preserve">
+    <value>The {0} field is required</value>
+  </data>
+  <data name="SearchInDescription" xml:space="preserve">
+    <value>Search in description</value>
+  </data>
+  <data name="ShortName" xml:space="preserve">
+    <value>Short name</value>
+  </data>
+  <data name="ShowDifference" xml:space="preserve">
+    <value>Show difference</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="StringLength_Equal" xml:space="preserve">
+    <value>{0} must be {1} characters long</value>
+  </data>
+  <data name="StringLength_Greater" xml:space="preserve">
+    <value>{0} must be at least {2} characters long</value>
+  </data>
+  <data name="StringLength_GreaterAndLess" xml:space="preserve">
+    <value>{0} cannot be longer than {1} characters</value>
+  </data>
+  <data name="StringLength_Less" xml:space="preserve">
+    <value>{0} cannot be longer than {1} characters</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+</root>

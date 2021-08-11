@@ -1,0 +1,335 @@
+﻿using PDCoreNew.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Text;
+
+namespace PDCoreNew.Extensions
+{
+    public static class ReflectionExtension
+    {
+        public static IEnumerable<string> GetPropertyNames(this PropertyInfo[] propertyInfos)
+        {
+            return propertyInfos.Select(p => p.Name);
+        }
+
+        public static object GetPropertyValue<T>(this PropertyInfo propertyInfo, T entity)
+        {
+            return propertyInfo.GetValue(entity, null);
+        }
+
+        public static TValue GetPropertyValue<TValue>(this PropertyInfo propertyInfo, object entity)
+        {
+            return (TValue)propertyInfo.GetPropertyValue(entity);
+        }
+
+        public static string GetPropertyValueString<T>(this PropertyInfo propertyInfo, T entity)
+        {
+            return propertyInfo.GetPropertyValue(entity).EmptyIfNull();
+        }
+
+        public static IEnumerable<object> GetPropertyValues<T>(this PropertyInfo[] propertyInfos, T entity)
+        {
+            return propertyInfos.Select(p => p.GetPropertyValue(entity));
+        }
+
+        public static IEnumerable<string> GetPropertyValuesString<T>(this PropertyInfo[] propertyInfos, T entity)
+        {
+            return propertyInfos.GetPropertyValues(entity).EmptyIfNull();
+        }
+
+        public static string GetTypeName(this Type type)
+        {
+            StringBuilder typeName = new(type.Name);
+
+            if (type.IsGenericType)
+                type.GetGenericArguments().ForEach(a => typeName.AppendFormat("[{0}]", a.Name));
+
+            return typeName.ToString();
+        }
+
+        public static Type GetType(this TypeCode code)
+        {
+            return Type.GetType("System." + EnumUtils.GetEnumName<TypeCode>(code));
+        }
+
+        public static bool IsNumericDatatype(this object obj)
+        {
+            return obj.GetTypeCode() switch
+            {
+                TypeCode.Byte or TypeCode.SByte or TypeCode.UInt16 or 
+                TypeCode.UInt32 or TypeCode.UInt64 or TypeCode.Int16 or 
+                TypeCode.Int32 or TypeCode.Int64 or TypeCode.Decimal or 
+                TypeCode.Double or TypeCode.Single => true,
+                _ => false,
+            };
+        }
+
+        public static string GetNameOf<T, TT>(this T obj, Expression<Func<T, TT>> propertyAccessor)
+        {
+            _ = obj;
+
+            return ReflectionUtils.GetNameOf(propertyAccessor.Body);
+        }
+
+        public static string GetName<T>(this T obj, Expression<Func<T>> accessor)
+        {
+            _ = obj;
+
+            return ReflectionUtils.GetNameOf(accessor.Body);
+        }
+
+        public static TypeCode GetTypeCode(this object obj)
+        {
+            return obj.GetType().GetTypeCode();
+        }
+
+        public static TypeCode GetTypeCode(this Type type)
+        {
+            return Type.GetTypeCode(type);
+        }
+
+        public static bool IsEnum<TEnum>(this object obj)
+        {
+            Type enumType = typeof(TEnum);
+
+            TypeCode enumTypeCode = enumType.GetTypeCode(); //Typ numeru enuma
+
+            if (enumTypeCode != obj.GetTypeCode())
+                obj = obj.ConvertObject(enumTypeCode);
+
+            return Enum.IsDefined(enumType, obj);
+        }
+
+        public static IEnumerable<Type> GetImmediateInterfaces(this Type type)
+        {
+            var interfaces = type.GetInterfaces();
+
+            var result = new HashSet<Type>(interfaces);
+
+            foreach (Type i in interfaces)
+                result.ExceptWith(i.GetInterfaces());
+
+            return result;
+        }
+
+        public static bool ImplementsInterface<TInterface>(this Type type) => typeof(TInterface).IsAssignableFrom(type);
+
+        public static bool ImplementsInterface<TInterface>(this object input)
+        {
+            return input.GetType().ImplementsInterface<TInterface>();
+        }
+
+        /// <summary>
+        /// Determine whether a type is simple (String, Decimal, DateTime, etc) 
+        /// or complex (i.e. custom class with public properties and methods).
+        /// </summary>
+        /// <see cref="http://stackoverflow.com/questions/2442534/how-to-test-if-type-is-primitive"/>
+        public static bool IsSimpleType(
+           this Type type)
+        {
+            return
+               type.IsValueType ||
+               type.IsPrimitive ||
+               new[]
+               {
+               typeof(string),
+               typeof(decimal),
+               typeof(DateTime),
+               typeof(DateTimeOffset),
+               typeof(TimeSpan),
+               typeof(Guid)
+               }.Contains(type) ||
+               (Convert.GetTypeCode(type) != TypeCode.Object);
+        }
+
+        public static Type GetUnderlyingType(this MemberInfo member)
+        {
+            return member.MemberType switch
+            {
+                MemberTypes.Event => ((EventInfo)member).EventHandlerType,
+                MemberTypes.Field => ((FieldInfo)member).FieldType,
+                MemberTypes.Method => ((MethodInfo)member).ReturnType,
+                MemberTypes.Property => ((PropertyInfo)member).PropertyType,
+                _ => throw new ArgumentException
+                    (
+                        "Input MemberInfo must be if type EventInfo, FieldInfo, MethodInfo, or PropertyInfo"
+                    ),
+            };
+        }
+
+        public static bool PublicInstancePropertiesEqual<T>(this T self, T to, params string[] ignore) where T : class
+        {
+            if (self != null && to != null)
+            {
+                var type = typeof(T);
+                var ignoreList = new List<string>(ignore);
+                var unequalProperties =
+                    from pi in type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    where !ignoreList.Contains(pi.Name) && pi.GetUnderlyingType().IsSimpleType() && pi.GetIndexParameters().Length == 0
+                    let selfValue = type.GetProperty(pi.Name).GetValue(self, null)
+                    let toValue = type.GetProperty(pi.Name).GetValue(to, null)
+                    where selfValue != toValue && (selfValue == null || !selfValue.Equals(toValue))
+                    select selfValue;
+                return !unequalProperties.Any();
+            }
+            return self == to;
+        }
+
+        public static string GetPropertyName<U>(this Expression<Func<U>> propertyExpression)
+        {
+            var memberExpr = propertyExpression.Body as MemberExpression;
+            return memberExpr.Member.Name;
+        }
+
+        public static string GetPropertyName<T, U>(this T obj, Expression<Func<U>> propertyExpression)
+        {
+            _ = obj;
+
+            return propertyExpression.GetPropertyName();
+        }
+
+        public static object GetPropertyValue<T>(this T obj, string name)
+        {
+            return obj.GetType().GetProperty(name).GetValue(obj, null);
+        }
+
+        public static void SetPropertyValue<T>(this T obj, string name, object value)
+        {
+            PropertyInfo pInfo = obj.GetType().GetProperty(name);
+
+            if (pInfo != null)
+            {
+                pInfo.SetValue(obj, value, null);
+            }
+        }
+
+        public static IEnumerable<string> GetPropertyNames<T>(this T obj)
+        {
+            return obj.GetProperties().Select(p => p.Name);
+        }
+
+        public static PropertyInfo[] GetProperties<T>(this T obj)
+        {
+            return obj.GetType().GetProperties();
+        }
+
+        public static Dictionary<string, object> GetDictionaryFromType<T>(this T obj)
+        {
+            IEnumerable<string> properties = obj.GetPropertyNames();
+
+            var dict = new Dictionary<string, object>();
+
+            foreach (string propertyName in properties)
+            {
+                object propertyValue = obj.GetPropertyValue(propertyName);
+
+                dict.Add(propertyName, propertyValue);
+            }
+
+            return dict;
+        }
+
+        static public void RaiseEvent(this EventHandler eventHandler, object sender, EventArgs e)
+        {
+            eventHandler?.Invoke(sender, e);
+        }
+
+        static public void RaiseEvent<T>(this EventHandler<T> eventHandler, object sender, T e) where T : EventArgs
+        {
+            eventHandler?.Invoke(sender, e);
+        }
+
+        public static List<Exception> GetInnerExceptions(this Exception ex)
+        {
+            List<Exception> list = new();
+
+            if (ex.InnerException != null)
+            {
+                list.AddRange(ex.InnerException.GetInnerExceptions());
+                list.Add(ex.InnerException);
+            }
+
+            return list;
+        }
+
+        public static T GetAttribute<T>(this object source, bool inherit = true) where T : Attribute
+        {
+            return source.GetType().GetCustomAttributes(typeof(T), inherit).FirstOrDefault() as T;
+        }
+
+        public static TValue GetAttributeValue<TAttribute, TValue>(this Type type, Func<TAttribute, TValue> valueSelector) where TAttribute : Attribute
+        {
+            if (type.GetAttribute<TAttribute>() is TAttribute att)
+            {
+                return valueSelector(att);
+            }
+
+            return default;
+        }
+
+        public static TProperty GetPropertyValue<TSource, TProperty>(this TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
+        {
+            return source.GetPropertyInfo(propertyLambda).GetPropertyValue<TProperty>(source);
+        }
+
+        public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this TSource source, Expression<Func<TSource, TProperty>> propertyLambda)
+        {
+            _ = source;
+
+            Type type = typeof(TSource);
+
+            if (propertyLambda.Body is not MemberExpression member)
+                throw new ArgumentException(string.Format(
+                    "Expression '{0}' refers to a method, not a property.",
+                    propertyLambda.ToString()));
+
+            PropertyInfo propInfo = member.Member as PropertyInfo;
+            if (propInfo == null)
+                throw new ArgumentException(string.Format(
+                    "Expression '{0}' refers to a field, not a property.",
+                    propertyLambda.ToString()));
+
+            if (type != propInfo.ReflectedType &&
+                !type.IsSubclassOf(propInfo.ReflectedType))
+                throw new ArgumentException(string.Format(
+                    "Expression '{0}' refers to a property that is not from type {1}.",
+                    propertyLambda.ToString(),
+                    type));
+
+            return propInfo;
+        }
+
+        public static bool IsGreaterThan<T>(this T value, T other) where T : IComparable
+        {
+            return value.CompareTo(other) > 0;
+        }
+
+        public static bool IsLessThan<T>(this T value, T other) where T : IComparable
+        {
+            return value.CompareTo(other) < 0;
+        }
+
+        public static TValue GetValue<TSource, TValue>(this Expression<Func<TSource, TValue>> expression)
+        {
+            var objectMember = Expression.Convert(expression.Body as MemberExpression, typeof(TValue));
+
+            var getterLambda = Expression.Lambda<Func<TValue>>(objectMember);
+
+            var getter = getterLambda.Compile();
+
+            return getter();
+        }
+
+        public static string ToCamelCase(this PropertyInfo propertyInfo) => propertyInfo.Name.ToCamelCase();
+
+        public static bool IsFloatingPointNumber(this Type objectType)
+        {
+            return (objectType == typeof(decimal) ||
+                    objectType == typeof(double) ||
+                    objectType == typeof(float));
+        }
+    }
+}

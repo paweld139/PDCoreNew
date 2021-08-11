@@ -1,0 +1,36 @@
+﻿using Newtonsoft.Json;
+using PDCoreNew.Extensions;
+using System;
+using System.Globalization;
+using System.Threading;
+
+namespace PDCoreNew.Converters
+{
+    public class FormattedDecimalConverter : JsonConverter
+    {
+        private readonly CultureInfo culture;
+
+        public FormattedDecimalConverter(CultureInfo culture)
+        {
+            this.culture = culture;
+        }
+
+        public FormattedDecimalConverter()
+        {
+        }
+
+        private CultureInfo Culture => culture ?? Thread.CurrentThread.CurrentCulture;
+
+        public override bool CanConvert(Type objectType) => objectType.IsFloatingPointNumber();
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            writer.WriteValue(Convert.ToString(value, Culture));
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            return Convert.ChangeType(reader.Value, objectType, Culture);
+        }
+    }
+}

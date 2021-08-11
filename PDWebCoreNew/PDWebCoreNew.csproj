@@ -5,6 +5,7 @@
     <Authors>Paweł Dywan</Authors>
     <Company>Paweł Dywan</Company>
     <Version>1.0.0.0</Version>
+	<NoWarn>$(NoWarn);NETSDK1138</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

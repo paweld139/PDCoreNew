@@ -1,0 +1,38 @@
+﻿using PDCoreNew.Extensions;
+using System;
+using System.Diagnostics;
+
+namespace PDCoreNew.Helpers.Wrappers
+{
+    public class StopWatchWrapper //Timekeeper
+    {
+        private readonly static Lazy<Stopwatch> stopWatch = new();
+
+        public static Tuple<TimeSpan, TOutput> Measure<TOutput>(Func<TOutput> func)
+        {
+            return stopWatch.Value.Time(func);
+        }
+
+        public static Tuple<TimeSpan, TOutput> Measure<TInput, TOutput>(Func<TInput, TOutput> func, TInput param)
+        {
+            return Measure(func.Partial(param));
+        }
+
+        public static TimeSpan Measure(Action action)
+        {
+            return Measure(() => { action(); return true; }).Item1;
+        }
+
+        public static void Execute(Action action, Action<string> print)
+        {
+            string result = Measure(action).ToString();
+
+            print(result);
+        }
+
+        public static void Execute(Action action)
+        {
+            Execute(action, t => Trace.WriteLine(t));
+        }
+    }
+}
