@@ -118,7 +118,8 @@ namespace PDCoreNew.Extensions
             });
         }
 
-        public static void HandleExceptionOnEdit<T>(this DbUpdateConcurrencyException exception, T entity, Action<string, string> writeError) where T : class, IModificationHistory
+        public static void HandleExceptionOnEdit<T>(this DbUpdateConcurrencyException exception, T entity, Action<string, string> writeError, Action<string> cleanRowVersion)
+            where T : class, IModificationHistory
         {
             var entry = exception.Entries.Single();
 
@@ -128,7 +129,7 @@ namespace PDCoreNew.Extensions
 
             if (databaseEntry == null)
             {
-                writeError(string.Empty, "Unable to save changes. The object was deleted by another user.");
+                writeError?.Invoke(string.Empty, "Unable to save changes. The object was deleted by another user.");
             }
             else
             {
@@ -158,17 +159,19 @@ namespace PDCoreNew.Extensions
                             error += databaseValue;
                         }
 
-                        writeError("model." + property, error);
+                        writeError?.Invoke(property.Name, error);
                     }
                 }
 
-                writeError("", "The record you attempted to edit "
+                writeError?.Invoke(string.Empty, "The record you attempted to edit "
                     + "was modified by another user after you got the original value. The "
                     + "edit operation was canceled and the current values in the database "
                     + "have been displayed. If you still want to edit this record, "
                     + "save again.");
 
                 entity.RowVersion = databaseValues.RowVersion;
+
+                cleanRowVersion?.Invoke("RowVersion");
             }
         }
 

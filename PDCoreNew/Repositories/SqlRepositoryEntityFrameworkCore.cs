@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using CommonServiceLocator;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using PDCoreNew.Context.IContext;
 using PDCoreNew.Exceptions;
@@ -15,6 +17,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,14 +29,21 @@ namespace PDCoreNew.Repositories
         protected readonly ILogger<T> loggerCore;
         protected readonly IMapper mapper;
         protected readonly DbSet<T> set;
+        private readonly IDataAccessStrategy<T> dataAccessStrategy;
 
-        public SqlRepositoryEntityFrameworkCore(IEntityFrameworkCoreDbContext ctx, ILogger<T> logger, IMapper mapper) : base(ctx, null)
+        public SqlRepositoryEntityFrameworkCore(IEntityFrameworkCoreDbContext ctx,
+            ILogger<T> logger,
+            IMapper mapper,
+            IDataAccessStrategy<T> dataAccessStrategy) : base(ctx, null)
         {
             this.ctx = ctx;
             loggerCore = logger;
             this.mapper = mapper;
             set = this.ctx.Set<T>();
+            this.dataAccessStrategy = dataAccessStrategy;
         }
+
+        public static bool IsConnected { get; set; } = false;
 
         protected override string ConnectionString => ctx.Database.GetDbConnection().ConnectionString;
 
@@ -54,10 +64,13 @@ namespace PDCoreNew.Repositories
 
         public override int Commit()
         {
-            return ctx.SaveChanges();
+            if (IsConnected)
+                RemoveEmptyEntries();
+
+            return ctx.SaveChangesWithModificationHistory();
         }
 
-        protected virtual async Task<int> DoCommitAsClientWins(bool sync, Func<Task<int>> commitAsync)
+        protected virtual async ValueTask<int> DoCommitAsClientWins(bool sync, Func<Task<int>> commitAsync)
         {
             bool saved = false;
 
@@ -91,15 +104,15 @@ namespace PDCoreNew.Repositories
 
         public int CommitAsClientWins()
         {
-            return DoCommitAsClientWins(true, null).Result;
+            return ReturnIfCompleted(() => DoCommitAsClientWins(true, null));
         }
 
-        public Task<int> CommitAsClientWinsAsync()
+        public ValueTask<int> CommitAsClientWinsAsync()
         {
             return DoCommitAsClientWins(false, CommitAsync);
         }
 
-        protected virtual async Task<int> DoCommitAsDatabaseWins(bool sync, Func<Task<int>> commitAsync)
+        protected virtual async ValueTask<int> DoCommitAsDatabaseWins(bool sync, Func<Task<int>> commitAsync)
         {
             bool saved = false;
 
@@ -132,18 +145,33 @@ namespace PDCoreNew.Repositories
             return result;
         }
 
-        public int CommitAsDatabaseWins()
+        private static U ReturnIfCompleted<U>(Func<ValueTask<U>> valueTask)
         {
-            return DoCommitAsDatabaseWins(true, null).Result;
+            U result = default;
+
+            var value = valueTask();
+
+            if (value.IsCompleted)
+                result = value.Result;
+
+            return result;
         }
 
-        public Task<int> CommitAsDatabaseWinsAsync()
+        public int CommitAsDatabaseWins()
+        {
+            return ReturnIfCompleted(() => DoCommitAsDatabaseWins(true, null));
+        }
+
+        public ValueTask<int> CommitAsDatabaseWinsAsync()
         {
             return DoCommitAsDatabaseWins(false, CommitAsync);
         }
 
         public Task<int> CommitAsync(CancellationToken cancellationToken)
         {
+            if (IsConnected)
+                RemoveEmptyEntries();
+
             return ctx.SaveChangesWithModificationHistoryAsync();
         }
 
@@ -154,7 +182,7 @@ namespace PDCoreNew.Repositories
         /// </summary>
         public static event Action<PropertyValues, PropertyValues, PropertyValues> HaveUserResolveConcurrency;
 
-        protected virtual async Task<int> DoCommitWithOptimisticConcurrency(bool sync, Func<Task<int>> commitAsync)
+        protected virtual async ValueTask<int> DoCommitWithOptimisticConcurrency(bool sync, Func<Task<int>> commitAsync)
         {
             bool saved = false;
 
@@ -199,10 +227,10 @@ namespace PDCoreNew.Repositories
 
         public int CommitWithOptimisticConcurrency()
         {
-            return DoCommitWithOptimisticConcurrency(true, null).Result;
+            return ReturnIfCompleted(() => DoCommitWithOptimisticConcurrency(true, null));
         }
 
-        public Task<int> CommitWithOptimisticConcurrencyAsync()
+        public ValueTask<int> CommitWithOptimisticConcurrencyAsync()
         {
             return DoCommitWithOptimisticConcurrency(false, CommitAsync);
         }
@@ -214,7 +242,10 @@ namespace PDCoreNew.Repositories
 
         public override void Delete(T entity)
         {
-            set.Remove(entity);
+            if (IsConnected)
+                set.Remove(entity);
+            else
+                ctx.Entry(entity).State = EntityState.Deleted;
         }
 
         public void DeleteAndCommit(T entity)
@@ -231,7 +262,7 @@ namespace PDCoreNew.Repositories
             return CommitAsync();
         }
 
-        protected virtual async Task<bool> DoDeleteAndCommitWithOptimisticConcurrency(T entity, Action<string, string> writeError, bool sync, Func<Task<int>> commitAsync)
+        protected virtual async ValueTask<bool> DoDeleteAndCommitWithOptimisticConcurrency(T entity, Action<string, string> writeError, bool sync, Func<Task<int>> commitAsync)
         {
             Delete(entity);
 
@@ -282,10 +313,10 @@ namespace PDCoreNew.Repositories
 
         public bool DeleteAndCommitWithOptimisticConcurrency(T entity, Action<string, string> writeError)
         {
-            return DoDeleteAndCommitWithOptimisticConcurrency(entity, writeError, true, null).Result;
+            return ReturnIfCompleted(() => DoDeleteAndCommitWithOptimisticConcurrency(entity, writeError, true, null));
         }
 
-        public Task<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError)
+        public ValueTask<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError)
         {
             return DoDeleteAndCommitWithOptimisticConcurrency(entity, writeError, false, CommitAsync);
         }
@@ -297,14 +328,14 @@ namespace PDCoreNew.Repositories
 
         public bool Exists<TKey>(TKey id)
         {
-            var predicate = RepositoryUtils.GetByIdPredicate<T, TKey>(id);
+            var predicate = GetByIdPredicate(id);
 
             return FindAll().Any(predicate);
         }
 
         public Task<bool> ExistsAsync<TKey>(TKey id)
         {
-            var predicate = RepositoryUtils.GetByIdPredicate<T, TKey>(id);
+            var predicate = GetByIdPredicate(id);
 
             return FindAll().AnyAsync(predicate);
         }
@@ -321,15 +352,19 @@ namespace PDCoreNew.Repositories
 
         public override IQueryable<T> FindAll()
         {
-            return FindAll(false);
+            return FindAll(!IsConnected);
         }
 
         public IQueryable<T> FindAll(bool asNoTracking)
         {
-            if (asNoTracking)
-                return set.AsNoTracking();
+            IQueryable<T> query;
 
-            return set;
+            if (asNoTracking)
+                query = set.AsNoTracking();
+            else
+                query = set;
+
+            return dataAccessStrategy?.PrepareQuery(query) ?? query;
         }
 
         public IQueryable<TOutput> FindAll<TOutput>()
@@ -657,6 +692,348 @@ namespace PDCoreNew.Repositories
         public Expression<Func<T, bool>> GetByIdPredicate<TKey>(TKey id)
         {
             return RepositoryUtils.GetByIdPredicate<T, TKey>(id);
+        }
+
+        //Funkcjonalność ConnectedRepository. Nie ma potrzeby pobierania danych wiele razy. Repository i kontekst żyją w danym oknie.
+        public virtual LocalView<T> GetAllFromMemory()
+        {
+            if (set.Local.IsEmpty())
+            {
+                Load();
+            }
+
+            return set.Local;
+        }
+
+        public virtual Task LoadAsync()
+        {
+            return set.LoadAsync();
+        }
+
+        public virtual void Load()
+        {
+            set.Load();
+        }
+
+
+        //Funkcjonalność ConnectedRepository. Nie ma potrzeby pobierania danych wiele razy. Repository i kontekst żyją w danym oknie.
+        public virtual async ValueTask<LocalView<T>> GetAllFromMemoryAsync()
+        {
+            if (set.Local.IsEmpty())
+            {
+                await LoadAsync();
+            }
+
+            return set.Local;
+        }
+
+
+        //Funkcjonalność ConnectedRepository, np. do Bindingu obiektu w WPF.
+        public virtual T Add()
+        {
+            var entry = Activator.CreateInstance<T>();
+
+            Add(entry);
+
+            return entry;
+        }
+
+
+        //Funkcjonalność ConnectedRepository. Pozbycie się z pamięci przed zapisem obiektów utworzonych, ale niezedytowanych.
+        private void RemoveEmptyEntries()
+        {
+            T entry;
+
+            //you can't remove from or add to a collection in a foreach loop
+            for (int i = set.Local.Count; i > 0; i--)
+            {
+                entry = set.Local.ElementAt(i - 1);
+
+                if (ctx.Entry(entry).State == EntityState.Added && !entry.IsDirty)
+                {
+                    Delete(entry);
+                }
+            }
+        }
+
+        public T AddAndReturn(T entity)
+        {
+            Add(entity);
+
+            return entity;
+        }
+
+        public EntityEntry<T> AddAndReturnEntry(T entity)
+        {
+            return set.Add(entity);
+        }
+
+        public virtual void SaveNew(T entity)
+        {
+            Add(entity);
+
+            Commit();
+        }
+
+        public virtual ValueTask<int> SaveNewAsync(T entity)
+        {
+            Add(entity);
+
+            return CommitAsClientWinsAsync();
+        }
+
+        public async virtual Task SaveNewAsync<TInput>(TInput input)
+        {
+            var entity = mapper.Map<T>(input);
+
+            await SaveNewAsync(entity);
+
+            mapper.Map(entity, input);
+        }
+
+        public virtual void SaveUpdated(T entity)
+        {
+            Update(entity);
+
+            Commit();
+        }
+
+        public virtual Task SaveUpdatedAsync(T entity)
+        {
+            Update(entity);
+
+            return CommitAsync();
+        }
+
+        private async ValueTask<bool> DoSaveUpdatedWithOptimisticConcurrency(T entity, Action<string, string> writeError,
+            Action<string> cleanRowVersion, bool sync, bool update, bool? include,
+            params Expression<Func<T, object>>[] properties)
+        {
+            if (update)
+            {
+                if (include == null)
+                {
+                    Update(entity);
+                }
+                else
+                {
+                    UpdateWithIncludeOrExcludeProperties(entity, include.Value, properties);
+                }
+            }
+
+            bool result = false;
+
+            try
+            {
+                if (sync)
+                    Commit();
+                else
+                    await CommitAsync();
+
+                result = true;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.HandleExceptionOnEdit(entity, writeError, cleanRowVersion);
+            }
+            catch (RetryLimitExceededException dex)
+            {
+                logger.Error("An error occurred while trying to update the entity", dex);
+
+                writeError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+            }
+
+            return result;
+        }
+
+        public virtual bool SaveUpdatedWithOptimisticConcurrency(T entity, Action<string, string> writeError,
+            Action<string> cleanRowVersion, bool update = true, bool? include = null,
+            params Expression<Func<T, object>>[] properties)
+        {
+            return ReturnIfCompleted(() => DoSaveUpdatedWithOptimisticConcurrency(entity, writeError, cleanRowVersion, true, update, include, properties));
+        }
+
+        public virtual ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(T entity,
+            Action<string, string> writeError, Action<string> cleanRowVersion, bool update = true, bool? include = null,
+            params Expression<Func<T, object>>[] properties)
+        {
+            return DoSaveUpdatedWithOptimisticConcurrency(entity, writeError, cleanRowVersion, false, update, include, properties);
+        }
+
+        public virtual void DeleteByKeyValues(params object[] keyValues)
+        {
+            var entry = FindByKeyValues(keyValues);
+
+            if (entry == null)
+                return; // not found; assume already deleted.
+
+            Delete(entry);
+        }
+
+        public virtual void DeleteAndCommit(params object[] keyValues)
+        {
+            DeleteByKeyValues(keyValues);
+
+            Commit();
+        }
+        public virtual Task DeleteAndCommitAsync(params object[] keyValues)
+        {
+            DeleteByKeyValues(keyValues);
+
+            return CommitAsync();
+        }
+
+        public virtual void Update(T entity, IHasRowVersion dto)
+        {
+            var entry = ctx.Entry(entity);
+
+            entry.Property(e => e.RowVersion).OriginalValue = dto.RowVersion;
+
+            entry.CurrentValues.SetValues(dto);
+        }
+
+        public virtual ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(T entity, IPrincipal principal,
+            Action<string, string> writeError, Action<string> cleanRowVersion,
+            IDataAccessStrategy<T> savingStrategy = default)
+        {
+            savingStrategy ??= dataAccessStrategy;
+
+            ValueTask<bool> result;
+
+            if (savingStrategy?.CanUpdate(entity) ?? true)
+            {
+                if (savingStrategy?.CanUpdateAllProperties(entity) ?? true)
+                {
+                    Update(entity);
+                }
+                else
+                {
+                    var properties = savingStrategy.GetPropertiesForUpdate(entity);
+
+                    UpdateWithIncludeOrExcludeProperties(entity, true, properties);
+                }
+
+                result = SaveUpdatedWithOptimisticConcurrencyAsync(entity, writeError, cleanRowVersion, false);
+            }
+            else
+            {
+                writeError(string.Empty, "Access denied");
+
+                result = ValueTask.FromResult(false);
+            }
+
+            return result;
+        }
+
+        public virtual async ValueTask<TOutput> SaveUpdatedWithOptimisticConcurrencyAsync<TOutput>(IHasRowVersion input,
+            IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion,
+            IDataAccessStrategy<T> savingStrategy = default)
+        {
+            TOutput result = default;
+
+            var entity = mapper.Map<T>(input);
+
+            bool success = await SaveUpdatedWithOptimisticConcurrencyAsync(entity, principal, writeError, cleanRowVersion, savingStrategy);
+
+            if (success)
+                result = mapper.Map<TOutput>(entity);
+
+            return result;
+        }
+
+        public virtual async ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(IHasRowVersion input,
+            IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion,
+            IDataAccessStrategy<T> savingStrategy = default)
+        {
+            bool result = false;
+
+            var entity = mapper.Map<T>(input);
+
+            result = await SaveUpdatedWithOptimisticConcurrencyAsync(entity, principal, writeError, cleanRowVersion, savingStrategy);
+
+            if (result)
+                mapper.Map(entity, input);
+
+            return result;
+        }
+
+        public virtual async ValueTask<TOutput> SaveUpdatedWithOptimisticConcurrencyAsync<TOutput>(IHasRowVersion source,
+            T destination, IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion,
+            IDataAccessStrategy<T> savingStrategy = default)
+        {
+            savingStrategy ??= dataAccessStrategy;
+
+            TOutput result = default;
+
+            if (savingStrategy?.CanUpdate(destination) ?? true)
+            {
+                if (savingStrategy?.CanUpdateAllProperties(destination) ?? true)
+                {
+                    mapper.Map(source, destination);
+                }
+                else
+                {
+                    var properties = savingStrategy.GetPropertiesForUpdate(destination);
+
+                    UpdateWithIncludeOrExcludeProperties(source, destination, true, properties);
+                }
+
+                bool success = await SaveUpdatedWithOptimisticConcurrencyAsync(destination, writeError, cleanRowVersion, false);
+
+                if (success)
+                    result = mapper.Map<TOutput>(destination);
+            }
+            else
+            {
+                writeError(string.Empty, "Access denied");
+            }
+
+            return result;
+        }
+
+        public async Task<bool> SaveNewAsync<TInput>(TInput input, IPrincipal principal, IDataAccessStrategy<T> savingStrategy = default, params object[] args)
+        {
+            savingStrategy ??= dataAccessStrategy;
+
+            savingStrategy.ThrowIfNull(nameof(savingStrategy));
+
+            bool result = false;
+
+            args = args.Concat(input);
+
+            bool canAdd = await savingStrategy.CanAdd(args);
+
+            if (canAdd)
+            {
+                savingStrategy.PrepareForAdd(args);
+
+                await SaveNewAsync(input); //I tak EF nie obsługuje operacji równoległych
+
+                result = true;
+            }
+
+            return result;
+        }
+
+        public virtual ValueTask<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, IPrincipal principal,
+            Action<string, string> writeError, IDataAccessStrategy<T> savingStrategy = default)
+        {
+            savingStrategy ??= dataAccessStrategy;
+
+            ValueTask<bool> result;
+
+            if (!(savingStrategy?.CanDelete(entity) ?? false))
+            {
+                writeError(string.Empty, "Access denied");
+
+                result = ValueTask.FromResult(false);
+            }
+            else
+            {
+                result = DeleteAndCommitWithOptimisticConcurrencyAsync(entity, writeError);
+            }
+
+            return result;
         }
     }
 }

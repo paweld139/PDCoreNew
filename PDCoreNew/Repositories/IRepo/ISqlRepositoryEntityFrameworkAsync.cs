@@ -1,7 +1,10 @@
-﻿using PDCoreNew.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PDCoreNew.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -44,15 +47,42 @@ namespace PDCoreNew.Repositories.IRepo
 
         Task DeleteAndCommitAsync(T entity);
 
-        Task<int> CommitAsClientWinsAsync();
+        ValueTask<int> CommitAsClientWinsAsync();
 
-        Task<int> CommitAsDatabaseWinsAsync();
+        ValueTask<int> CommitAsDatabaseWinsAsync();
 
-        Task<int> CommitWithOptimisticConcurrencyAsync();
+        ValueTask<int> CommitWithOptimisticConcurrencyAsync();
 
-        Task<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError);
+        ValueTask<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError);
         ValueTask<T> FindByKeyValuesAsync(params object[] keyValues);
         ValueTask<T> FindByKeyValuesAsync(CancellationToken cancellationToken, params object[] keyValues);
         Task<bool> ExistsAsync<TKey>(TKey id);
+
+        LocalView<T> GetAllFromMemory();
+
+        ValueTask<LocalView<T>> GetAllFromMemoryAsync();
+
+
+        T Add();
+        T AddAndReturn(T entity);
+        Task LoadAsync();
+        EntityEntry<T> AddAndReturnEntry(T entity);
+        void SaveNew(T entity);
+        ValueTask<int> SaveNewAsync(T entity);
+        Task SaveNewAsync<TInput>(TInput input);
+        void SaveUpdated(T entity);
+        Task SaveUpdatedAsync(T entity);
+        bool SaveUpdatedWithOptimisticConcurrency(T entity, Action<string, string> writeError, Action<string> cleanRowVersion, bool update = true, bool? include = null, params Expression<Func<T, object>>[] properties);
+        ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(T entity, Action<string, string> writeError, Action<string> cleanRowVersion, bool update = true, bool? include = null, params Expression<Func<T, object>>[] properties);
+        void DeleteByKeyValues(params object[] keyValues);
+        void DeleteAndCommit(params object[] keyValues);
+        Task DeleteAndCommitAsync(params object[] keyValues);
+        void Update(T entity, IHasRowVersion dto);
+        ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(T entity, IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion, IDataAccessStrategy<T> savingStrategy = null);
+        ValueTask<TOutput> SaveUpdatedWithOptimisticConcurrencyAsync<TOutput>(IHasRowVersion input, IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion, IDataAccessStrategy<T> savingStrategy = null);
+        ValueTask<bool> SaveUpdatedWithOptimisticConcurrencyAsync(IHasRowVersion input, IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion, IDataAccessStrategy<T> savingStrategy = null);
+        ValueTask<TOutput> SaveUpdatedWithOptimisticConcurrencyAsync<TOutput>(IHasRowVersion source, T destination, IPrincipal principal, Action<string, string> writeError, Action<string> cleanRowVersion, IDataAccessStrategy<T> savingStrategy = null);
+        Task<bool> SaveNewAsync<TInput>(TInput input, IPrincipal principal, IDataAccessStrategy<T> savingStrategy = null, params object[] args);
+        ValueTask<bool> DeleteAndCommitWithOptimisticConcurrencyAsync(T entity, IPrincipal principal, Action<string, string> writeError, IDataAccessStrategy<T> savingStrategy = null);
     }
 }
