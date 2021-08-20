@@ -1,28 +1,19 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using PDCoreNew.Extensions;
-using PDCoreNew.Services.Serv;
 using System.ComponentModel.DataAnnotations;
 
 namespace PDCoreNew.Extensions
 {
     public static class ValidationExtensions
     {
-        public static string GetLocalizedError(this ValidationContext validationContext, string errorNessage)
+        public static LocalizedString GetLocalizedError(this ValidationContext validationContext, string errorMessage)
         {
-            var stringLocalizerFactory = (IStringLocalizerFactory)validationContext.GetService(typeof(IStringLocalizerFactory));
+            var localizationService = validationContext.GetService<IStringLocalizer<Resource>>();
 
-            var localizationService = new LocalizationService(stringLocalizerFactory);
-
-            var localizedError = localizationService.GetLocalizedString(errorNessage);
+            var localizedError = localizationService[errorMessage];
 
             return localizedError;
-        }
-
-        public static void PrepareValidationResult(this ValidationAttribute validationAttribute, ValidationContext validationContext, string errorKey)
-        {
-            var localizedError = validationContext.GetLocalizedError(errorKey);
-
-            validationAttribute.ErrorMessage = localizedError;
         }
     }
 }
@@ -38,34 +29,19 @@ namespace System.ComponentModel.DataAnnotations
 
     public class LocalizedStringLengthEqualAttribute : StringLengthAttribute
     {
-        private const string errorKey = "StringLength_Equal";
-
         public LocalizedStringLengthEqualAttribute(int length) : base(length)
         {
+            ErrorMessage = "StringLength_Equal";
+
             MinimumLength = length;
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
         }
     }
 
     public sealed class LocalizedStringLengthMaxAttribute : StringLengthAttribute
     {
-        private const string errorKey = "StringLength_Less";
-
         public LocalizedStringLengthMaxAttribute(int maximumLength) : base(maximumLength)
         {
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
+            ErrorMessage = "StringLength_Less";
         }
     }
 
@@ -85,69 +61,40 @@ namespace System.ComponentModel.DataAnnotations
 
     public class LocalizedRangeAttribute : RangeAttribute
     {
-        private const string errorKey = "Range";
+        private void SetData() => ErrorMessage = "Range";
 
         public LocalizedRangeAttribute(double minimum, double maximum) : base(minimum, maximum)
         {
+            SetData();
         }
 
         public LocalizedRangeAttribute(Type type, string minimum, string maximum) : base(type, minimum, maximum)
         {
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
+            SetData();
         }
     }
 
     public sealed class LocalizedMinLengthAttribute : MinLengthAttribute
     {
-        private const string errorKey = "MinLength";
-
         public LocalizedMinLengthAttribute(int length) : base(length)
         {
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
+            ErrorMessage = "MinLength";
         }
     }
 
     public sealed class LocalizedRequiredAttribute : RequiredAttribute
     {
-        private const string errorKey = "RequiredError";
-
         public LocalizedRequiredAttribute()
         {
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
+            ErrorMessage = "RequiredError";
         }
     }
 
     public sealed class LocalizedMaxLengthAttribute : MaxLengthAttribute
     {
-        private const string errorKey = "MaxLength";
-
         public LocalizedMaxLengthAttribute(int length) : base(length)
         {
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            this.PrepareValidationResult(validationContext, errorKey);
-
-            return base.IsValid(value, validationContext);
+            ErrorMessage = "MaxLength";
         }
     }
 
@@ -190,11 +137,11 @@ namespace System.ComponentModel.DataAnnotations
         {
             var localizedError = validationContext.GetLocalizedError(ErrorMessage);
 
-
             var propertyTestedInfo = validationContext.ObjectType.GetProperty(testedPropertyName);
+
             if (propertyTestedInfo == null)
             {
-                return new ValidationResult(string.Format("unknown property {0}", testedPropertyName));
+                return new ValidationResult(string.Format("Unknown property {0}", testedPropertyName));
             }
 
             if (value == null || !(value is DateTime))
@@ -203,6 +150,7 @@ namespace System.ComponentModel.DataAnnotations
             }
 
             var propertyTestedValue = propertyTestedInfo.GetValue(validationContext.ObjectInstance, null);
+
 
             if (propertyTestedValue == null || !(propertyTestedValue is DateTime))
             {
@@ -224,6 +172,5 @@ namespace System.ComponentModel.DataAnnotations
 
             return new ValidationResult(string.Format(localizedError, validationContext.DisplayName));
         }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace PDCoreNew.Resource
+﻿namespace PDCoreNew
 {
     public class Resource
     {       

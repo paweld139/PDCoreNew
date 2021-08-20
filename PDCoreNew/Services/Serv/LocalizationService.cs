@@ -9,7 +9,7 @@ namespace PDCoreNew.Services.Serv
 
         public LocalizationService(IStringLocalizerFactory factory)
         {
-            var type = typeof(Resource.Resource);
+            var type = typeof(Resource);
 
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
 
@@ -25,4 +25,23 @@ namespace PDCoreNew.Services.Serv
             return localizedString.Value;
         }
     }
+    public class LocalizationService2
+    {
+        private readonly IStringLocalizer _localizer;
+
+        public LocalizationService2(IStringLocalizerFactory factory)
+        {
+            _localizer = factory.Create(typeof(Resource));
+        }
+
+        public LocalizedString GetLocalizedString(string key) => _localizer[key];
+
+        public string GetValue(string key)
+        {
+            var localizedString = GetLocalizedString(key);
+
+            return localizedString.Value;
+        }
+    }
+
 }
