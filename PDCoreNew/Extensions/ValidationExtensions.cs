@@ -108,7 +108,7 @@ namespace System.ComponentModel.DataAnnotations
         }
     }
 
-    public class LocalizedEnforceTrueAttribute : ValidationAttribute
+    public class LocalizedEnforceTrueAttribute : EnforceTrueAttribute
     {
         public LocalizedEnforceTrueAttribute()
         {
