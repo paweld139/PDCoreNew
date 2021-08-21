@@ -45,6 +45,16 @@ namespace System.ComponentModel.DataAnnotations
         }
     }
 
+    public sealed class LocalizedStringLengthMinMaxAttribute : StringLengthAttribute
+    {
+        public LocalizedStringLengthMinMaxAttribute(int minimumLength, int maximumLength) : base(maximumLength)
+        {
+            MinimumLength = minimumLength;
+
+            ErrorMessage = "StringLength_GreaterAndLess";
+        }
+    }
+
     public sealed class LocalizedRangeIntAttribute : LocalizedRangeAttribute
     {
         public LocalizedRangeIntAttribute() : base(1, int.MaxValue)
@@ -98,19 +108,33 @@ namespace System.ComponentModel.DataAnnotations
         }
     }
 
+    public class LocalizedEnforceTrueAttribute : ValidationAttribute
+    {
+        public LocalizedEnforceTrueAttribute()
+        {
+            ErrorMessage = "EnforceTrue";
+        }
+    }
+
     /// <summary>
     /// Validation attribute that demands that a boolean value must be true.
     /// </summary>
     public class EnforceTrueAttribute : ValidationAttribute
     {
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value == null) return false;
+            if (value == null)
+                return ValidationResult.Success;
 
-            if (value.GetType() != typeof(bool))
-                throw new InvalidOperationException("can only be used on boolean properties.");
+            if (value is not bool)
+                return new ValidationResult($"{nameof(EnforceTrueAttribute)} can only be used on boolean properties");
 
-            return (bool)value == true;
+            if ((bool)value)
+                return ValidationResult.Success;
+
+            var localizedError = validationContext.GetLocalizedError(ErrorMessage);
+
+            return new ValidationResult(string.Format(localizedError, validationContext.DisplayName));
         }
     }
 

@@ -357,6 +357,9 @@
   <data name="Ended" xml:space="preserve">
     <value>Zakończone</value>
   </data>
+  <data name="EnforceTrue" xml:space="preserve">
+    <value>{0} musi być zaznaczone</value>
+  </data>
   <data name="EnterEmail" xml:space="preserve">
     <value>Wprowadź swój email</value>
   </data>
@@ -784,7 +787,7 @@
     <value>{0} musi mieć co najmniej {1} znaków</value>
   </data>
   <data name="StringLength_Greater1" xml:space="preserve">
-    <value>{0} musi mieć co najmniej {2} znaków</value>
+    <value>{0} musi mieć co najmniej {1} znaków</value>
   </data>
   <data name="StringLength_GreaterAndLess" xml:space="preserve">
     <value>{0} musi mieć co najmniej {2} i nie więcej niż {1} znaków</value>

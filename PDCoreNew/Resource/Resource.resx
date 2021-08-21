@@ -357,6 +357,9 @@
   <data name="Ended" xml:space="preserve">
     <value>Ended</value>
   </data>
+  <data name="EnforceTrue" xml:space="preserve">
+    <value>{0} must be checked</value>
+  </data>
   <data name="EnterEmail" xml:space="preserve">
     <value>Enter your email</value>
   </data>
@@ -787,7 +790,7 @@
     <value>{0} must be at least {2} characters long</value>
   </data>
   <data name="StringLength_GreaterAndLess" xml:space="preserve">
-    <value>{0} cannot be longer than {1} characters</value>
+    <value>{0} must be at least {2} and cannot be longer than {1} characters long</value>
   </data>
   <data name="StringLength_GreaterAndLess1" xml:space="preserve">
     <value>{0} must be at least {2} and cannot be longer than {1} characters long</value>
