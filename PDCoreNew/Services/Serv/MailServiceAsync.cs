@@ -1,21 +1,20 @@
-﻿using PDCoreNew.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PDCoreNew.Models;
 using PDCoreNew.Services.IServ;
 using System;
 using System.ComponentModel;
 using System.Net.Mail;
-using Unity;
 
 namespace PDCoreNew.Services.Serv
 {
     public class MailServiceAsync : MailService, IMailServiceAsync
     {
-        public MailServiceAsync(SmtpSettingsModel smtpSettingsModel, ILogger logger) : base(smtpSettingsModel, logger)
+        public MailServiceAsync(IOptions<SmtpSettingsModel> smtpSettingsModel, ILogger<MailService> logger) : base(smtpSettingsModel, logger)
         {
         }
 
-        [InjectionConstructor]
-        public MailServiceAsync(ILogger logger) : base(logger)
+        public MailServiceAsync(ILogger<MailService> logger) : base(logger)
         {
         }
 
@@ -52,11 +51,11 @@ namespace PDCoreNew.Services.Serv
             {
                 client.SendAsync(message, message);
 
-                logger.Info(string.Format(SendStatusMessageFormat, "Sending async", message.To, message.Subject));
+                logger.LogInformation(SendStatusMessageFormat, "Sending async", message.To, message.Subject);
             }
             catch (Exception ex)
             {
-                logger.Fatal("Async email error", ex);
+                logger.LogCritical(ex, "Async email error");
             }
         }
 
@@ -66,15 +65,15 @@ namespace PDCoreNew.Services.Serv
 
             if (e.Error != null)
             {
-                logger.Error(string.Format(SendStatusMessageFormat, "Error sending", mail.To, mail.Subject), e.Error);
+                logger.LogError(e.Error, SendStatusMessageFormat, "Error sending", mail.To, mail.Subject);
             }
             else if (e.Cancelled)
             {
-                logger.Warn(string.Format(SendStatusMessageFormat, "Cancelled", mail.To, mail.Subject));
+                logger.LogWarning(SendStatusMessageFormat, "Cancelled", mail.To, mail.Subject);
             }
             else
             {
-                logger.Info(string.Format(SendStatusMessageFormat, "Sent email", mail.To, mail.Subject));
+                logger.LogInformation(SendStatusMessageFormat, "Sent email", mail.To, mail.Subject);
             }
         }
     }

@@ -1,10 +1,10 @@
-﻿using PDCoreNew.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PDCoreNew.Models;
 using PDCoreNew.Services.IServ;
 using System;
 using System.Configuration;
 using System.Net.Mail;
-using Unity;
 
 namespace PDCoreNew.Services.Serv
 {
@@ -14,15 +14,14 @@ namespace PDCoreNew.Services.Serv
 
         private readonly SmtpSettingsModel smtpSettingsModel;
 
-        public MailService(SmtpSettingsModel smtpSettingsModel, ILogger logger) : this(logger)
+        public MailService(IOptions<SmtpSettingsModel> smtpSettingsModel, ILogger<MailService> logger) : this(logger)
         {
-            this.smtpSettingsModel = smtpSettingsModel;
+            this.smtpSettingsModel = smtpSettingsModel.Value;
         }
 
-        protected readonly ILogger logger;
+        protected readonly ILogger<MailService> logger;
 
-        [InjectionConstructor]
-        public MailService(ILogger logger)
+        public MailService(ILogger<MailService> logger)
         {
             this.logger = logger;
         }
@@ -82,15 +81,15 @@ namespace PDCoreNew.Services.Serv
         {
             try
             {
-                logger.Info(string.Format(SendStatusMessageFormat, "Sending sync", message.To, message.Subject));
+                logger.LogInformation(SendStatusMessageFormat, "Sending sync", message.To, message.Subject);
 
                 client.Send(message);
 
-                logger.Info(string.Format(SendStatusMessageFormat, "Sent email", message.To, message.Subject));
+                logger.LogInformation(SendStatusMessageFormat, "Sent email", message.To, message.Subject);
             }
             catch (Exception ex)
             {
-                logger.Error(string.Format(SendStatusMessageFormat, "Error sending", message.To, message.Subject), ex);
+                logger.LogError(ex, SendStatusMessageFormat, "Error sending", message.To, message.Subject);
             }
             finally
             {

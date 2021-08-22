@@ -1,22 +1,21 @@
-﻿using PDCoreNew.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PDCoreNew.Models;
 using PDCoreNew.Services.IServ;
 using System;
 using System.ComponentModel;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Unity;
 
 namespace PDCoreNew.Services.Serv
 {
     public class MailServiceAsyncTask : MailServiceAsync, IMailServiceAsyncTask
     {
-        public MailServiceAsyncTask(SmtpSettingsModel smtpSettingsModel, ILogger logger) : base(smtpSettingsModel, logger)
+        public MailServiceAsyncTask(IOptions<SmtpSettingsModel> smtpSettingsModel, ILogger<MailService> logger) : base(smtpSettingsModel, logger)
         {
         }
 
-        [InjectionConstructor]
-        public MailServiceAsyncTask(ILogger logger) : base(logger)
+        public MailServiceAsyncTask(ILogger<MailService> logger) : base(logger)
         {
         }
 
@@ -50,7 +49,7 @@ namespace PDCoreNew.Services.Serv
                         Task sendMailTask = client.SendMailAsync(message);
 
 
-                        logger.Info(string.Format(SendStatusMessageFormat, "Sending async", message.To, message.Subject));
+                        logger.LogInformation(SendStatusMessageFormat, "Sending async", message.To, message.Subject);
 
 
                         await sendMailTask;
@@ -60,7 +59,7 @@ namespace PDCoreNew.Services.Serv
                     }
                     catch (Exception ex)
                     {
-                        logger.Fatal("Async email error", ex);
+                        logger.LogCritical(ex, "Async email error");
                     }
                 }
             }
