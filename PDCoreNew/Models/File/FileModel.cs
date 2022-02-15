@@ -6,17 +6,13 @@ using System.Runtime.Serialization;
 
 namespace PDCoreNew.Models
 {
-    [Table("File", Schema = "dbo")]
-    [DataContract(Name = "file", Namespace = "")]
     public class FileModel : FileBrief, IModificationHistory
-    {       
-        //[Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+    {
         [DataType(DataType.Text)]
-        [StringLength(100, MinimumLength = 0, ErrorMessageResourceName = "StringLength_GreaterAndLess", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
-        [DataMember(Name = "mimeType")]
+        [LocalizedStringLengthMinMax(0, 100)]
         public string MimeType { get; set; }
 
-        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
+        [LocalizedRequired]
         public int RefId { get; set; }
 
         public ObjType RefGid { get; set; }
@@ -26,22 +22,27 @@ namespace PDCoreNew.Models
         public int GroupId { get; set; }
 
         [NotMapped]
-        [DataMember(Name = "source")]
         public string Source { get; set; }
 
         [NotMapped]
         public byte[] Data { get; set; }
 
 
+
+        #region ModificationHistory
+
         public DateTime DateModified { get; set; }
 
         public DateTime DateCreated { get; set; }
 
-        [NotMapped]
-        public bool IsDirty { get; set; }
-
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        [IgnoreDataMember]
+        public bool IsDirty { get; set; }
+
+        #endregion
+
 
         public string GetNameWithExtension() => $"{Name}.{Extension}";
     }

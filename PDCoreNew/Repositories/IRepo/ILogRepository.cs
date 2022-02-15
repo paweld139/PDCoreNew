@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PDCoreNew.Repositories.IRepo
 {
-    public interface ILogRepo : ISqlRepositoryEntityFramework<LogModel>
+    public interface ILogRepository : ISqlRepositoryEntityFrameworkAsync<LogModel>
     {
         Task<List<LogDetailsProxy>> GetAsync(LogDTO log, CancellationToken cancellationToken);
         Task<List<LogDetailsProxy>> GetAsync(LogDTO log);

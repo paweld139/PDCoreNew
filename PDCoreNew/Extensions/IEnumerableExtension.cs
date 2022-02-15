@@ -494,5 +494,7 @@ namespace PDCoreNew.Extensions
         {
             return source == null ? null : string.Join(", ", source.ConvertOrCastTo<int, TEnum>());
         }
+
+        public static bool IsNotEmpty<T>(this IEnumerable<T> source) => source?.Any() ?? false;
     }
 }

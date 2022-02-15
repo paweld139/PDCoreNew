@@ -14,14 +14,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
@@ -506,9 +504,14 @@ namespace PDCoreNew.Extensions
 
         public static T? NullIf<T>(this T left, T right) where T : struct
         {
-            return EqualityComparer<T>.Default.Equals(left, right) ? (T?)null : left;
+            return EqualityComparer<T>.Default.Equals(left, right) ? null : left;
         }
 
         public static T? AsNullable<T>(this T input) where T : struct => (T?)input;
+
+        public static KeyValuePair<TKey, TValue> GetKeyValuePair<TKey, TValue>(this TKey key, TValue value)
+        {
+            return new KeyValuePair<TKey, TValue>(key, value);
+        }
     }
 }

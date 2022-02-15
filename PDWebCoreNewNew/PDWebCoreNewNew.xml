@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PDWebCoreNewNew</name>
+    </assembly>
+    <members>
+        <member name="M:PDWebCoreNewNew.Utils.IOUtils.GenerateRandomPassword(Microsoft.AspNetCore.Identity.PasswordOptions)">
+            <summary>
+            Generates a Random Password
+            respecting the given strength requirements.
+            </summary>
+            <param name="opts">A valid PasswordOptions object
+            containing the password strength requirements.</param>
+            <returns>A random password</returns>
+        </member>
+    </members>
+</doc>

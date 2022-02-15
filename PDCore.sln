@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDCore.Tests", "PDCore.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDWebCoreNew", "PDWebCoreNew\PDWebCoreNew.csproj", "{3201633B-6FB3-4407-8D35-7AB86852DB9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDCoreNew", "PDCoreNew\PDCoreNew.csproj", "{EFA193CD-88BE-4580-84B8-D8B358150446}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDCoreNew", "PDCoreNew\PDCoreNew.csproj", "{EFA193CD-88BE-4580-84B8-D8B358150446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PDWebCoreNewNew", "PDWebCoreNewNew\PDWebCoreNewNew.csproj", "{6473E497-CCEE-47F1-813A-4E2CF939C89B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PDWebCoreNewNew", "PDWebCoreNewNew\PDWebCoreNewNew.csproj", "{6473E497-CCEE-47F1-813A-4E2CF939C89B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

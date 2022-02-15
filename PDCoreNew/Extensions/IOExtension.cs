@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -65,6 +66,15 @@ namespace PDCoreNew.Extensions
             byte[] buf = ms.GetBuffer(); //Pobranie tablicy bajtów ze strumienia danych
 
             return buf; //Zwrócenie tablicy najtów
+        }
+
+        public static async Task UpdateFile(this string path, IDictionary<string, string> variables)
+        {
+            string fileContent = await File.ReadAllTextAsync(path);
+
+            fileContent = fileContent.Blueprint(variables);
+
+            await File.WriteAllTextAsync(path, fileContent);
         }
     }
 }

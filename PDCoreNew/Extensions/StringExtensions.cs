@@ -367,5 +367,100 @@ namespace PDCoreNew.Extensions
 
             return isInt;
         }
+
+        public static string ToSnakeCase(this string name, CultureInfo cultureInfo = null)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return name;
+            }
+
+            cultureInfo ??= CultureInfo.InvariantCulture;
+
+            var builder = new StringBuilder(name.Length + Math.Min(2, name.Length / 5));
+            var previousCategory = default(UnicodeCategory?);
+
+            for (var currentIndex = 0; currentIndex < name.Length; currentIndex++)
+            {
+                var currentChar = name[currentIndex];
+                if (currentChar == '_')
+                {
+                    builder.Append('_');
+                    previousCategory = null;
+                    continue;
+                }
+
+                var currentCategory = char.GetUnicodeCategory(currentChar);
+                switch (currentCategory)
+                {
+                    case UnicodeCategory.UppercaseLetter:
+                    case UnicodeCategory.TitlecaseLetter:
+                        if (previousCategory == UnicodeCategory.SpaceSeparator ||
+                            previousCategory == UnicodeCategory.LowercaseLetter ||
+                            previousCategory != UnicodeCategory.DecimalDigitNumber &&
+                            previousCategory != null &&
+                            currentIndex > 0 &&
+                            currentIndex + 1 < name.Length &&
+                            char.IsLower(name[currentIndex + 1]))
+                        {
+                            builder.Append('_');
+                        }
+
+                        currentChar = char.ToLower(currentChar, cultureInfo);
+                        break;
+
+                    case UnicodeCategory.LowercaseLetter:
+                    case UnicodeCategory.DecimalDigitNumber:
+                        if (previousCategory == UnicodeCategory.SpaceSeparator)
+                        {
+                            builder.Append('_');
+                        }
+                        break;
+
+                    default:
+                        if (previousCategory != null)
+                        {
+                            previousCategory = UnicodeCategory.SpaceSeparator;
+                        }
+                        continue;
+                }
+
+                builder.Append(currentChar);
+                previousCategory = currentCategory;
+            }
+
+            return builder.ToString();
+        }
+
+        public static string ToFlagEmoji(this string country)
+        {
+            country = country
+                .Split('-')
+                .LastOrDefault();
+
+            if (country == null)
+                return "⁉️️";
+
+            return string.Concat(
+                country
+                .ToUpper()
+                .Select(x => char.ConvertFromUtf32(x + 0x1F1A5))
+            );
+        }
+
+        public static string Blueprint(this string text, IEnumerable<KeyValuePair<string, string>> variables)
+        {
+            foreach (var item in variables)
+            {
+                text = text.Replace($"{{{{{item.Key}}}}}", item.Value, StringComparison.InvariantCulture);
+            }
+
+            return text;
+        }
+
+        public static string Blueprint(this string text, params KeyValuePair<string, string>[] variables)
+        {
+            return Blueprint(text, variables.AsEnumerable());
+        }
     }
 }

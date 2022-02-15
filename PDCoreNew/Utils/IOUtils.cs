@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using PDCoreNew.Extensions;
 using PDCoreNew.Helpers.DataLoaders;
 using PDCoreNew.Interfaces;
@@ -327,6 +328,180 @@ namespace PDCoreNew.Utils
             return string.Format("{0:n" + decimalPlaces + "} {1}",
                 adjustedSize,
                 SizeSuffixes[mag]);
+        }
+
+        public async static Task<T> DeserializeJson<T>(string path)
+        {
+            string content = await File.ReadAllTextAsync(path);
+
+            return JsonConvert.DeserializeObject<T>(content);
+        }
+
+        public async static Task<(string output, string errorMsg)> ExecuteCommand(string fileName, string command, string workingDirectory = null)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = fileName,
+                Arguments = command,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                WorkingDirectory = workingDirectory.EmptyIfNull()
+            };
+
+            string output = null, errorMsg = null;
+
+            using (var process = new Process { StartInfo = startInfo })
+            {
+                process.Start();
+
+                output = await process.StandardOutput.ReadToEndAsync();
+                errorMsg = await process.StandardError.ReadToEndAsync();
+
+                await process.WaitForExitAsync();
+            }
+
+            return (output, errorMsg);
+        }
+
+        public static Task<(string output, string errorMsg)> ExecuteBashCommand(string command, string workingDirectory = null)
+        {
+            return ExecuteCommand("/bin/bash", $"-c \"{command}\"", workingDirectory);
+        }
+
+        public static Task<(string output, string errorMsg)> ExecuteCmdCommand(string command, string workingDirectory = null)
+        {
+            return ExecuteCommand("cmd.exe", $"/C {command}", workingDirectory);
+        }
+
+        // This method accepts two strings the represent two files to
+        // compare. A return value of 0 indicates that the contents of the files
+        // are the same. A return value of any other value indicates that the
+        // files are not the same.
+        public static bool FilesAreEqual(string file1, string file2)
+        {
+            int file1byte;
+            int file2byte;
+            FileStream fs1;
+            FileStream fs2;
+
+            // Determine if the same file was referenced two times.
+            if (file1 == file2)
+            {
+                // Return true to indicate that the files are the same.
+                return true;
+            }
+
+            // Open the two files.
+            fs1 = new FileStream(file1, FileMode.Open);
+            fs2 = new FileStream(file2, FileMode.Open);
+
+            // Check the file sizes. If they are not the same, the files
+            // are not the same.
+            if (fs1.Length != fs2.Length)
+            {
+                // Close the file
+                fs1.Close();
+                fs2.Close();
+
+                // Return false to indicate files are different
+                return false;
+            }
+
+            // Read and compare a byte from each file until either a
+            // non-matching set of bytes is found or until the end of
+            // file1 is reached.
+            do
+            {
+                // Read one byte from each file.
+                file1byte = fs1.ReadByte();
+                file2byte = fs2.ReadByte();
+            }
+            while ((file1byte == file2byte) && (file1byte != -1));
+
+            // Close the files.
+            fs1.Close();
+            fs2.Close();
+
+            // Return the success of the comparison. "file1byte" is
+            // equal to "file2byte" at this point only if the files are
+            // the same.
+            return ((file1byte - file2byte) == 0);
+        }
+
+        public static void CloneDirectory(string source, string destination, bool clean, bool isRoot = true)
+        {
+            var directoryInfo = new DirectoryInfo(source);
+
+            foreach (var directory in directoryInfo.EnumerateDirectories())
+            {
+                string directoryName = directory.Name;
+
+                string directoryToSave = Path.Combine(destination, directoryName);
+
+                if (!Directory.Exists(directoryToSave))
+                {
+                    Directory.CreateDirectory(directoryToSave);
+                }
+
+                CloneDirectory(directory.FullName, directoryToSave, clean, false);
+            }
+
+            foreach (var file in directoryInfo.EnumerateFiles())
+            {
+                string fileName = file.Name;
+
+                string fileToSave = Path.Combine(destination, fileName);
+
+                if (!File.Exists(fileToSave))
+                {
+                    if (clean)
+                        file.MoveTo(fileToSave);
+                    else
+                        file.CopyTo(fileToSave);
+                }
+                else
+                {
+                    bool filesAreEqual = FilesAreEqual(file.FullName, fileToSave);
+
+                    if (!filesAreEqual)
+                    {
+                        if (clean)
+                        {
+                            File.Delete(fileToSave);
+
+                            file.MoveTo(fileToSave);
+                        }
+                        else
+                        {
+                            file.CopyTo(fileToSave, true);
+                        }
+                    }
+                    else
+                    {
+                        file.Delete();
+                    }
+                }
+            }
+
+            if (clean && !isRoot)
+                directoryInfo.Delete();
+        }
+
+        public static void ClearDirectory(string path)
+        {
+            var di = new DirectoryInfo(path);
+
+            foreach (FileInfo file in di.EnumerateFiles())
+            {
+                file.Delete();
+            }
+
+            foreach (DirectoryInfo dir in di.EnumerateDirectories())
+            {
+                dir.Delete(true);
+            }
         }
     }
 }

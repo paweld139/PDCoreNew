@@ -4,6 +4,7 @@ using PDCoreNew.Utils;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IOUtils = PDWebCoreNewNew.Utils.IOUtils;
 
@@ -73,6 +74,11 @@ namespace PDWebCoreNewNew.Extensions
             await formFile.CopyToAsync(memoryStream);
 
             return memoryStream.ToArray();
+        }
+
+        public static ClaimsPrincipal GetUser(this IHttpContextAccessor httpContextAccessor)
+        {
+            return httpContextAccessor.HttpContext?.User;
         }
     }
 }

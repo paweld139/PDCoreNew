@@ -1,0 +1,1990 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PDCoreNew</name>
+    </assembly>
+    <members>
+        <member name="T:PDCoreNew.Attributes.DateTimeKindAttribute">
+            <summary> Sets the DateTime.Kind value on DateTime and DateTime? members retrieved by Entity Framework. Sets Kind to DateTimeKind.Utc by default. </summary>
+        </member>
+        <member name="F:PDCoreNew.Attributes.DateTimeKindAttribute.Kind">
+            <summary> The DateTime.Kind value to set into the returned value. </summary>
+        </member>
+        <member name="M:PDCoreNew.Attributes.DateTimeKindAttribute.#ctor(System.DateTimeKind)">
+            <summary> Specifies the DateTime.Kind value to set on the returned DateTime value. </summary>
+            <param name="kind"> The DateTime.Kind value to set on the returned DateTime value. </param>
+        </member>
+        <member name="M:PDCoreNew.Attributes.DateTimeKindAttribute.Apply(System.Object,System.Nullable{System.DateTimeKind})">
+            <summary> Event handler to connect to the ObjectContext.ObjectMaterialized event. </summary>
+            <param name="entity"> The entity (POCO class) being materialized. </param>
+            <param name="defaultKind"> [Optional] The Kind property to set on all DateTime objects by default. </param>
+        </member>
+        <member name="T:PDCoreNew.Attributes.OrderAttribute">
+            <summary>
+            Atrybut do zastosowania na właściwościach w celu określenia porządku tych właściwości. Nie może być dziedziczony przez klasy pochodne 
+            (modyfikator dostępu - access modifier - "sealed" i "Inherited = false"), może być tylko jeden.
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Attributes.OrderAttribute.#ctor(System.Int32)">
+            <summary>
+            Konstruktor z domyślną wartością "order"
+            </summary>
+            <param name="order">Liczba określająca miejsce właściwości, jej kolejność.</param>
+        </member>
+        <member name="P:PDCoreNew.Attributes.OrderAttribute.Order">
+            <summary>
+            Można ustawić tylko poprzez konstruktor, ale można pobrać z każdego miejsca
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Attributes.UtcDateAnnotation.ApplyUtcDateTimeConverter(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Make sure this is called after configuring all your entities.
+            </summary>
+        </member>
+        <member name="T:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.VisibleFieldCount">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.Depth">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.FieldCount">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.HasRows">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.IsClosed">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.RecordsAffected">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.Item(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetBoolean(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetByte(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetBytes(System.Int32,System.Int64,System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetChar(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetChars(System.Int32,System.Int64,System.Char[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetDataTypeName(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetDateTime(System.Int32)">
+            <summary>
+            Returns datetime with Utc kind
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetDecimal(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetDouble(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetFieldType(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetFloat(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetGuid(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetInt16(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetInt32(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetInt64(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetName(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetOrdinal(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetString(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetValue(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetValues(System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.IsDBNull(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.NextResult">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.Read">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.Close">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetFieldValue``1(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetFieldValueAsync``1(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetProviderSpecificFieldType(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetProviderSpecificValue(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetProviderSpecificValues(System.Object[])">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetSchemaTable">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetStream(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.GetTextReader(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.IsDBNullAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:PDCoreNew.Configuration.DbConfiguration.DataReaders.UtcDbDataReader.ReadAsync(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:PDCoreNew.Context.IContext.IDbContext">
+            <summary>
+            Interfejs zawierający metody przydatne dla kontekstu bazy danych bez brania pod uwagę specyficznych uwarunkowań implementacyjnych.
+            Obiekt implementujący ten interfejs musi być disposable
+            </summary>
+        </member>
+        <member name="P:PDCoreNew.Context.IContext.IDbContext.IsLoggingEnabled">
+            <summary>
+            Określenie czy logowanie informacji o zapytaniach jest aktualnie aktywne
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Context.IContext.IDbContext.SetLogging(System.Boolean,PDCoreNew.Interfaces.ILogger)">
+            <summary>
+            Ustawienie czy logowanie informacji o zapytaniach ma być aktywne
+            </summary>
+            <param name="res">Flaga czy logowanie informacji o zapytaniach ma być aktywne</param>
+        </member>
+        <member name="T:PDCoreNew.Enums.CertificateType">
+            <summary>
+            Typ certyfikatu
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Enums.CertificateType.WSS">
+            <summary>
+            Certyfikat WSS służący do podpisywania wiadomości
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Enums.CertificateType.TLS">
+            <summary>
+            Certyfikat służący do zabezpieczenia komunikacji
+            </summary>
+        </member>
+        <member name="T:PDCoreNew.Enums.HorizontalTextAlignment">
+            <summary>
+            Sposób wyrównania tekstu w określonym kontenerze, czyli do której strony ma być wyrównany
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Enums.HorizontalTextAlignment.Left">
+            <summary>
+            Tekst jest wyrównany do lewej
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Enums.HorizontalTextAlignment.Right">
+            <summary>
+            Tekst jest wyrównany do prawej
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Enums.HorizontalTextAlignment.Center">
+            <summary>
+            Tekst jest wyrównany do środka
+            </summary>
+        </member>
+        <member name="T:PDCoreNew.Extensions.CompresExtension">
+            <summary>
+            Statyczna klasa rozszerzająca zawierająca metody umożliwiające kompresowanie i dekompresowanie danych
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Extensions.CompresExtension.Compress(System.String)">
+            <summary>
+            Kompresowanie łańcucha znaków
+            </summary>
+            <param name="s">Łańcuch znaków do skompresowania</param>
+            <returns>Skompresowny łańcuch znaków</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.CompresExtension.Compress(System.Byte[])">
+            <summary>
+            Kompresowanie tablicy bajtów
+            </summary>
+            <param name="bytesToEncode">Tablica bajtów do skompresowania</param>
+            <returns>Skompresowana tablica bajtów</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.CompresExtension.Explode(System.String)">
+            <summary>
+            Dekompresowanie łańcucha znaków
+            </summary>
+            <param name="s">Łańcuch znaków do zdekompresowania</param>
+            <returns>Zdekompresowany łańcuch znaków</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.CompresExtension.Explode(System.Byte[])">
+            <summary>
+            Dekompresowanie tablicy bajtów
+            </summary>
+            <param name="compressedBytes">Tablica bajtów do zdekompresowania</param>
+            <returns></returns>
+        </member>
+        <member name="T:PDCoreNew.Extensions.DataTableExtension">
+            <summary>
+            Statyczna klasa rozszerzająca tabelę danych zawierająca metody pomocne przy operacjach na tejże strukturze danych
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.HasValue(System.Data.DataTable)">
+            <summary>
+            Zwraca informację czy tablica danych posiada wartość
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.GetValue``1(System.Data.DataTable)">
+            <summary>
+            Zwraca wartość o zadanym typie z pierwszej kolumny pierwszego wiersza tabeli, jeśli istnieje jakakolwiek wartość
+            </summary>
+            <typeparam name="T">Typ wartości jaka ma zostać zwrócona z tabeli</typeparam>
+            <param name="dt">Tabela z której zostanie pobrana wartość</param>
+            <returns>Wartość pobrana z tabeli</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.GetValue``1(System.Data.DataTable,System.String)">
+            <summary>
+            Zwraca wartość zadanej kolumny o zadanym typie z pierwszego wiersza tabeli
+            </summary>
+            <typeparam name="T">Typ wartości jaka ma zostać zwrócona z tabeli</typeparam>
+            <param name="dt">Tabela z której zostanie pobrana wartość</param>
+            <param name="columnName">Nazwa kolumny, której wartość z pierwszego wiersza tabeli ma zostać zwrócona</param>
+            <returns>Wartość pobrana z tabeli</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.GetValue(System.Data.DataTable)">
+            <summary>
+            Zwraca wartość z pierwszej kolumny pierwszego wiersza tabeli w postaci łańcucha znaków, jeśli istnieje jakakolwiek wartość
+            </summary>
+            <param name="dt">Tabela z której zostanie pobrana wartość</param>
+            <returns>Wartość pobrana z tabeli</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.GetValue(System.Data.DataTable,System.String)">
+            <summary>
+            Zwraca wartość zadanej kolumny z pierwszego wiersza tabeli w postaci łańcucha znaków
+            </summary>
+            <param name="dt">Typ wartości jaka ma zostać zwrócona z tabeli</param>
+            <param name="columnName">Nazwa kolumny, której wartość z pierwszego wiersza tabeli ma zostać zwrócona</param>
+            <returns>Wartość pobrana z tabeli</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.GetKVP``2(System.Data.DataTable,System.Func{System.Data.DataRow,``0},System.Func{System.Data.DataRow,``1})">
+            <summary>
+            Tworzy listę typu klucz-wartość dla zadanej tabeli
+            </summary>
+            <typeparam name="TKey">Typ klucza obiektu klucz-wartość</typeparam>
+            <typeparam name="TValue">Typ wartości obiektu klucz-wartość</typeparam>
+            <param name="source">Tabela na podstawie które ma zostać utworzona lista typu klucz-wartość</param>
+            <param name="keySelector">Metoda, która jako parametr przyjmuje wiersz tabeli i zwraca obiekt typu klucza</param>
+            <param name="valueSelector">Metoda, która jako parametr przyjmuje wiersz tabeli i zwraca obiekt typu wartości</param>
+            <returns>Lista typu klucz-wartość dla zadanej tabeli</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DataTableExtension.ToDictionary``2(System.Data.DataTable,System.Func{System.Data.DataRow,``0},System.Func{System.Data.DataRow,``1})">
+            <summary>
+            Tworzy słownik dla zadanej tabeli
+            </summary>
+            <typeparam name="TKey">Typ klucza słownika</typeparam>
+            <typeparam name="TValue">Typ wartości słownika</typeparam>
+            <param name="source">Tabela na podstawie które ma zostać utworzony słownik</param>
+            <param name="keySelector">Metoda, które jako parametr przyjmuje wiersz tabeli i zwraca obiekt typu klucza</param>
+            <param name="valueSelector">Metoda, które jako parametr przyjmuje wiersz tabeli i zwraca obiekt typu wartości</param>
+            <returns>Słownik dla zadanej tabeli</returns>
+        </member>
+        <member name="T:PDCoreNew.Extensions.DateTimeExtension">
+            <summary>
+            Statyczna klasa rozszerzająca przydatna przy operacjach na datach
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.ToYMD(System.DateTime,System.Boolean)">
+            <summary>
+            Zwrócenie łańcucha znaków o formacie "rok-miesiąc-dzień", opcjonalnie także z czasem dla zadanej daty
+            </summary>
+            <param name="dt">Data, dla której zostanie zwrócony łańcuch znaków</param>
+            <param name="withHours">Określenie czy zwracany łańcuch znaków ma zawierać czas</param>
+            <returns>Łańcuch znaków będący odpowiednikiem przekazanej daty</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.ToYMD(System.String,System.Boolean)">
+            <summary>
+            Zwrócenie łańcucha znaków o formacie "rok-miesiąc-dzień", opcjonalnie także z czasem dla zadanej daty w formie łańcucha znaków
+            </summary>
+            <param name="s">Data w formie łańcucha znaków, dla której zostanie zwrócony łańcuch znaków</param>
+            <param name="withHours">Określenie czy zwracany łańcuch znaków ma zawierać czas</param>
+            <returns>Łańcuch znaków będący odpowiednikiem przekazanej daty w formie łańcucha znaków</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.ToDMY(System.DateTime,System.Boolean)">
+            <summary>
+            Zwrócenie łańcucha znaków o formacie "dzień-miesiąc-rok", opcjonalnie także z czasem dla zadanej daty
+            </summary>
+            <param name="dt">Data, dla której zostanie zwrócony łańcuch znaków</param>
+            <param name="withHours">Określenie czy zwracany łańcuch znaków ma zawierać czas</param>
+            <returns>Łańcuch znaków będący odpowiednikiem przekazanej daty</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.GetLong(System.DateTime,System.Boolean)">
+            <summary>
+            Zwrócenie liczby (całkowita podwójnej precyzji - 64 bitowa) o formacie "rok-miesiąc-dzień", opcjonalnie także z czasem dla zadanej daty
+            </summary>
+            <param name="dateTime">Data, dla której zostanie zwrócona liczba</param>
+            <param name="withHours">Określenie czy zwracana liczba ma zawierać czas</param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.ToTimeZoneTime(System.DateTime,System.String)">
+            <summary>
+            Returns TimeZone adjusted time for a given from a Utc or local time.
+            Date is first converted to UTC then adjusted.
+            </summary>
+            <param name="time"></param>
+            <param name="timeZoneId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.DateTimeExtension.ToTimeZoneTime(System.DateTime,System.TimeZoneInfo)">
+            <summary>
+            Returns TimeZone adjusted time for a given from a Utc or local time.
+            Date is first converted to UTC then adjusted.
+            </summary>
+            <param name="time"></param>
+            <param name="timeZoneId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PDCoreNew.Extensions.IEnumerableExtension">
+            <summary>
+            Statyczna klasa rozszerzająca zakres operacji oferowanych przez klasę Enumerable
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Extensions.IEnumerableExtension.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            Wykrywa duplikaty według zadanego warunku i je usuwa. Warunek określa, które wartości mają być unikalne
+            </summary>
+            <typeparam name="TSource">Typ źródłowego modułu wyliczającego. Nie trzeba go podawać, bo jest wnioskowany z typu przekazywanego parametru</typeparam>
+            <typeparam name="TKey">Typ dla którego został utworzony obiekt IEnumerable</typeparam>
+            <param name="source">Źródłowy moduł wyliczający</param>
+            <param name="keySelector">Metoda, która jako parametr przyjmuje typ elementu kolekcji i zwraca obiekt typu wg którego wartości w kolekcji mają być unikalne</param>
+            <returns>Zwraca obiekt IEnumerable który będzie iterował się po kolekcji pomijając duplikaty, wg wartości które mają być unikalne</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.IEnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Wywołuje określoną akcję dla każdego elementu kolekcji, po której elementach nestępuje iteracja
+            </summary>
+            <typeparam name="T">Typ źródłowego modułu wyliczającego. Nie trzeba go podawać, bo jest wnioskowany z typu przekazywanego parametru</typeparam>
+            <param name="source">Źródłowy moduł wyliczający</param>
+            <param name="action">Metoda, która jako parametr przyjmuje element kolekcji i nic nie zwraca</param>
+        </member>
+        <member name="T:PDCoreNew.Extensions.IOExtension">
+            <summary>
+            Statyczna klasa rozszerzająca pomocn przy operacjach wejścia-wyjścia
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Extensions.IOExtension.ReadFully(System.IO.Stream)">
+            <summary>
+            Zwrócenie tablicy bajtów ze strumienia
+            </summary>
+            <param name="input">Strumień</param>
+            <returns>Tablica bajtów ze strumienia</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.IOExtension.GetBuffer(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Zwraca tablicę bajtów dla zadanego obiektu Image i formatu zdjęcia
+            </summary>
+            <param name="image">Zdjęcea</param>
+            <param name="imageFormat">Format zdjęcia</param>
+            <returns>Tablica bajtów będąca odzwierciedleniem przekazanego zdjęcia i biorąca pod uwagę format</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.NumberExtension.IsPrime(System.Int32)">
+            <summary>
+            Sprawdzenie czy dana liczba jest liczbą pierwszą
+            </summary>
+            <param name="number">Liczba do sprawdzenia</param>
+            <returns>Informacja czy dana liczba jest liczbą pierwszą</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.ObjectExtension.GetDescription``1(``0)">
+            <summary>
+            Pobierz opis dla danej wartości enuma
+            </summary>
+            <typeparam name="T">Typ enuma</typeparam>
+            <param name="enumerationValue">Wartość enuma</param>
+            <returns>Opis dla danej wartości enuma z atrybutu Description</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.ReflectionExtension.IsSimpleType(System.Type)">
+            <summary>
+            Determine whether a type is simple (String, Decimal, DateTime, etc) 
+            or complex (i.e. custom class with public properties and methods).
+            </summary>
+            <see cref="!:http://stackoverflow.com/questions/2442534/how-to-test-if-type-is-primitive"/>
+        </member>
+        <member name="M:PDCoreNew.Extensions.StringExtensions.ParseEnum``1(System.String)">
+            <summary>
+            Konwersja stringa do enuma
+            </summary>
+            <typeparam name="TEnum">Typ enuma</typeparam>
+            <param name="value"></param>
+            <returns>Enum</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.StringExtensions.AddSpaces(System.String)">
+            <summary>
+            Dodanie spacji przed każdą częścią łańcucha znaków zaczynającą się od dużej litery
+            </summary>
+            <param name="text">Łańcuch znaków do przetworzenia</param>
+            <returns>Przetworzony łańcuch znaków</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.StringExtensions.PadBoth(System.String,System.Int32)">
+            <summary>
+            Dodanie białych znaków po lewej i prawej stronie łańcucha znaków, gdy jego ilość znaków jest mniejsza od przekazanej
+            </summary>
+            <param name="text">Łańcuch znaków</param>
+            <param name="totalWidth">Całkowita szerokość, ilość znaków</param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.XMLExtension.AsExpando(System.Xml.Linq.XDocument)">
+            <summary>
+            Utworzenie ExpandoObject dla zadanego dokumentu XML
+            </summary>
+            <param name="document">Dokument XML, na podstawie którego zostanie utworzony ExpandoObject</param>
+            <returns>ExpandoObject utworzony na podstawie zadanego dokumentu XML</returns>
+        </member>
+        <member name="M:PDCoreNew.Extensions.XMLExtension.CreateExpando(System.Xml.Linq.XElement)">
+            <summary>
+            Utworzenie ExpandoObject dla zadanego elementu XML
+            </summary>
+            <param name="element">Element XML, na podstawie którego zostanie utworzony ExpandoObject</param>
+            <returns>ExpandoObject utworzony na podstawie zadanego elementu XML</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:PDCoreNew.Helpers.AsyncHelpers.RunSync(System.Func{System.Threading.Tasks.Task})" -->
+        <!-- Badly formed XML comment ignored for member "M:PDCoreNew.Helpers.AsyncHelpers.RunSync``1(System.Func{System.Threading.Tasks.Task{``0}})" -->
+        <member name="T:PDCoreNew.Helpers.Calculation.Digit">
+            <summary>
+            Liczba
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Calculation.RandomNumberGenerator.#cctor">
+            <summary>
+            Modyfikator dostępu jest niedozwolony dla statycznych konstruktorów
+            </summary>
+        </member>
+        <member name="T:PDCoreNew.Helpers.DataStructures.CategoryCollection">
+            <summary>
+            Kategorie są posortowane i unikalne. Obiekty nazwane mają unikalne nazwy i są po nich posortowane.
+            </summary>
+        </member>
+        <member name="T:PDCoreNew.Helpers.EventAggregator">
+            <summary>
+            Central event dispatcher used to send application messages to registered handlers
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.#ctor">
+            <summary>
+            Initializes a new instance of the EventAggregator class.
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.SendMessage``1(``0)">
+            <summary>
+            Send a message instance for immediate delivery
+            </summary>
+            <typeparam name="T">Type of the message</typeparam>
+            <param name="message">Message to send</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.PostMessage``1(``0)">
+            <summary>
+            Post a message instance for asynchronous delivery
+            </summary>
+            <typeparam name="T">Type of the message</typeparam>
+            <param name="message">Message to send</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.RegisterHandler``1(System.Action{``0})">
+            <summary>
+            Register a message handler
+            </summary>
+            <param name="eventHandler">Message handler to add.</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.UnregisterHandler``1(System.Action{``0})">
+            <summary>
+            Unregister a message handler
+            </summary>
+            <param name="eventHandler">Message handler to remove.</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.EventAggregator.Dispatch``1(``0)">
+            <summary>
+            Dispatch a message to all appropriate handlers
+            </summary>
+            <typeparam name="T">Type of the message</typeparam>
+            <param name="message">Message to dispatch to registered handlers</param>
+        </member>
+        <member name="F:PDCoreNew.Helpers.EventAggregator.mHandlers">
+            <summary>
+            Storage for all our registered handlers
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Helpers.EventAggregator.mSynchronizationContext">
+            <summary>
+            SynchronizationContext used to transition to the correct thread
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Helpers.ProgressableStreamContent.defaultBufferSize">
+            <summary>
+            Lets keep buffer of 20kb
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Debug(System.String)">
+            <summary>  
+            Used to log Debug messages in an explicit Debug Logger  
+            </summary>  
+            <param name="message">The object message to log</param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Debug(System.String,System.Exception)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+            <param name="exception">The exception to log, including its stack trace </param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Info(System.String)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Info(System.String,System.Exception)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+            <param name="exception">The exception to log, including its stack trace </param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Warn(System.String)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Warn(System.String,System.Exception)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+            <param name="exception">The exception to log, including its stack trace </param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Error(System.String)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Error(System.String,System.Exception)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+            <param name="exception">The exception to log, including its stack trace </param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Fatal(System.String)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Log.Fatal(System.String,System.Exception)">
+            <summary>  
+             
+            </summary>  
+            <param name="message">The object message to log</param>  
+            <param name="exception">The exception to log, including its stack trace </param>  
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.#cctor">
+            <summary>
+            Słowniki są inicjalizowane tylko raz i tylko wtedy, gdy są potrzebne.
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.customErrors">
+            <summary>
+            Słownik zawierający tłumaczenia zdań
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.customErrorsSub">
+            <summary>
+            Słownik zawierający tłumaczenia wyrazów
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.CanCustomize(System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+            <summary>
+            Określa czy można przetłumaczyć kolekcję zawieającą błędy
+            </summary>
+            <param name="errors">Lista zawierająca błędy</param>
+            <param name="sub">Określa czy kolekcja zawiera wyrazy, w przeciwnym wypadku są to zdania.</param>
+            <returns>Informacja czy można przetłumaczyć kolekcję zawierającą błędy</returns>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.CustomizeErrors(System.Collections.Generic.IList{System.String})">
+            <summary>
+            Przetłumaczenie błędów zawartych w kolekcji
+            </summary>
+            <param name="errors">Kolekcja z błędami do przetłumaczenia</param>
+            <returns>Kolekcja zawierająca przetłumaczone błędy</returns>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.ChangeErrors(System.Collections.Generic.IList{System.String},System.Boolean)">
+            <summary>
+            Przetłumaczenie błędów zawartych w kolekcji
+            </summary>
+            <param name="errors"></param>
+            <param name="sub">Określa czy kolekcja zawiera wyrazy, w przeciwnym wypadku są to zdania.</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.ChangeErrorsSub(System.Collections.Generic.IList{System.String})">
+            <summary>
+            Przetłumaczenie wyrazów w zdaniach
+            </summary>
+            <param name="errors">Kolekcja błędów do przetłumaczenia</param>
+        </member>
+        <member name="M:PDCoreNew.Helpers.Translation.CustomIdentityErrorDescriber.CustomizeOneSub(System.String)">
+            <summary>
+            Przetłumaczenie błędu
+            </summary>
+            <param name="error">Błąd do przetłumaczenia</param>
+            <returns>Przetłumaczony błąd</returns>
+        </member>
+        <member name="T:PDCoreNew.Interfaces.IEventAggregator">
+            <summary>
+            Functionality interface for an Event Aggregator
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Interfaces.IEventAggregator.SendMessage``1(``0)">
+            <summary>
+            Send a message 
+            </summary>
+            <remarks>
+            Sends the message and waits for processing on the UI thread before returning.
+            </remarks>
+            <typeparam name="T">Type of the message</typeparam>
+            <param name="message">Message to send</param>
+        </member>
+        <member name="M:PDCoreNew.Interfaces.IEventAggregator.PostMessage``1(``0)">
+            <summary>
+            Post a message 
+            </summary>
+            Posts the message for later processing on the UI thread, returning immediately.
+            <typeparam name="T">Type of the message</typeparam>
+            <param name="message">Message to send</param>
+        </member>
+        <member name="M:PDCoreNew.Interfaces.IEventAggregator.RegisterHandler``1(System.Action{``0})">
+            <summary>
+            Register a message handler
+            </summary>
+            <param name="eventHandler">Message handler to add.</param>
+            <returns>Registered delegate</returns>
+        </member>
+        <member name="M:PDCoreNew.Interfaces.IEventAggregator.UnregisterHandler``1(System.Action{``0})">
+            <summary>
+            Unregister a message handler
+            </summary>
+            <param name="eventHandler">Message handler to remove.</param>
+        </member>
+        <member name="T:PDCoreNew.Models.TagGroup">
+            <summary>
+            A and the ids of every object that has this tag.
+            </summary>
+            <remarks>
+            This is a DTO, not an entity backed by a database object
+            </remarks>
+        </member>
+        <member name="E:PDCoreNew.Repositories.SqlRepositoryEntityFrameworkCore`1.HaveUserResolveConcurrency">
+            <summary>
+            DbPropertyValues currentValues, DbPropertyValues databaseValues, DbPropertyValues resolvedValues
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteLine``1(``0,System.Boolean)">
+            <summary>
+            Wyświetlenia łańcucha znaków w nowej linii
+            </summary>
+            <param name="value">Tekst do wyświetlenia</param>
+            <param name="readKey">Czy po wyświetleniu tekstu nowej linii, oczekiwać na wciśnięcie klawisza</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteLine(System.Text.StringBuilder,System.Boolean)">
+            <summary>
+            Wyświetlenia łańcucha znaków w nowej linii
+            </summary>
+            <param name="value">StringBuilder z którego zostanie pozyskany łańcuch znaków do wyświetlenia w nowej linii</param>
+            <param name="readKey">Czy po wyświetleniu tekstu nowej linii, oczekiwać na wciśnięcie klawisza</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteLine(System.Boolean)">
+            <summary>
+            Wyświetlenie nowej linii
+            </summary>
+            <param name="readKey">Czy po wyświetleniu nowej linii, oczekiwać na wciśnięcie klawisza</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteLines``1(System.Collections.Generic.IEnumerable{``0},System.Boolean)">
+            <summary>
+            Wyświetlenie na konsoli kolekcji łańcuchów znaków (każdy string w osobnej linii) i na końcu opcjonalnie oczekiwanie na wciśnięcie klawisza
+            </summary>
+            <param name="value">Kolekcja łańcuchów znaków do wyświetlenia w nowych liniach</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteLines(System.Object[])">
+            <summary>
+            Wyświetlenie na konsoli tablicy łańcuchów znaków (każdy string w osobnej linii) i na końcu oczekiwanie na wciśnięcie klawisza
+            </summary>
+            <param name="value">Tablica łańcuchów znaków do wyświetlenia w nowych liniach. Możliwość podawania tekstów po przecinku</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteTableFromFields(System.Collections.Generic.IList{System.String[]},System.Boolean,PDCoreNew.Enums.HorizontalTextAlignment)">
+            <summary>
+            Wyświetlenie kolekcji pól wierszy w formie tabeli z nagłówkiem lub bez
+            </summary>
+            <param name="rowsFields">Kolekcja pól wierszów</param>
+            <param name="hasHeader">Czy ma nagłówek. Jeśli tak, to zostanie wyróżniony ramką</param>
+            <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteTableFromObjects``1(System.Collections.Generic.IEnumerable{``0},System.Boolean,PDCoreNew.Enums.HorizontalTextAlignment)">
+            <summary>
+            Wyświetlenie kolekcji obiektów w formie tabeli z nagłówkiem lub bez
+            </summary>
+            <typeparam name="T">Typ obiektu, który ma zostać przetworzony na dany wiersz tabeli. Musi być to typ referencyjny, czyli klasa</typeparam>
+            <param name="collection">Kolekcja obiektów do przetworzenia</param>
+            <param name="hasHeader">Czy ma nagłówek. Jeśli tak, to zostanie wyróżniony ramką</param>
+            <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteTableFromCSV(System.String,System.Text.Encoding,System.Globalization.CultureInfo,System.Boolean,System.Boolean,System.String,CsvHelper.ShouldSkipRecord,PDCoreNew.Enums.HorizontalTextAlignment)">
+            <summary>
+            Wyświetlenie na konsoli tabeli z danymi z pliku CSV
+            </summary>
+            <param name="filePath">Ścieżka do pliku CSV</param>
+            <param name="hasHeader">Czy ma nagłówek. Jeśli tak, to zostanie wyróżniony ramką</param>
+            <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
+            <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
+            <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
+            <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.GetRow(System.String[],System.Int32[],PDCoreNew.Enums.HorizontalTextAlignment)">
+            <summary>
+            Uworzenie zawartości wiersza na podstawie tablicy pól i szerokości kolumn
+            </summary>
+            <param name="values">Tablica pól wiersza, pola wylądują w kolumnach</param>
+            <param name="columnsWidths">Szerokości kolumn do których powędrują pola</param>
+            <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
+            <returns>Zawartość wiersza</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteRow(System.String)">
+            <summary>
+            Wyświetlenie zawartości wiersza bez oczkiwania na wciśnięcie klawisza
+            </summary>
+            <param name="content">Zawartość wiersza</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteHeader(System.String,System.Int32[])">
+            <summary>
+            Wyświetlenie nagłówka tabeli na podstawie szerokości kolumn bez oczekiwania na wciśnięcia klawisza i następnie wyświetlenie dolnej krawędzi nagłówka
+            </summary>
+            <param name="content">Zawartość nagłówka do wyświetlenia</param>
+            <param name="columnsWidths">Szerokości kolumn nagłówka</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteRowDelimiter(System.Int32[])">
+            <summary>
+            Wyświetlenie krawędzi wiersza oddzielającej go od następnego wiersza
+            </summary>
+            <param name="columnsWidths">Szerokość zawartości kolumn</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.ConsoleUtils.WriteRows(System.Collections.Generic.IEnumerable{System.String[]},System.Int32[],PDCoreNew.Enums.HorizontalTextAlignment)">
+            <summary>
+            Wyświetlenie kolekcji pól wierszy w formie tabeli
+            </summary>
+            <param name="rowsFields">Kolekcja pól wierszy</param>
+            <param name="columnsWidths">Szerokość zawartości kolumn</param>
+            <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
+        </member>
+        <member name="M:PDCoreNew.Utils.CSVUtils.ParseCSV``1(System.String,System.Func{System.String[],``0},System.Text.Encoding,System.Globalization.CultureInfo,System.Boolean,System.String,CsvHelper.ShouldSkipRecord)">
+            <summary>
+            Zwrócenie listy obiektów na podstawie pliku CSV
+            </summary>
+            <typeparam name="T">Typ na który ma być przetworzona linia w pliku CSV</typeparam>
+            <param name="filePath">Ścieżka do pliku CSV</param>
+            <param name="fieldsParser">Metoda do przetworzenia tablicy pól w danej linii pliku CSV na obiekt, którego kolekcja zostanie zwrócona</param>
+            <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
+            <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
+            <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
+            <returns>Lista obiektów z przetworzonego pliku CSV</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.CSVUtils.ParseCSV``1(System.String,System.Text.Encoding,System.Globalization.CultureInfo,System.Boolean,System.String,CsvHelper.ShouldSkipRecord)">
+            <summary>
+            Zwrócenie listy obiektów na podstawie pliku CSV
+            </summary>
+            <typeparam name="T">Typ na który ma być przetworzona linia w pliku CSV. Musi implementować interfejs IFromCSVParseable, czyli posiadać metodę do ustawienia danych na podstawie pól danej linii</typeparam>
+            <param name="filePath">Ścieżka do pliku CSV</param>
+            <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
+            <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
+            <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
+            <returns>Lista obiektów z przetworzonego pliku CSV</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.DateTimeUtils.GetUserTime(System.TimeZoneInfo,System.Nullable{System.DateTime})">
+            <summary>
+            Returns a UTC time in the user's specified timezone.
+            </summary>
+            <param name="utcTime">The utc time to convert</param>
+            <param name="timeZoneName">Name of the timezone (Eastern Standard Time)</param>
+            <returns>New local time</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.DateTimeUtils.GetUtcUserTime(System.Nullable{System.DateTime},System.TimeZoneInfo)">
+            <summary>
+            Converts local server time to the user's timezone and
+            returns the UTC date.
+            
+            Use this to convert user captured date inputs and convert
+            them to UTC.  
+            
+            User input (their local time) comes in as local server time 
+            -> convert to user's timezone from server time
+            -> convert to UTC
+            </summary>
+            <param name="localServerTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.DateTimeUtils.AdjustTimeZoneOffset(System.DateTime,System.TimeZoneInfo)">
+            <summary>
+            Converts a local machine time to the user's timezone time
+            by applying the difference between the two timezones.
+            </summary>
+            <param name="localTime">local machine time</param>
+            <param name="tzi">Timezone to adjust for</param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.IOUtils.GetSimpleExtension(System.String)">
+            <summary>
+              Gets the extension without the dot
+            </summary>
+            <param name = "fileName">Name of the file.</param>
+            <returns></returns>
+        </member>
+        <member name="F:PDCoreNew.Utils.IOUtils.DefaultBufferSize">
+            <summary>
+            This is the same default buffer size as
+            <see cref="T:System.IO.StreamReader"/> and <see cref="T:System.IO.FileStream"/>.
+            </summary>
+        </member>
+        <member name="F:PDCoreNew.Utils.IOUtils.DefaultOptions">
+            <summary>
+            Indicates that
+            1. The file is to be used for asynchronous reading.
+            2. The file is to be accessed sequentially from beginning to end.
+            </summary>
+        </member>
+        <member name="M:PDCoreNew.Utils.MigrationUtils.ReadSql(System.Type,System.String)">
+            <summary>
+            Read a SQL script that is embedded into a resource.
+            </summary>
+            <param name="migrationType">The migration type the SQL file script is attached to.</param>
+            <param name="sqlFileName">The embedded SQL file name.</param>
+            <returns>The content of the SQL file.</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.RepositoryUtils.GetByIdPredicate``2(``1)">
+            <summary>
+            Produces a predicate for IQueryable LINQ "Where" clause that queries by id for specific value,
+            </summary>
+            <typeparam name="T">The type to query which must have an int property named "Id".</typeparam>
+            <param name="id">The int value of the id of the desired entity.</param>
+            <returns>An predicate expression suitable for a LINQ "Where" or "First" clause.</returns>
+            <remarks>
+            See <see cref="!:Model.IRepository&lt;T&gt;.GetById"/> for usage.
+            </remarks>
+            <Example>
+            If T is a Foo and Foo.Id is of type int, then
+            var predicate = GetByIdPredicate{T}(42) returns the equivalent of 
+            "f => f.Id == 42" and can be used to get the Foo with Id==42 by writing
+            aFooDbSet.FirstOrDefault(predicate)".
+            </Example>
+        </member>
+        <member name="M:PDCoreNew.Utils.SecurityUtils.GetReqId">
+            <summary>
+            Utworzenie unikalnego identyfikatora żądania
+            </summary>
+            <returns>Unikalny identyfikator żądania</returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.SecurityUtils.CorrectDirectoryPath(System.String)">
+            <summary>
+            Upewnij się że katalog kończy się '\'
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.SecurityUtils.TemplateDirPath">
+            <summary>
+            Ścieżka do katalogu danych tymczasowych
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PDCoreNew.Utils.StringUtils.GetColumnsWidths(System.Collections.Generic.ICollection{System.String[]})">
+            <summary>
+            Zwrócenie szerokości zawartości kolumn na podstawie kolekcji pól wierszy
+            </summary>
+            <param name="rowsFields">Kolekcja pól wierszy</param>
+            <returns>Szerokość zawartości kolumn</returns>
+        </member>
+        <member name="T:System.ComponentModel.DataAnnotations.EnforceTrueAttribute">
+            <summary>
+            Validation attribute that demands that a boolean value must be true.
+            </summary>
+        </member>
+        <member name="T:Resources.Common">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Resources.Common._is">
+            <summary>
+              Looks up a localized string similar to  is .
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Abstore">
+            <summary>
+              Looks up a localized string similar to Abstore.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ActiveInExternalSystem">
+            <summary>
+              Looks up a localized string similar to Active in external system.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Add">
+            <summary>
+              Looks up a localized string similar to Add.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.AddComment">
+            <summary>
+              Looks up a localized string similar to Add comment.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Adding">
+            <summary>
+              Looks up a localized string similar to Adding.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.All">
+            <summary>
+              Looks up a localized string similar to All.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.already">
+            <summary>
+              Looks up a localized string similar to already.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Application">
+            <summary>
+              Looks up a localized string similar to Application.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Archived">
+            <summary>
+              Looks up a localized string similar to Archived.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.AttachmentList">
+            <summary>
+              Looks up a localized string similar to Attachment list.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Auctions">
+            <summary>
+              Looks up a localized string similar to Auctions.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.AvailableInEshop">
+            <summary>
+              Looks up a localized string similar to Available in e-shop.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Back">
+            <summary>
+              Looks up a localized string similar to Back.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Budget">
+            <summary>
+              Looks up a localized string similar to Budget.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Canceled">
+            <summary>
+              Looks up a localized string similar to Canceled.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CancellationRequested">
+            <summary>
+              Looks up a localized string similar to Cancellation requested.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Category">
+            <summary>
+              Looks up a localized string similar to Categories.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ChangePassword">
+            <summary>
+              Looks up a localized string similar to Change your password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ChangePasswordForm">
+            <summary>
+              Looks up a localized string similar to Change Password Form.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CheckEmailToResetPassword">
+            <summary>
+              Looks up a localized string similar to Please check your e-mail to reset your password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Clarify">
+            <summary>
+              Looks up a localized string similar to Clarify.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ClickToLogIn">
+            <summary>
+              Looks up a localized string similar to Click here to Log in.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Comment">
+            <summary>
+              Looks up a localized string similar to Comment.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Comments">
+            <summary>
+              Looks up a localized string similar to Comments.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CommentsList">
+            <summary>
+              Looks up a localized string similar to Comment list.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Commercial">
+            <summary>
+              Looks up a localized string similar to Commercial.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Completed">
+            <summary>
+              Looks up a localized string similar to Completed.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmAccount">
+            <summary>
+              Looks up a localized string similar to Confirm your account.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmAccountInstruction">
+            <summary>
+              Looks up a localized string similar to Please confirm your account by clicking.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmEmail">
+            <summary>
+              Looks up a localized string similar to Confirmation of e-mail address.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmEmailFailed">
+            <summary>
+              Looks up a localized string similar to The confirmation of the e-mail address was unsuccessful.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmNewPassword">
+            <summary>
+              Looks up a localized string similar to Confirm new password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ConfirmPassword">
+            <summary>
+              Looks up a localized string similar to Confirm password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Console">
+            <summary>
+              Looks up a localized string similar to Console.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Content">
+            <summary>
+              Looks up a localized string similar to Content.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Contractor">
+            <summary>
+              Looks up a localized string similar to Contractor.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Country">
+            <summary>
+              Looks up a localized string similar to Countries.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Create">
+            <summary>
+              Looks up a localized string similar to Create.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CreateAccount">
+            <summary>
+              Looks up a localized string similar to Create a new account.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CreateDate">
+            <summary>
+              Looks up a localized string similar to Create date.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CreateTask">
+            <summary>
+              Looks up a localized string similar to Create a new task.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Currency">
+            <summary>
+              Looks up a localized string similar to Currencies.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.CurrentPassword">
+            <summary>
+              Looks up a localized string similar to Current password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Data">
+            <summary>
+              Looks up a localized string similar to data.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.DataPreparation">
+            <summary>
+              Looks up a localized string similar to Data preparation.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.DateModified">
+            <summary>
+              Looks up a localized string similar to Date modified.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Debug">
+            <summary>
+              Looks up a localized string similar to Debug.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Default">
+            <summary>
+              Looks up a localized string similar to Default.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Delete">
+            <summary>
+              Looks up a localized string similar to Delete.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Description">
+            <summary>
+              Looks up a localized string similar to Description.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Details">
+            <summary>
+              Looks up a localized string similar to Details.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Done">
+            <summary>
+              Looks up a localized string similar to done.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Download">
+            <summary>
+              Looks up a localized string similar to Download.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Email">
+            <summary>
+              Looks up a localized string similar to Email.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.EmailConfirmed">
+            <summary>
+              Looks up a localized string similar to Thank you for confirming your email.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.EmailLink">
+            <summary>
+              Looks up a localized string similar to Email Link.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Employee">
+            <summary>
+              Looks up a localized string similar to Employee.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Employer">
+            <summary>
+              Looks up a localized string similar to Employer.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Ended">
+            <summary>
+              Looks up a localized string similar to Ended.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.EnterEmail">
+            <summary>
+              Looks up a localized string similar to Enter your email.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Error">
+            <summary>
+              Looks up a localized string similar to Error.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ErrorOccuredDetailsWeb">
+            <summary>
+              Looks up a localized string similar to An error occurred while executing the request. Error details:.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ExchangeRate">
+            <summary>
+              Looks up a localized string similar to Exchange rates.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ExecutionDate">
+            <summary>
+              Looks up a localized string similar to Execution date.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ExternalAccessToken">
+            <summary>
+              Looks up a localized string similar to External access token.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.False">
+            <summary>
+              Looks up a localized string similar to false.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Fatal">
+            <summary>
+              Looks up a localized string similar to Fatal.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Filters">
+            <summary>
+              Looks up a localized string similar to Filters.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Finished">
+            <summary>
+              Looks up a localized string similar to Finished.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.FirstName">
+            <summary>
+              Looks up a localized string similar to First name.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ForgotPassword">
+            <summary>
+              Looks up a localized string similar to Forgot your password?.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ForgotPasswordConfirmation">
+            <summary>
+              Looks up a localized string similar to Forgot Password Confirmation.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ForLater">
+            <summary>
+              Looks up a localized string similar to For later.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Friends">
+            <summary>
+              Looks up a localized string similar to Friends.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.FromValuation">
+            <summary>
+              Looks up a localized string similar to From valuation.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.FullName">
+            <summary>
+              Looks up a localized string similar to Full name.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.GenerateCSV">
+            <summary>
+              Looks up a localized string similar to Generate CSV.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Hello">
+            <summary>
+              Looks up a localized string similar to Hello.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Here">
+            <summary>
+              Looks up a localized string similar to here.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.High">
+            <summary>
+              Looks up a localized string similar to High.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Hometown">
+            <summary>
+              Looks up a localized string similar to Hometown.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Id">
+            <summary>
+              Looks up a localized string similar to Id.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.In">
+            <summary>
+              Looks up a localized string similar to in.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Indefinite">
+            <summary>
+              Looks up a localized string similar to Indefinite.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Info">
+            <summary>
+              Looks up a localized string similar to Information.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Internal">
+            <summary>
+              Looks up a localized string similar to Internal.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Interrupted">
+            <summary>
+              Looks up a localized string similar to Interrupted.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.InvalidLoginAttempt">
+            <summary>
+              Looks up a localized string similar to Invalid login attempt.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.InvalidLoginData">
+            <summary>
+              Looks up a localized string similar to Invalid username or password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.InvalidToken">
+            <summary>
+              Looks up a localized string similar to Invalid token..
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LastName">
+            <summary>
+              Looks up a localized string similar to Last name.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LicenseKey">
+            <summary>
+              Looks up a localized string similar to License key.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.List">
+            <summary>
+              Looks up a localized string similar to List.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Loaded">
+            <summary>
+              Looks up a localized string similar to Loaded.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LoggingIn">
+            <summary>
+              Looks up a localized string similar to Logging in.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LogIn">
+            <summary>
+              Looks up a localized string similar to Log in.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LoginProvider">
+            <summary>
+              Looks up a localized string similar to Login provider.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.LogOff">
+            <summary>
+              Looks up a localized string similar to Log off.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Low">
+            <summary>
+              Looks up a localized string similar to Low.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.MailUnconfirmed">
+            <summary>
+              Looks up a localized string similar to You must have a confirmed email to log on.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ManageAccount">
+            <summary>
+              Looks up a localized string similar to Manage.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Manufacturer">
+            <summary>
+              Looks up a localized string similar to Manufacturers.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Measure">
+            <summary>
+              Looks up a localized string similar to Measures.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Medium">
+            <summary>
+              Looks up a localized string similar to Medium.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ModifyAccount">
+            <summary>
+              Looks up a localized string similar to Change your account settings.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Name">
+            <summary>
+              Looks up a localized string similar to Name.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.NameAndName2">
+            <summary>
+              Looks up a localized string similar to Name + name_cont.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.New">
+            <summary>
+              Looks up a localized string similar to New.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.NewPassword">
+            <summary>
+              Looks up a localized string similar to New password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.NIP">
+            <summary>
+              Looks up a localized string similar to NIP.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.No">
+            <summary>
+              Looks up a localized string similar to no.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.NoDataLoaded">
+            <summary>
+              Looks up a localized string similar to No data loaded.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.None">
+            <summary>
+              Looks up a localized string similar to None.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Number">
+            <summary>
+              Looks up a localized string similar to Number.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.NumberOfTasks">
+            <summary>
+              Looks up a localized string similar to Number of tasks.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.OnlyNotBinded">
+            <summary>
+              Looks up a localized string similar to Only unassigned.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.OperationCompleted">
+            <summary>
+              Looks up a localized string similar to Operation completed.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.OperationSucceed">
+            <summary>
+              Looks up a localized string similar to Operation succeed.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Operator">
+            <summary>
+              Looks up a localized string similar to Operator.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.OriginalName">
+            <summary>
+              Looks up a localized string similar to Original name.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Password">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.PasswordChanged">
+            <summary>
+              Looks up a localized string similar to Your password has been changed.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.PasswordHasBeenReset">
+            <summary>
+              Looks up a localized string similar to Your password has been reset.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Please">
+            <summary>
+              Looks up a localized string similar to Please.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.PriceList">
+            <summary>
+              Looks up a localized string similar to Pricel lists.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Priority">
+            <summary>
+              Looks up a localized string similar to Priority.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Product">
+            <summary>
+              Looks up a localized string similar to Products.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ProductAlternative">
+            <summary>
+              Looks up a localized string similar to Product alternatives.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ProductImage">
+            <summary>
+              Looks up a localized string similar to Product images.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ProductRelated">
+            <summary>
+              Looks up a localized string similar to Related products.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ProviderKey">
+            <summary>
+              Looks up a localized string similar to Provider key.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Receipt">
+            <summary>
+              Looks up a localized string similar to Receipt.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ReceiptDate">
+            <summary>
+              Looks up a localized string similar to Receipt date.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Refresh">
+            <summary>
+              Looks up a localized string similar to Refresh.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Register">
+            <summary>
+              Looks up a localized string similar to Register.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.RegisterAsNew">
+            <summary>
+              Looks up a localized string similar to Register as a new user.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Registration">
+            <summary>
+              Looks up a localized string similar to Registration.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.RegistrationSuccessful">
+            <summary>
+              Looks up a localized string similar to Registration was successful. A confirmation message was sent to the e-mail address provided..
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Rejected">
+            <summary>
+              Looks up a localized string similar to Rejected.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.RememberMe">
+            <summary>
+              Looks up a localized string similar to Remember me?.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Reports">
+            <summary>
+              Looks up a localized string similar to Reports.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Representative">
+            <summary>
+              Looks up a localized string similar to Representative.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Reset">
+            <summary>
+              Looks up a localized string similar to Reset.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ResetPassword">
+            <summary>
+              Looks up a localized string similar to Reset Password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ResetPasswordConfirmation">
+            <summary>
+              Looks up a localized string similar to Reset password confirmation.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ResetPasswordInstruction">
+            <summary>
+              Looks up a localized string similar to Please reset your password by clicking.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ResetYourPassword">
+            <summary>
+              Looks up a localized string similar to Reset your password.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Save">
+            <summary>
+              Looks up a localized string similar to Save.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Saved">
+            <summary>
+              Looks up a localized string similar to Saved.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Search">
+            <summary>
+              Looks up a localized string similar to Search.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Send">
+            <summary>
+              Looks up a localized string similar to Send.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ServedReceivedFollowingData">
+            <summary>
+              Looks up a localized string similar to The server received the following data.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.ServerReceivedData">
+            <summary>
+              Looks up a localized string similar to The server received the data.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Service">
+            <summary>
+              Looks up a localized string similar to Service.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Sessions">
+            <summary>
+              Looks up a localized string similar to sessions.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.SortingInstruction">
+            <summary>
+              Looks up a localized string similar to Click on a column to sort the data.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Statistics">
+            <summary>
+              Looks up a localized string similar to Statistics.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Status">
+            <summary>
+              Looks up a localized string similar to Status.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Subject">
+            <summary>
+              Looks up a localized string similar to Subject.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Success">
+            <summary>
+              Looks up a localized string similar to Success.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.SynchronizationPlan">
+            <summary>
+              Looks up a localized string similar to Synchronization plans.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.SynchronizationToCentral">
+            <summary>
+              Looks up a localized string similar to Sending the data.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.SynchronizationToLocal">
+            <summary>
+              Looks up a localized string similar to Data download.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Synchronize">
+            <summary>
+              Looks up a localized string similar to Synchronize.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Synchronized">
+            <summary>
+              Looks up a localized string similar to Synchronized.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Tag">
+            <summary>
+              Looks up a localized string similar to Tag.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Tags">
+            <summary>
+              Looks up a localized string similar to Tags.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.taken">
+            <summary>
+              Looks up a localized string similar to taken.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Task">
+            <summary>
+              Looks up a localized string similar to Task.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.TaxRate">
+            <summary>
+              Looks up a localized string similar to Tax rates.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.TodayOnly">
+            <summary>
+              Looks up a localized string similar to Only today.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.True">
+            <summary>
+              Looks up a localized string similar to true.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Type">
+            <summary>
+              Looks up a localized string similar to Type.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Unknown">
+            <summary>
+              Looks up a localized string similar to Unknown.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Unselected">
+            <summary>
+              Looks up a localized string similar to Unselected.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.User">
+            <summary>
+              Looks up a localized string similar to User.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Value">
+            <summary>
+              Looks up a localized string similar to Value.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Warn">
+            <summary>
+              Looks up a localized string similar to Warning.
+            </summary>
+        </member>
+        <member name="P:Resources.Common.Yes">
+            <summary>
+              Looks up a localized string similar to yes.
+            </summary>
+        </member>
+        <member name="T:Resources.ErrorMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.AccessDenied">
+            <summary>
+              Looks up a localized string similar to Access denied.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.Compare">
+            <summary>
+              Looks up a localized string similar to The {1} and {0} do not match.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.EmailInvalid">
+            <summary>
+              Looks up a localized string similar to E-mail address is invalid.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.ErrorOccured">
+            <summary>
+              Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.ErrorOccuredOnRequest">
+            <summary>
+              Looks up a localized string similar to An error occurred while processing your request.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.InternalServerError">
+            <summary>
+              Looks up a localized string similar to internal server error.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.IsAlreadyTaken">
+            <summary>
+              Looks up a localized string similar to is already taken.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.LicenseKeyInvalid">
+            <summary>
+              Looks up a localized string similar to The license key provided is invalid.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.MaxLength">
+            <summary>
+              Looks up a localized string similar to {0} cannot be longer than {1} characters.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.MinLength">
+            <summary>
+              Looks up a localized string similar to {0} must be at least {1} characters long.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.PasswordDigitRequired">
+            <summary>
+              Looks up a localized string similar to Passwords must have at least one digit (&apos;0&apos;-&apos;9&apos;)..
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.PasswordLowercaseRequired">
+            <summary>
+              Looks up a localized string similar to Passwords must have at least one lowercase (&apos;a&apos;-&apos;z&apos;)..
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.PasswordSymbolRequred">
+            <summary>
+              Looks up a localized string similar to Passwords must have at least one non letter or digit character..
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.PasswordUppercaseRequired">
+            <summary>
+              Looks up a localized string similar to Passwords must have at least one uppercase (&apos;A&apos;-&apos;Z&apos;)..
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.Required">
+            <summary>
+              Looks up a localized string similar to {0} is required.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.ResourceNotFound">
+            <summary>
+              Looks up a localized string similar to resource not found.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.StringLength_Equal">
+            <summary>
+              Looks up a localized string similar to {0} must be {1} characters long.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.StringLength_Greater">
+            <summary>
+              Looks up a localized string similar to {0} must be at least {2} characters long.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.StringLength_GreaterAndLess">
+            <summary>
+              Looks up a localized string similar to {0} must be at least {2} and cannot be longer than {1} characters long.
+            </summary>
+        </member>
+        <member name="P:Resources.ErrorMessages.StringLength_Less">
+            <summary>
+              Looks up a localized string similar to {0} cannot be longer than {1} characters.
+            </summary>
+        </member>
+    </members>
+</doc>

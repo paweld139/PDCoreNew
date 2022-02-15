@@ -1,5 +1,6 @@
 ﻿using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Npgsql;
 using PDCoreNew.Context.IContext;
 using PDCoreNew.Enums;
@@ -8,8 +9,12 @@ using PDCoreNew.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PDCoreNew.Extensions
@@ -366,6 +371,124 @@ namespace PDCoreNew.Extensions
                 var data = CSVUtils.ParseCSV<TEntity, TMap>(path);
 
                 context.Set<TEntity>().AddRange(data);
+            }
+        }
+
+        public static void UseSnakeCaseNamingConvention(this ModelBuilder modelBuilder, CultureInfo cultureInfo = null)
+        {
+            cultureInfo ??= CultureInfo.InvariantCulture;
+
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                string defaultTableName = entity.GetDefaultTableName();
+
+                string customTableName = defaultTableName.ToSnakeCase(cultureInfo);
+
+                entity.SetTableName(customTableName);
+
+                foreach (var column in entity.GetProperties())
+                {
+                    var storeObjectIndentifier = StoreObjectIdentifier.Table(entity.GetDefaultTableName(), entity.GetDefaultSchema());
+
+                    string defaultColumnName = column.GetDefaultColumnName(storeObjectIndentifier);
+
+                    string customColumnName = defaultColumnName.ToSnakeCase(cultureInfo);
+
+                    column.SetColumnName(customColumnName);
+                }
+
+                foreach (var key in entity.GetKeys())
+                {
+                    string defaultKeyName = key.GetDefaultName();
+
+                    string customKeyName = defaultKeyName.ToSnakeCase(cultureInfo);
+
+                    key.SetName(customKeyName);
+                }
+
+                foreach (var foreignKey in entity.GetForeignKeys())
+                {
+                    string defaultForeignKeyName = foreignKey.GetDefaultName();
+
+                    string customForeignKeyName = defaultForeignKeyName.ToSnakeCase(cultureInfo);
+
+                    foreignKey.SetConstraintName(customForeignKeyName);
+                }
+
+                foreach (var index in entity.GetDeclaredIndexes())
+                {
+                    string defaultIndexName = index.GetDefaultDatabaseName();
+
+                    string customIndexName = defaultIndexName.ToSnakeCase(cultureInfo);
+
+                    index.SetDatabaseName(customIndexName);
+                }
+            }
+        }
+
+        public static async Task AddFromJson<TEntity, TData>(this IEntityFrameworkCoreDbContext context, string path, Func<TData, ValueTask<IEnumerable<TEntity>>> func)
+           where TEntity : class
+        {
+            if (!await context.Set<TEntity>().AnyAsync())
+            {
+                var data = await IOUtils.DeserializeJson<TData>(path);
+
+                var dataToSave = await func(data);
+
+                context.Set<TEntity>().AddRange(dataToSave);
+            }
+        }
+
+        public static Task AddFromJson<TEntity>(this IEntityFrameworkCoreDbContext context, string path)
+            where TEntity : class
+        {
+            return context.AddFromJson<TEntity, IEnumerable<TEntity>>(path, d => ValueTask.FromResult(d));
+        }
+
+        public static Task AddDictionaryFromJson<TEntity, TElement>(this IEntityFrameworkCoreDbContext context, string path,
+            Func<string, IEnumerable<TElement>, IEnumerable<TEntity>> func)
+            where TEntity : class
+        {
+            return context.AddFromJson<TEntity, Dictionary<string, IEnumerable<TElement>>>(path, 
+                d => ValueTask.FromResult(d.SelectMany(v => func(v.Key, d[v.Key]))));
+        }
+
+        public static async Task AddFromFile<TEntity>(this IEntityFrameworkCoreDbContext context, string path,
+            Func<string, TEntity> func, Expression<Func<TEntity, bool>> expression)
+            where TEntity : class
+        {
+            if (!await context.Set<TEntity>().AnyAsync(expression))
+            {
+                string content = await File.ReadAllTextAsync(path, Encoding.UTF8);
+
+                var entity = func(content);
+
+                context.Set<TEntity>().Add(entity);
+            }
+        }
+
+        public static async Task SeedConfigurations<TEnum, TEntity>(this IEntityFrameworkCoreDbContext context,
+            Func<TEnum, TEntity> entityFunc, Expression<Func<TEntity, string>> tagExpression)
+            where TEnum : struct
+            where TEntity : class
+        {
+            var set = context.Set<TEntity>();
+
+            var tagFunc = tagExpression.Compile();
+
+            var configurations = EnumUtils.GetEnumValues<TEnum>().Select(entityFunc);
+
+            var configurationTagsInDatabase = await set.Select(tagExpression).ToArrayAsync();
+
+            var configurationTagsInDatabaseHashSet = new HashSet<string>(configurationTagsInDatabase);
+
+            var configurationTagsToSave = configurations.Where(c => !configurationTagsInDatabase.Contains(tagFunc(c))).ToArray();
+
+            if (configurationTagsToSave.Any())
+            {
+                set.AddRange(configurationTagsToSave);
+
+                await context.SaveChangesWithModificationHistoryAsync();
             }
         }
     }
