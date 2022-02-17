@@ -561,6 +561,9 @@
   <data name="ModifyAccount" xml:space="preserve">
     <value>Zmień ustawienia konta</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
   </data>
@@ -863,6 +866,9 @@
   </data>
   <data name="Warn" xml:space="preserve">
     <value>Ostrzeżenie</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Rok</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>tak</value>

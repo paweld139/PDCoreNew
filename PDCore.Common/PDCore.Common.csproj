@@ -219,6 +219,9 @@
     <Compile Include="XML\Signing\Xades\XMLTimeStamp.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="XML\Signing\Xades\XAdES.xsd">
       <SubType>Designer</SubType>
     </None>
