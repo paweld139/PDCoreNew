@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PDCoreNew.Repositories.IRepo
 {
-    public interface IDictionaryRepository
+    public interface IDictionaryRepository : ISqlRepositoryEntityFrameworkAsync<Dictionary>
     {
         IQueryable<Dictionary> Find(SearchDictionary searchDictionary);
 
