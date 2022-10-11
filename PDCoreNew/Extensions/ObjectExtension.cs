@@ -24,7 +24,6 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Unity;
 
 namespace PDCoreNew.Extensions
 {
@@ -299,27 +298,6 @@ namespace PDCoreNew.Extensions
         public static IDisposableWrapper<ISqlRepositoryEntityFramework<TModel>> WrapRepo<TModel>(this ISqlRepositoryEntityFramework<TModel> repo, bool withoutValidation = false) where TModel : class, IModificationHistory
         {
             return new SaveChangesWrapper<TModel>(repo, withoutValidation);
-        }
-
-        public static void RemoveRegistrations(this IUnityContainer container, string name, Type registeredType, Type lifetimeManager)
-        {
-            foreach (var registration in container.Registrations
-                .Where(p => p.RegisteredType == (registeredType ?? p.RegisteredType)
-                            && p.Name == (name ?? p.Name)
-                            && p.LifetimeManager.GetType() == (lifetimeManager ?? p.LifetimeManager.GetType())))
-            {
-                registration.LifetimeManager.RemoveValue();
-            }
-        }
-
-        public static void RemoveRegistrations<TReg, TLife>(this IUnityContainer container, string name = null)
-        {
-            container.RemoveRegistrations(name, typeof(TReg), typeof(TLife));
-        }
-
-        public static void RemoveAllRegistrations(this IUnityContainer container)
-        {
-            container.RemoveRegistrations(null, null, null);
         }
 
         private async static Task<Tuple<TResult, TException>> DoWithRetry<TResult, TException>(Func<TResult> func, Func<Task<TResult>> task, bool sync) where TException : Exception
