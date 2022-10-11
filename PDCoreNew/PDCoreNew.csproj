@@ -3,13 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Authors>Paweł Dywan</Authors>
-    <Version>1.0.0.14</Version>
-    <AssemblyVersion>1.0.0.14</AssemblyVersion>
-    <FileVersion>1.0.0.14</FileVersion>
+    <Version>1.0.0.15</Version>
+    <AssemblyVersion>1.0.0.15</AssemblyVersion>
+    <FileVersion>1.0.0.15</FileVersion>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\source\repos\Custom\Class Library\PDCoreNew\PDCoreNew\PDCoreNew.xml</DocumentationFile>
+    <DocumentationFile>C:\source\repos\Custom\Class Library\PDCoreNew\PDCoreNew\PDCoreNew.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
