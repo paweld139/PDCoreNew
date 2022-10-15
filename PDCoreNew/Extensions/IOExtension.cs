@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 
 namespace PDCoreNew.Extensions
@@ -57,6 +58,8 @@ namespace PDCoreNew.Extensions
         /// <param name="image">Zdjęcea</param>
         /// <param name="imageFormat">Format zdjęcia</param>
         /// <returns>Tablica bajtów będąca odzwierciedleniem przekazanego zdjęcia i biorąca pod uwagę format</returns>
+
+        [SupportedOSPlatform("windows")]
         public static byte[] GetBuffer(this Image image, ImageFormat imageFormat)
         {
             using MemoryStream ms = new(); //Utworzenie strumienia danych

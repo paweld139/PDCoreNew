@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 
 namespace PDCoreNew.Utils
@@ -182,6 +180,11 @@ namespace PDCoreNew.Utils
             TInput param, TInput2 param2, TInput3 param3)
         {
             return input.Partial(param, param2, param3).WithRetry();
+        }
+
+        public static IEnumerable<char> Range(char start, char end)
+        {
+            return Enumerable.Range(start, end - start + 1).Select(i => (char)i);
         }
     }
 }

@@ -281,6 +281,7 @@ namespace PDCoreNew.Utils
             return loader;
         }
 
+        [SupportedOSPlatform("windows")]
         public static ImageFormat GetImageFormat(string fileName)
         {
             string extension = Path.GetExtension(fileName);

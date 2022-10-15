@@ -40,6 +40,8 @@ namespace PDCoreNew.Utils
         /// <typeparam name="T">Typ na który ma być przetworzona linia w pliku CSV</typeparam>
         /// <param name="filePath">Ścieżka do pliku CSV</param>
         /// <param name="fieldsParser">Metoda do przetworzenia tablicy pól w danej linii pliku CSV na obiekt, którego kolekcja zostanie zwrócona</param>
+        /// <param name="encoding"></param>
+        /// <param name="cultureInfo"></param>
         /// <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
@@ -57,6 +59,8 @@ namespace PDCoreNew.Utils
         /// </summary>
         /// <typeparam name="T">Typ na który ma być przetworzona linia w pliku CSV. Musi implementować interfejs IFromCSVParseable, czyli posiadać metodę do ustawienia danych na podstawie pól danej linii</typeparam>
         /// <param name="filePath">Ścieżka do pliku CSV</param>
+        /// <param name="encoding"></param>
+        /// <param name="cultureInfo"></param>
         /// <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>

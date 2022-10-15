@@ -660,4 +660,7 @@
   <data name="Warn" xml:space="preserve">
     <value>Warning</value>
   </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
 </root>

@@ -157,7 +157,7 @@ namespace PDCoreNew.Extensions
         /// Date is first converted to UTC then adjusted.
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="timeZoneId"></param>
+        /// <param name="tzi"></param>
         /// <returns></returns>
         public static DateTime ToTimeZoneTime(this DateTime time, TimeZoneInfo tzi)
         {

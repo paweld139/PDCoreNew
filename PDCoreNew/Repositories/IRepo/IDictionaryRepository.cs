@@ -19,5 +19,7 @@ namespace PDCoreNew.Repositories.IRepo
         Task<List<DictionaryBrief>> GetBriefsAsync(SearchDictionary searchDictionary);
 
         Task<Dictionary<string, IEnumerable<KeyValuePair<string, string>>>> GetKVP(SearchDictionary searchDictionary);
+
+        Task<string[]> GetValues(string dictionaryName);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Text;
@@ -75,7 +74,7 @@ namespace PDCoreNew.Helpers.XML.Signing
             SignedXml signedXml = new(doc);
 
 
-            RSA rsaKey = ((RSA)myCert.PrivateKey);
+            RSA rsaKey = myCert.GetRSAPrivateKey();
 
             // Add the key to the SignedXml document. 
             signedXml.SigningKey = rsaKey;

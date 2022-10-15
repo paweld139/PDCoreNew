@@ -6,16 +6,16 @@ namespace PDCoreNew.Services.IServ
     public interface IFileStorageService
     {
         string Combine(params string[] paths);
-        void CreateFolder(string targetDirectory);
-        void DeleteFile(string targetDirectory);
-        void DeleteFolder(string targetDirectory);
-        byte[] Download(string targetDirectory);
-        bool FileExists(string targetDirectory);
-        bool FolderExists(string targetDirectory);
-        bool FolderIsEmpty(string targetDirectory);
-        DateTime GetFileCreationTime(string filePath);
-        long GetFileSize(string filePath);
-        void RenameFolder(string oldFolderTargetName, string newFolderTargetName);
+        ValueTask CreateFolder(string targetDirectory);
+        ValueTask DeleteFile(string targetDirectory);
+        ValueTask DeleteFolder(string targetDirectory);
+        ValueTask<byte[]> Download(string targetDirectory);
+        ValueTask<bool> FileExists(string targetDirectory);
+        ValueTask<bool> FolderExists(string targetDirectory);
+        ValueTask<bool> FolderIsEmpty(string targetDirectory);
+        ValueTask<DateTime> GetFileCreationTime(string filePath);
+        ValueTask<long> GetFileSize(string filePath);
+        ValueTask RenameFolder(string oldFolderTargetName, string newFolderTargetName);
         void SaveFile(string filePath, byte[] data);
         Task SaveFile(string filePath, string fileContent);
         Task SaveFileAsyncTask(string filePath, byte[] data);

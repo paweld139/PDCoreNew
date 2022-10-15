@@ -1,16 +1,17 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using Newtonsoft.Json.Serialization;
 using PDCoreNew.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
 namespace PDCoreNew.Extensions
 {
@@ -220,7 +221,7 @@ namespace PDCoreNew.Extensions
 
             if (apostropheLocation != -1)
             {
-                word = word.Substring(0, apostropheLocation);
+                word = word[..apostropheLocation];
             }
 
             return word;
@@ -462,5 +463,23 @@ namespace PDCoreNew.Extensions
         {
             return Blueprint(text, variables.AsEnumerable());
         }
+
+        public static void AddError(this string error, bool isValid, Action<string, string> addError)
+        {
+            if (!isValid)
+            {
+                addError(string.Empty, error);
+            }
+        }
+
+
+        public static bool ValidateFileName(this string fileName, string expectedFileName)
+        {
+            fileName = Path.GetFileNameWithoutExtension(fileName);
+
+            return fileName == expectedFileName;
+        }
+
+        public static IEnumerable<string> GetParameters(this string input) => input.Split(' ').Select(e => e.Replace("{", string.Empty).Replace("}", string.Empty));
     }
 }

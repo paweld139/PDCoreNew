@@ -182,7 +182,6 @@ namespace PDCoreNew.Utils
             return result;
         }
 
-        [SupportedOSPlatform("windows")]
         /// <summary>
         /// Construct a DataAdapater based on the type of DbConnection passed.
         /// You can call connection.CreateCommand() to create a DbCommand object,
@@ -191,6 +190,7 @@ namespace PDCoreNew.Utils
         /// <param name="connection"></param>
         /// <exception>Throws Exception if the connection is not of a known type.</exception>
         /// <returns></returns>
+        [SupportedOSPlatform("windows")]
         public static DbDataAdapter CreateDataAdapter(DbConnection connection)
         {
             //Note: Any code is released into the public domain. No attribution required.

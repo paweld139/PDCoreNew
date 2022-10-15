@@ -64,5 +64,16 @@ namespace PDCoreNew.Repositories.Repo
             return dictionaries.GroupBy(d => d.Name)
                                .ToDictionary(k => k.Key, v => v.GetKVP(dk => dk.Key, dv => dv.Value));
         }
+
+        public Task<string[]> GetValues(string dictionaryName)
+        {
+            var searchDictionary = new SearchDictionary(name: dictionaryName);
+
+            var query = Find(searchDictionary);
+
+            var valuesQuery = query.Select(e => e.Value);
+
+            return valuesQuery.ToArrayAsync();
+        }
     }
 }

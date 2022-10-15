@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDCoreNew.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using PDCoreNew.Extensions;
 
 namespace PDCoreNew.Utils
 {
@@ -129,7 +129,7 @@ namespace PDCoreNew.Utils
                 return null;
             }
 
-            return Guid.NewGuid().ToString("N").Substring(0, length).ToUpper();
+            return Guid.NewGuid().ToString("N")[..length].ToUpper();
         }
         public static string GetGuid() => Guid.NewGuid().ToString();
 
@@ -267,7 +267,7 @@ namespace PDCoreNew.Utils
 
             byte[] bytes = Encoding.UTF8.GetBytes(text);
 
-            SHA256Managed hashstring = new();
+            var hashstring = SHA256.Create();
 
             byte[] hash = hashstring.ComputeHash(bytes);
 

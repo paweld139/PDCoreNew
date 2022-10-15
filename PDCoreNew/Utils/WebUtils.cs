@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -125,19 +124,19 @@ namespace PDCoreNew.Utils
             return el;
         }
 
-        private static Task<string> DoGetTextFromWebClient(string address, WebClient webClient, bool sync)
+        private static Task<string> DoGetTextFromWebClient(string address, HttpClient webClient, bool sync)
         {
             ObjectUtils.ThrowIfNull(address.GetTuple(nameof(address)), webClient.GetTuple(nameof(webClient)));
 
             if (sync)
-                return Task.FromResult(webClient.DownloadString(address));
+                return Task.FromResult(webClient.GetStringAsync(address).Result);
 
-            return webClient.DownloadStringTaskAsync(address);
+            return webClient.GetStringAsync(address);
         }
 
         private static async Task<string> DoGetTextFromWebClient(string address, bool sync)
         {
-            using WebClient webClient = GetWebClient();
+            using HttpClient webClient = GetWebClient();
 
             Task<string> task = DoGetTextFromWebClient(address, webClient, sync);
 
@@ -157,11 +156,13 @@ namespace PDCoreNew.Utils
             return DoGetTextFromWebClient(address, false);
         }
 
-        public static string GetFileNameAfterRead(WebClient webClient)
+        public static string GetFileNameAfterRead(HttpContent httpContent)
         {
             string fileName = null;
 
-            string headerContentDisposition = webClient.ResponseHeaders["Content-Disposition"];
+            _ = httpContent.Headers.TryGetValues("Content-Disposition", out IEnumerable<string> values);
+
+            string headerContentDisposition = values.FirstOrDefault();
 
             if (!string.IsNullOrEmpty(headerContentDisposition))
                 fileName = new ContentDisposition(headerContentDisposition).FileName;
@@ -169,16 +170,25 @@ namespace PDCoreNew.Utils
             return fileName;
         }
 
-        private static async Task<string> DoSaveFileFromWebClient(string address, WebClient webClient, bool sync)
+        private static async Task<string> DoSaveFileFromWebClient(string address, HttpClient webClient, bool sync)
         {
             byte[] data;
 
-            if (sync)
-                data = webClient.DownloadData(address);
-            else
-                data = await webClient.DownloadDataTaskAsync(address);
+            HttpResponseMessage responseMessage;
 
-            string fileName = GetFileNameAfterRead(webClient);
+            if (sync)
+                responseMessage = webClient.GetAsync(address).Result;
+            else
+                responseMessage = await webClient.GetAsync(address);
+
+            HttpContent content = responseMessage.Content;
+
+            if (sync)
+                data = content.ReadAsByteArrayAsync().Result;
+            else
+                data = await content.ReadAsByteArrayAsync();
+
+            string fileName = GetFileNameAfterRead(content);
 
             string saveFileLocation = SecurityUtils.GetTempFilePath(fileName);
 
@@ -192,7 +202,7 @@ namespace PDCoreNew.Utils
 
         private static async Task<string> DoSaveFileFromWebClient(string address, bool sync)
         {
-            using WebClient webClient = GetWebClient();
+            using HttpClient webClient = GetWebClient();
 
             Task<string> task = DoSaveFileFromWebClient(address, webClient, sync);
 
@@ -202,12 +212,12 @@ namespace PDCoreNew.Utils
             return await task;
         }
 
-        public static string SaveFileFromWebClient(string address, WebClient webClient)
+        public static string SaveFileFromWebClient(string address, HttpClient webClient)
         {
             return DoSaveFileFromWebClient(address, webClient, true).Result;
         }
 
-        public static Task<string> SaveFileAsyncFromWebClient(string address, WebClient webClient)
+        public static Task<string> SaveFileAsyncFromWebClient(string address, HttpClient webClient)
         {
             return DoSaveFileFromWebClient(address, webClient, false);
         }
@@ -240,7 +250,7 @@ namespace PDCoreNew.Utils
             using var client = GetWebClient();
 
             //optionally process and return
-            return await client.DownloadStringTaskAsync(url).ConfigureAwait(false);
+            return await client.GetStringAsync(url).ConfigureAwait(false);
         }
 
         public static byte[] DownloadData(string url)
@@ -249,7 +259,7 @@ namespace PDCoreNew.Utils
             using var client = GetWebClient();
 
             //optionally process and return
-            return client.DownloadData(url);
+            return client.GetByteArrayAsync(url).Result;
         }
 
         public static async Task<byte[]> DownloadDataAsync(string url)
@@ -258,10 +268,10 @@ namespace PDCoreNew.Utils
             using var client = GetWebClient();
 
             //optionally process and return
-            return await client.DownloadDataTaskAsync(url).ConfigureAwait(false);
+            return await client.GetByteArrayAsync(url).ConfigureAwait(false);
         }
 
-        public static WebClient GetWebClient() => new();
+        public static HttpClient GetWebClient() => new();
 
         public static TOutput GetResultWithRetryWeb<TInput, TOutput>(Func<TInput, TOutput> input, TInput param)
         {

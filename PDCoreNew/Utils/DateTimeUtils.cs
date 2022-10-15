@@ -273,8 +273,8 @@ namespace PDCoreNew.Utils
         /// <summary>
         /// Returns a UTC time in the user's specified timezone.
         /// </summary>
+        /// <param name="timeZone"></param>
         /// <param name="utcTime">The utc time to convert</param>
-        /// <param name="timeZoneName">Name of the timezone (Eastern Standard Time)</param>
         /// <returns>New local time</returns>
         public static DateTime GetUserTime(TimeZoneInfo timeZone, DateTime? utcTime = null)
         {
@@ -296,6 +296,7 @@ namespace PDCoreNew.Utils
         /// -> convert to UTC
         /// </summary>
         /// <param name="localServerTime"></param>
+        /// <param name="timeZone"></param>
         /// <returns></returns>
         public static DateTime GetUtcUserTime(DateTime? localServerTime, TimeZoneInfo timeZone)
         {
@@ -338,7 +339,7 @@ namespace PDCoreNew.Utils
         /// <param name="tzi">Timezone to adjust for</param>
         /// <returns></returns>
         public static DateTime AdjustTimeZoneOffset(DateTime localTime, TimeZoneInfo tzi = null)
-        {  
+        {
             var offset = tzi.GetUtcOffset(localTime).TotalHours;
             var offset2 = TimeZoneInfo.Local.GetUtcOffset(localTime).TotalHours;
 

@@ -92,7 +92,7 @@ namespace PDCoreNew.Utils
             {
                 if (myCert != null)
                 {
-                    RSA rsaKey = ((RSA)myCert.PrivateKey);
+                    RSA rsaKey = myCert.GetRSAPrivateKey();
 
                     // Sign the XML document. 
                     SignXml(xmlDoc, rsaKey, myCert);

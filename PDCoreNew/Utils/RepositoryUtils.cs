@@ -19,8 +19,7 @@ namespace PDCoreNew.Utils
 
         public static void DumpItems<T>(IReadOnlyRepository<T> repository, Action<T> print = null) where T : class
         {
-            if (print == null)
-                print = Console.WriteLine;
+            print ??= Console.WriteLine;
 
             var result = repository.FindAll();
 
@@ -33,8 +32,7 @@ namespace PDCoreNew.Utils
         //Out - bardziej szczegółowe typy zostaną zwrócone jako mniej szczegółowe
         public static void DumpNamedObject(IReadOnlyRepository<NamedObject> repository, Action<NamedObject> print = null)
         {
-            if (print == null)
-                print = i => Console.WriteLine(i.Name);
+            print ??= i => Console.WriteLine(i.Name);
 
             DumpItems(repository, print);
         }
@@ -55,12 +53,8 @@ namespace PDCoreNew.Utils
         /// <summary>
         /// Produces a predicate for IQueryable LINQ "Where" clause that queries by id for specific value,
         /// </summary>
-        /// <typeparam name="T">The type to query which must have an int property named "Id".</typeparam>
         /// <param name="id">The int value of the id of the desired entity.</param>
         /// <returns>An predicate expression suitable for a LINQ "Where" or "First" clause.</returns>
-        /// <remarks>
-        /// See <see cref="Model.IRepository{T}.GetById"/> for usage.
-        /// </remarks>
         /// <Example>
         /// If T is a Foo and Foo.Id is of type int, then
         /// var predicate = GetByIdPredicate{T}(42) returns the equivalent of 

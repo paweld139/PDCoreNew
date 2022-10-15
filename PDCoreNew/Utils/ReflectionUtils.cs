@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Text;
 
 namespace PDCoreNew.Utils
@@ -17,6 +18,7 @@ namespace PDCoreNew.Utils
         {
             obj.GetType().GetMethod(methodName).Invoke(obj, parameters);
         }
+
         public static dynamic GetDynamic(string assemblyString, string typeName)
         {
             Type type = Assembly.Load(assemblyString).GetType(typeName);
@@ -24,6 +26,7 @@ namespace PDCoreNew.Utils
             return Activator.CreateInstance(type);
         }
 
+        [SupportedOSPlatform("windows")]
         public static dynamic GetDynamic(string progID)
         {
             Type type = Type.GetTypeFromProgID(progID);
@@ -31,11 +34,13 @@ namespace PDCoreNew.Utils
             return Activator.CreateInstance(type);
         }
 
+        [SupportedOSPlatform("windows")]
         public static dynamic GetExcel()
         {
             return GetDynamic("Excel.Application");
         }
 
+        [SupportedOSPlatform("windows")]
         public static dynamic OpenExcel()
         {
             dynamic excel = GetExcel();
@@ -47,6 +52,7 @@ namespace PDCoreNew.Utils
             return excel;
         }
 
+        [SupportedOSPlatform("windows")]
         public static dynamic OpenExcelAndGetActiveSheet()
         {
             dynamic excel = OpenExcel();
@@ -54,6 +60,7 @@ namespace PDCoreNew.Utils
             return excel.ActiveSheet;
         }
 
+        [SupportedOSPlatform("windows")]
         public static void OpenExcelWithProcessesAndThreads()
         {
             dynamic sheet = OpenExcelAndGetActiveSheet();

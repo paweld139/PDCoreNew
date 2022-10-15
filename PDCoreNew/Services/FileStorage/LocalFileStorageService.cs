@@ -10,39 +10,47 @@ namespace PDCoreNew.Services.FileStorage
 {
     public class LocalFileStorageService : IFileStorageService
     {
-        public void CreateFolder(string targetDirectory)
+        public ValueTask CreateFolder(string targetDirectory)
         {
             Directory.CreateDirectory(targetDirectory);
+
+            return ValueTask.CompletedTask;
         }
 
-        public void DeleteFile(string targetDirectory)
+        public ValueTask DeleteFile(string targetDirectory)
         {
             File.Delete(targetDirectory);
+
+            return ValueTask.CompletedTask;
         }
 
-        public void DeleteFolder(string targetDirectory)
+        public ValueTask DeleteFolder(string targetDirectory)
         {
             Directory.Delete(targetDirectory, true);
+
+            return ValueTask.CompletedTask;
         }
 
-        public bool FileExists(string targetDirectory)
+        public ValueTask<bool> FileExists(string targetDirectory)
         {
-            return File.Exists(targetDirectory);
+            return ValueTask.FromResult(File.Exists(targetDirectory));
         }
 
-        public bool FolderExists(string targetDirectory)
+        public ValueTask<bool> FolderExists(string targetDirectory)
         {
-            return Directory.Exists(targetDirectory);
+            return ValueTask.FromResult(Directory.Exists(targetDirectory));
         }
 
-        public bool FolderIsEmpty(string targetDirectory)
+        public ValueTask<bool> FolderIsEmpty(string targetDirectory)
         {
-            return !Directory.EnumerateFileSystemEntries(targetDirectory).Any();
+            return ValueTask.FromResult(!Directory.EnumerateFileSystemEntries(targetDirectory).Any());
         }
 
-        public void RenameFolder(string oldFolderTargetName, string newFolderTargetName)
+        public ValueTask RenameFolder(string oldFolderTargetName, string newFolderTargetName)
         {
             Directory.Move(oldFolderTargetName, newFolderTargetName);
+
+            return ValueTask.CompletedTask;
         }
 
         public string Combine(params string[] paths)
@@ -57,16 +65,16 @@ namespace PDCoreNew.Services.FileStorage
 
         public async Task SaveFile(string filePath, string fileContent)
         {
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
-            {
-                await streamWriter.WriteAsync(fileContent);
-            }
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+
+            using var streamWriter = new StreamWriter(fileStream, Encoding.UTF8);
+
+            await streamWriter.WriteAsync(fileContent);
         }
 
-        public byte[] Download(string targetDirectory)
+        public ValueTask<byte[]> Download(string targetDirectory)
         {
-            return File.ReadAllBytes(targetDirectory);
+            return ValueTask.FromResult(File.ReadAllBytes(targetDirectory));
         }
 
         public Task SaveFileAsyncTask(string filePath, byte[] data)
@@ -74,8 +82,8 @@ namespace PDCoreNew.Services.FileStorage
             return IOUtils.WriteAllBytesAsync(filePath, data);
         }
 
-        public long GetFileSize(string filePath) => new FileInfo(filePath).Length;
+        public ValueTask<long> GetFileSize(string filePath) => ValueTask.FromResult(new FileInfo(filePath).Length);
 
-        public DateTime GetFileCreationTime(string filePath) => new FileInfo(filePath).CreationTimeUtc;
+        public ValueTask<DateTime> GetFileCreationTime(string filePath) => ValueTask.FromResult(new FileInfo(filePath).CreationTimeUtc);
     }
 }

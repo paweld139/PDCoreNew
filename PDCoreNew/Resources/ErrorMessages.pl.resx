@@ -132,6 +132,18 @@
   <data name="ErrorOccuredOnRequest" xml:space="preserve">
     <value>Wystąpił błąd podczas przetwarzania żądania</value>
   </data>
+  <data name="FileExtensionsAttribute_ValidationError" xml:space="preserve">
+    <value>Pole {0} może posiadać rozszerzenia: {1}</value>
+  </data>
+  <data name="FileSizeAttribute_InvalidMaxSize" xml:space="preserve">
+    <value>Nieprawidłowa maksymalna wielkość pliku</value>
+  </data>
+  <data name="FileSizeAttribute_ValidationError" xml:space="preserve">
+    <value>Pole {0} ma wielkość większą niż {1}</value>
+  </data>
+  <data name="FileSizeAttribute_ValidationErrorIncludingMinimum" xml:space="preserve">
+    <value>Pole {0} może posiadać wielkość od {2} do {1}</value>
+  </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>wewnętrzny błąd serwera</value>
   </data>
@@ -158,6 +170,9 @@
   </data>
   <data name="PasswordUppercaseRequired" xml:space="preserve">
     <value>Hasła muszą mieć co najmniej jedną wielką literę ('A'-'Z').</value>
+  </data>
+  <data name="RangeAttribute_MinGreaterThanMax" xml:space="preserve">
+    <value>Wartość minimalna {1} jest większa od maksymalnej {0}</value>
   </data>
   <data name="Required" xml:space="preserve">
     <value>Pole {0} jest obowiązkowe</value>

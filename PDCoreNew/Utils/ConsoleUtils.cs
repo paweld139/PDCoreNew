@@ -114,6 +114,7 @@ namespace PDCoreNew.Utils
         /// Wyświetlenie na konsoli kolekcji łańcuchów znaków (każdy string w osobnej linii) i na końcu opcjonalnie oczekiwanie na wciśnięcie klawisza
         /// </summary>
         /// <param name="value">Kolekcja łańcuchów znaków do wyświetlenia w nowych liniach</param>
+        /// <param name="readKey"></param>
         public static void WriteLines<T>(IEnumerable<T> value, bool readKey = false)
         {
             value.ForEach(x => WriteLine(x, false)); //Wzięcie wszystkich stringów opórcz ostatniego i wyświetlenie każdego w nowej linii
@@ -230,12 +231,14 @@ namespace PDCoreNew.Utils
         /// Wyświetlenie na konsoli tabeli z danymi z pliku CSV
         /// </summary>
         /// <param name="filePath">Ścieżka do pliku CSV</param>
+        /// <param name="encoding"></param>
+        /// <param name="cultureInfo"></param>
         /// <param name="hasHeader">Czy ma nagłówek. Jeśli tak, to zostanie wyróżniony ramką</param>
         /// <param name="skipFirstLine">Czy pominąć pierwszą linię pliku CSV, zazwyczaj jest to nagłówek, a nie zawsze jest potrzebny</param>
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
         /// <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
-        public static void WriteTableFromCSV(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true, 
+        public static void WriteTableFromCSV(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true,
             bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.Left)
         {
             List<string[]> rowsFields = CSVUtils.ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Zwrócenie kolekcji pól dla wybranych linii pliku CSV

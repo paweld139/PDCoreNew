@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using FluentFTP;
+using Microsoft.Extensions.Logging;
 using PDCoreNew.Extensions;
 using PDCoreNew.Services.IServ;
-using PDCoreNew.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PDCoreNew.Services.FileStorage
@@ -20,6 +20,7 @@ namespace PDCoreNew.Services.FileStorage
         public WebFileStorageService(ILogger<WebFileStorageService> logger, string login, string password)
         {
             this.logger = logger;
+
             networkCredential = new NetworkCredential(login, password);
         }
 
@@ -28,140 +29,75 @@ namespace PDCoreNew.Services.FileStorage
             url = url.FixPathSlashes();
         }
 
-        private FtpWebRequest GetFtpWebRequest(string path, string method)
+        private async Task<AsyncFtpClient> GetAsyncFtpClient(string path)
         {
             FixUrl(ref path);
 
-            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(path);
-            request.Method = method;
-            request.Credentials = networkCredential;
+            path = new Uri(path).GetLeftPart(UriPartial.Authority);
 
-            return request;
+            AsyncFtpClient client = new(path, networkCredential);
+
+            await client.AutoConnect();
+
+            return client;
         }
 
-        private FtpWebResponse GetFtpWebResponse(string path, string method)
+        public async ValueTask CreateFolder(string targetDirectory)
         {
-            var request = GetFtpWebRequest(path, method);
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-            return (FtpWebResponse)request.GetResponse();
+            await client.CreateDirectory(targetDirectory);
         }
 
-        private Stream GetFtpRequestStream(string path, string method)
+        public async ValueTask DeleteFile(string targetDirectory)
         {
-            var request = GetFtpWebRequest(path, method);
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-            return request.GetRequestStream();
+            await client.DeleteFile(targetDirectory);
         }
 
-        private FtpStatusCode ExecuteFtpOperation(FtpWebRequest request)
+        public async ValueTask DeleteFolder(string targetDirectory)
         {
-            using var resp = (FtpWebResponse)request.GetResponse();
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-            logger.LogInformation($"{ReflectionUtils.GetCallerMethodName()} status: {resp.StatusDescription}");
-
-            return resp.StatusCode;
+            await client.DeleteDirectory(targetDirectory);
         }
 
-        private FtpStatusCode ExecuteFtpOperation(string path, string method)
+        public async ValueTask<bool> FileExists(string targetDirectory)
         {
-            var request = GetFtpWebRequest(path, method);
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-            return ExecuteFtpOperation(request);
+            return await client.FileExists(targetDirectory);
         }
 
-        public void CreateFolder(string targetDirectory)
+        public async ValueTask<bool> FolderExists(string targetDirectory)
         {
-            ExecuteFtpOperation(targetDirectory, WebRequestMethods.Ftp.MakeDirectory);
+            var client = await GetAsyncFtpClient(targetDirectory);
+
+            return await client.DirectoryExists(targetDirectory);
         }
 
-        public void DeleteFile(string targetDirectory)
+        public async ValueTask<bool> FolderIsEmpty(string targetDirectory)
         {
-            ExecuteFtpOperation(targetDirectory, WebRequestMethods.Ftp.DeleteFile);
-        }
+            bool result = false;
 
-        public void DeleteFolder(string targetDirectory)
-        {
-            ExecuteFtpOperation(targetDirectory, WebRequestMethods.Ftp.RemoveDirectory);
-        }
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-        public bool FileExists(string targetDirectory)
-        {
-            bool result = true;
-
-            try
+            await foreach (FtpListItem item in client.GetListingEnumerable())
             {
-                var request = GetFtpWebRequest(targetDirectory, WebRequestMethods.Ftp.GetDateTimestamp);
+                result = true;
 
-                request.UseBinary = true;
-
-                ExecuteFtpOperation(request);
-            }
-            catch (WebException ex)
-            {
-                var response = (FtpWebResponse)ex.Response;
-
-                if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable || response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailableOrBusy)
-                {
-                    result = false;
-                }
-                else
-                {
-                    throw;
-                }
+                break;
             }
 
             return result;
         }
 
-        public bool FolderExists(string targetDirectory)
+        public async ValueTask RenameFolder(string oldFolderTargetName, string newFolderTargetName)
         {
-            bool result = true;
+            var client = await GetAsyncFtpClient(oldFolderTargetName);
 
-            try
-            {
-                ExecuteFtpOperation(targetDirectory, WebRequestMethods.Ftp.ListDirectory);
-            }
-            catch (WebException ex)
-            {
-                var response = (FtpWebResponse)ex.Response;
-
-                if (response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailable || response.StatusCode == FtpStatusCode.ActionNotTakenFileUnavailableOrBusy)
-                {
-                    result = false;
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
-        }
-
-        public bool FolderIsEmpty(string targetDirectory)
-        {
-            List<string> res = new();
-
-            var request = GetFtpWebRequest(targetDirectory, WebRequestMethods.Ftp.ListDirectory);
-
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            using (var streamReader = new StreamReader(stream))
-                while (!streamReader.EndOfStream)
-                {
-                    res.Add(streamReader.ReadLine());
-                }
-
-            return res.Count <= 2;
-        }
-
-        public void RenameFolder(string oldFolderTargetName, string newFolderTargetName)
-        {
-            var request = GetFtpWebRequest(oldFolderTargetName, WebRequestMethods.Ftp.Rename);
-
-            request.RenameTo = newFolderTargetName.Split("/").Last();
-
-            ExecuteFtpOperation(request);
+            await client.MoveDirectory(oldFolderTargetName, newFolderTargetName);
         }
 
         public string Combine(params string[] paths)
@@ -169,56 +105,49 @@ namespace PDCoreNew.Services.FileStorage
             return new Uri(paths.First()).Append(paths.Skip(1).ToArray()).AbsoluteUri;
         }
 
-        public void SaveFile(string filePath, byte[] data)
-        {
-            using var memoryStream = new MemoryStream(data);
-
-            using var ftpStream = GetFtpRequestStream(filePath, WebRequestMethods.Ftp.UploadFile);
-
-            memoryStream.CopyTo(ftpStream);
-        }
+        public void SaveFile(string filePath, byte[] data) => SaveFileAsyncTask(filePath, data).Wait();
 
         public async Task SaveFile(string filePath, string fileContent)
         {
-            using var ftpStream = GetFtpRequestStream(filePath, WebRequestMethods.Ftp.UploadFile);
+            var client = await GetAsyncFtpClient(filePath);
 
-            using var streamWriter = new StreamWriter(ftpStream, Encoding.UTF8);
+            using var stream = new MemoryStream();
+
+            using var streamWriter = new StreamWriter(stream, Encoding.UTF8);
 
             await streamWriter.WriteAsync(fileContent);
+
+            await client.UploadStream(stream, filePath);
         }
 
-        public byte[] Download(string targetDirectory)
+        public async ValueTask<byte[]> Download(string targetDirectory)
         {
-            var request = GetFtpWebRequest(targetDirectory, WebRequestMethods.Ftp.DownloadFile);
+            var client = await GetAsyncFtpClient(targetDirectory);
 
-            using var response = request.GetResponse();
-
-            using var stream = response.GetResponseStream();
-
-            return stream.ReadFully();
+            return await client.DownloadBytes(targetDirectory, CancellationToken.None);
         }
 
         public async Task SaveFileAsyncTask(string filePath, byte[] data)
         {
-            using var memoryStream = new MemoryStream(data);
+            var client = await GetAsyncFtpClient(filePath);
 
-            using var ftpStream = GetFtpRequestStream(filePath, WebRequestMethods.Ftp.UploadFile);
-
-            await memoryStream.CopyToAsync(ftpStream);
+            await client.UploadBytes(data, filePath);
         }
 
-        public long GetFileSize(string filePath)
+        public async ValueTask<long> GetFileSize(string filePath)
         {
-            using var response = GetFtpWebResponse(filePath, WebRequestMethods.Ftp.GetFileSize);
+            var client = await GetAsyncFtpClient(filePath);
 
-            return response.ContentLength;
+            return await client.GetFileSize(filePath);
         }
 
-        public DateTime GetFileCreationTime(string filePath)
+        public async ValueTask<DateTime> GetFileCreationTime(string filePath)
         {
-            using var response = GetFtpWebResponse(filePath, WebRequestMethods.Ftp.GetDateTimestamp);
+            var client = await GetAsyncFtpClient(filePath);
 
-            return response.LastModified.ToUniversalTime();
+            var info = await client.GetObjectInfo(filePath);
+
+            return info.Created.ToUniversalTime();
         }
     }
 }

@@ -59,9 +59,9 @@ namespace PDCoreNew.Extensions
         {
             return obj.GetTypeCode() switch
             {
-                TypeCode.Byte or TypeCode.SByte or TypeCode.UInt16 or 
-                TypeCode.UInt32 or TypeCode.UInt64 or TypeCode.Int16 or 
-                TypeCode.Int32 or TypeCode.Int64 or TypeCode.Decimal or 
+                TypeCode.Byte or TypeCode.SByte or TypeCode.UInt16 or
+                TypeCode.UInt32 or TypeCode.UInt64 or TypeCode.Int16 or
+                TypeCode.Int32 or TypeCode.Int64 or TypeCode.Decimal or
                 TypeCode.Double or TypeCode.Single => true,
                 _ => false,
             };
@@ -126,7 +126,6 @@ namespace PDCoreNew.Extensions
         /// Determine whether a type is simple (String, Decimal, DateTime, etc) 
         /// or complex (i.e. custom class with public properties and methods).
         /// </summary>
-        /// <see cref="http://stackoverflow.com/questions/2442534/how-to-test-if-type-is-primitive"/>
         public static bool IsSimpleType(
            this Type type)
         {

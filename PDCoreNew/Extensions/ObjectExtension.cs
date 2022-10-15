@@ -5,6 +5,7 @@ using PDCoreNew.Helpers;
 using PDCoreNew.Helpers.Wrappers.DisposableWrapper;
 using PDCoreNew.Interfaces;
 using PDCoreNew.Models;
+using PDCoreNew.Models.Results;
 using PDCoreNew.Repositories.IRepo;
 using PDCoreNew.Utils;
 using System;
@@ -491,5 +492,9 @@ namespace PDCoreNew.Extensions
         {
             return new KeyValuePair<TKey, TValue>(key, value);
         }
+
+        public static MessageResult<T> ToMessageResult<T>(this T input) => new(input);
+
+        public async static Task<MessageResult<T>> ToMessageResult<T>(this Task<T> input) => (await input).ToMessageResult();
     }
 }

@@ -24,10 +24,10 @@ namespace PDCoreNew.Helpers
         {
             if (bufferSize <= 0)
             {
-                throw new ArgumentOutOfRangeException("bufferSize");
+                throw new ArgumentOutOfRangeException(nameof(bufferSize));
             }
 
-            this.content = content ?? throw new ArgumentNullException("content");
+            this.content = content ?? throw new ArgumentNullException(nameof(content));
             this.bufferSize = bufferSize;
             this.progress = progress;
 
@@ -49,7 +49,7 @@ namespace PDCoreNew.Helpers
             {
                 while (true)
                 {
-                    var length = await sinput.ReadAsync(buffer, 0, buffer.Length).ConfigureAwait(false);
+                    int length = await sinput.ReadAsync(buffer).ConfigureAwait(false);
 
                     if (length <= 0) break;
 
@@ -61,7 +61,7 @@ namespace PDCoreNew.Helpers
 
                     //System.Diagnostics.Debug.WriteLine($"Bytes sent {uploaded} of {size}");
 
-                    await stream.WriteAsync(buffer, 0, length).ConfigureAwait(false);
+                    await stream.WriteAsync(buffer.AsMemory(0, length)).ConfigureAwait(false);
 
                     await stream.FlushAsync().ConfigureAwait(false);
                 }

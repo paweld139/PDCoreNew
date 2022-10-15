@@ -123,6 +123,15 @@
   <data name="AccessDenied" xml:space="preserve">
     <value>Odmowa dostępu</value>
   </data>
+  <data name="Action" xml:space="preserve">
+    <value>Akcja</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Akcje</value>
+  </data>
+  <data name="Actions1" xml:space="preserve">
+    <value>Akcje</value>
+  </data>
   <data name="ActiveInExternalSystem" xml:space="preserve">
     <value>Aktywny w systemach zewnętrznych</value>
   </data>
@@ -141,14 +150,29 @@
   <data name="AddMore" xml:space="preserve">
     <value>Dodaj więcej produktów z kategorii</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Admin1" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
   <data name="All" xml:space="preserve">
     <value>Wszystko</value>
   </data>
   <data name="already" xml:space="preserve">
     <value>już</value>
   </data>
+  <data name="AppCompany" xml:space="preserve">
+    <value>ESV</value>
+  </data>
   <data name="Application" xml:space="preserve">
     <value>Aplikacja</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>ESV</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>Kwiecień</value>
   </data>
   <data name="Archived" xml:space="preserve">
     <value>Archiwalny</value>
@@ -161,6 +185,9 @@
   </data>
   <data name="Auctions" xml:space="preserve">
     <value>Aukcje</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>Sierpień</value>
   </data>
   <data name="Available" xml:space="preserve">
     <value>Dostępny</value>
@@ -195,8 +222,23 @@
   <data name="ChangePasswordForm" xml:space="preserve">
     <value>Formularz zmiany hasła</value>
   </data>
+  <data name="CheckEmailToConfirmAccount" xml:space="preserve">
+    <value>Sprawdź pocztę e-mail i potwierdź swoje konto</value>
+  </data>
+  <data name="CheckEmailToConfirmAccount1" xml:space="preserve">
+    <value>Sprawdź pocztę e-mail i potwierdź swoje konto</value>
+  </data>
+  <data name="CheckEmailToConfirmAdminAccount" xml:space="preserve">
+    <value>Do użytkownika została wysłana wiadomość e-mail z tymczasowym hasłem i linkiem do aktywacji konta</value>
+  </data>
+  <data name="CheckEmailToConfirmAdminAccount1" xml:space="preserve">
+    <value>Do użytkownika została wysłana wiadomość e-mail z tymczasowym hasłem i linkiem do aktywacji konta</value>
+  </data>
   <data name="CheckEmailToResetPassword" xml:space="preserve">
     <value>Sprawdź skrzynkę mailową, aby zresetować hasło</value>
+  </data>
+  <data name="ChooseFile" xml:space="preserve">
+    <value>Wybierz plik</value>
   </data>
   <data name="Clarify" xml:space="preserve">
     <value>Do wyjaśnienia</value>
@@ -204,8 +246,20 @@
   <data name="Clear" xml:space="preserve">
     <value>Wyczyść</value>
   </data>
+  <data name="ClickingHere" xml:space="preserve">
+    <value>klinięcie tutaj</value>
+  </data>
+  <data name="ClickingHere1" xml:space="preserve">
+    <value>klinięcie tutaj</value>
+  </data>
   <data name="ClickToLogIn" xml:space="preserve">
     <value>Kliknij tutaj aby się zalogować</value>
+  </data>
+  <data name="CoefficientsForm" xml:space="preserve">
+    <value>Formatka do wprowadzania współczynnika jednoczesności  i zapotrzebowania na moc</value>
+  </data>
+  <data name="CoefficientsFormSimple" xml:space="preserve">
+    <value>Formatka współczynników</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Komentarz</value>
@@ -221,6 +275,12 @@
   </data>
   <data name="Commercial" xml:space="preserve">
     <value>Handlowe</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Spółka</value>
+  </data>
+  <data name="CompanyAndRegionIfPurposeError" xml:space="preserve">
+    <value>Niepoprawne dane, dla produkcji poza sieć w kolumnie C musi być wartość nd., a w D "R-99"</value>
   </data>
   <data name="CompanyName" xml:space="preserve">
     <value>Firma</value>
@@ -240,8 +300,20 @@
   <data name="ConfirmAccountInstruction" xml:space="preserve">
     <value>Potwierdź swoje konto klikając</value>
   </data>
+  <data name="ConfirmAccountInstructionSimple" xml:space="preserve">
+    <value>Potwierdź swoje konto poprzez</value>
+  </data>
+  <data name="ConfirmAccountInstructionSimple1" xml:space="preserve">
+    <value>Potwierdź swoje konto poprzez</value>
+  </data>
   <data name="ConfirmEmail" xml:space="preserve">
     <value>Potwierdzenie adresu e-mail</value>
+  </data>
+  <data name="ConfirmEmail1" xml:space="preserve">
+    <value>Potwierdź swój email</value>
+  </data>
+  <data name="ConfirmEmail2" xml:space="preserve">
+    <value>Potwierdź swój email</value>
   </data>
   <data name="ConfirmEmailFailed" xml:space="preserve">
     <value>Potwierdzenie adresu e-mail zakończyło się niepowodzeniem</value>
@@ -264,6 +336,9 @@
   <data name="Contractor" xml:space="preserve">
     <value>Kontrahent</value>
   </data>
+  <data name="ContractorNumber" xml:space="preserve">
+    <value>Numer kontrahenta</value>
+  </data>
   <data name="CookieAgreementConfirm" xml:space="preserve">
     <value>Potwierdź wybór</value>
   </data>
@@ -275,6 +350,21 @@
   </data>
   <data name="CookieAgreementTitle" xml:space="preserve">
     <value>Aby kontynuować musisz wyrazić zgodę</value>
+  </data>
+  <data name="CostAllocationExecutionError" xml:space="preserve">
+    <value>Nie można uruchomić kolejnej akcji</value>
+  </data>
+  <data name="CostAllocationExecutionSuccess" xml:space="preserve">
+    <value>Rozpoczęto wykonywanie akcji</value>
+  </data>
+  <data name="CostAllocationModel" xml:space="preserve">
+    <value>Model alokacji kosztów</value>
+  </data>
+  <data name="CostAllocationReport" xml:space="preserve">
+    <value>Raport zgodności danych w kostkach</value>
+  </data>
+  <data name="CostAllocationValidationRuleBefore" xml:space="preserve">
+    <value>Przed rozliczeniem składnika {1} należy rozliczyć składnik {0}</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Kraje</value>
@@ -291,17 +381,29 @@
   <data name="CreateTask" xml:space="preserve">
     <value>Utwórz nowe zadanie</value>
   </data>
+  <data name="CubeFormManufacture" xml:space="preserve">
+    <value>Formatka dla kostki Wytwarzanie</value>
+  </data>
   <data name="Currency" xml:space="preserve">
     <value>Waluty</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Obecne hasło</value>
   </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Klient</value>
+  </data>
+  <data name="Customer1" xml:space="preserve">
+    <value>Klient</value>
+  </data>
   <data name="Data" xml:space="preserve">
     <value>dane</value>
   </data>
   <data name="DataPreparation" xml:space="preserve">
     <value>Przygotowanie danych</value>
+  </data>
+  <data name="DataType" xml:space="preserve">
+    <value>Typ danych</value>
   </data>
   <data name="DateFrom" xml:space="preserve">
     <value>Data od</value>
@@ -315,6 +417,9 @@
   <data name="Debug" xml:space="preserve">
     <value>Monitorowanie problemów</value>
   </data>
+  <data name="December" xml:space="preserve">
+    <value>Grudzień</value>
+  </data>
   <data name="Default" xml:space="preserve">
     <value>Domyślne</value>
   </data>
@@ -326,6 +431,9 @@
   </data>
   <data name="Details" xml:space="preserve">
     <value>Szczegóły</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Urządzenie</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>zrobione</value>
@@ -366,6 +474,12 @@
   <data name="Error" xml:space="preserve">
     <value>Błąd</value>
   </data>
+  <data name="ErrorConfirmingEmail" xml:space="preserve">
+    <value>Wystąpił błąd przy potwierdzaniu adresu e-mail</value>
+  </data>
+  <data name="ErrorConfirmingEmail1" xml:space="preserve">
+    <value>Wystąpił błąd przy potwierdzaniu adresu e-mail</value>
+  </data>
   <data name="ErrorOccured" xml:space="preserve">
     <value>Wystąpił błąd</value>
   </data>
@@ -384,6 +498,12 @@
   <data name="ExternalAccessToken" xml:space="preserve">
     <value>Token dostępu zewnętrznego</value>
   </data>
+  <data name="ExternalUsers" xml:space="preserve">
+    <value>Użytkownicy zewnętrzni</value>
+  </data>
+  <data name="ExternalUsers1" xml:space="preserve">
+    <value>Użytkownicy zewnętrzni</value>
+  </data>
   <data name="False" xml:space="preserve">
     <value>fałsz</value>
   </data>
@@ -393,11 +513,20 @@
   <data name="Features" xml:space="preserve">
     <value>Cechy dodatkowe</value>
   </data>
+  <data name="February" xml:space="preserve">
+    <value>Luty</value>
+  </data>
+  <data name="FileExtensionsAttribute_ValidationError" xml:space="preserve">
+    <value>Pole {0} może posiadać rozszerzenia: {1}</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtry</value>
   </data>
   <data name="Finished" xml:space="preserve">
     <value>Gotowe</value>
+  </data>
+  <data name="FirstImport" xml:space="preserve">
+    <value>Brak importów dla okresu</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Imię</value>
@@ -444,14 +573,35 @@
   <data name="High" xml:space="preserve">
     <value>Wysoki</value>
   </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
+  <data name="HomePage1" xml:space="preserve">
+    <value>Strona główna</value>
+  </data>
   <data name="Hometown" xml:space="preserve">
     <value>Miasto rodzinne</value>
   </data>
   <data name="Id" xml:space="preserve">
     <value>Identyfikator</value>
   </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importuj</value>
+  </data>
+  <data name="ImportCompletedSuccessfully" xml:space="preserve">
+    <value>Import zakończony poprawnie</value>
+  </data>
+  <data name="ImportExists" xml:space="preserve">
+    <value>Import dla wybranego okresu został wcześniej wykonany. Dane zostaną nadpisane. Czy kontynuować?</value>
+  </data>
   <data name="In" xml:space="preserve">
     <value>w</value>
+  </data>
+  <data name="IncomeDifference" xml:space="preserve">
+    <value>Różnica na przychodzie</value>
+  </data>
+  <data name="IncorrectDataInColumn" xml:space="preserve">
+    <value>Niepoprawne dane w kolumnie {0}</value>
   </data>
   <data name="Indefinite" xml:space="preserve">
     <value>Nieokreślony</value>
@@ -459,11 +609,20 @@
   <data name="Info" xml:space="preserve">
     <value>Informacja</value>
   </data>
+  <data name="Ingredient" xml:space="preserve">
+    <value>Składnik</value>
+  </data>
   <data name="Internal" xml:space="preserve">
     <value>Wewnętrzne</value>
   </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>wewnętrzny błąd serwera</value>
+  </data>
+  <data name="InternalUsers" xml:space="preserve">
+    <value>Użytkownicy wewnętrzni</value>
+  </data>
+  <data name="InternalUsers1" xml:space="preserve">
+    <value>Użytkownicy wewnętrzni</value>
   </data>
   <data name="Interrupted" xml:space="preserve">
     <value>Przerwany</value>
@@ -471,14 +630,23 @@
   <data name="InvalidError" xml:space="preserve">
     <value>Pole {0} jest nieprawidłowe</value>
   </data>
+  <data name="InvalidFileName" xml:space="preserve">
+    <value>Niepoprawna nazwa pliku</value>
+  </data>
   <data name="InvalidLoginAttempt" xml:space="preserve">
     <value>Próba logowania zakończyła się niepowodzeniem</value>
   </data>
   <data name="InvalidLoginData" xml:space="preserve">
     <value>Nieprawidłowa nazwa użytkownika lub hasło</value>
   </data>
+  <data name="InvalidSheetName" xml:space="preserve">
+    <value>Niepoprawna nazwa arkusza</value>
+  </data>
   <data name="InvalidToken" xml:space="preserve">
     <value>Nieprawidłowy token.</value>
+  </data>
+  <data name="InvalidValueInCell" xml:space="preserve">
+    <value>Niepoprawna wartość w komórce {0}</value>
   </data>
   <data name="is" xml:space="preserve">
     <value> jest </value>
@@ -486,8 +654,20 @@
   <data name="IsAlreadyTaken" xml:space="preserve">
     <value>jest już zajęty</value>
   </data>
+  <data name="January" xml:space="preserve">
+    <value>Styczeń</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>Lipiec</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>Czerwiec</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Język</value>
+  </data>
+  <data name="LanguageChangedSuccessfully" xml:space="preserve">
+    <value>Pomyślnie zmieniono język</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Nazwisko</value>
@@ -531,17 +711,26 @@
   <data name="ManageAccount" xml:space="preserve">
     <value>Zarządzaj kontem</value>
   </data>
+  <data name="ManufactureForm" xml:space="preserve">
+    <value>Formatka wytwarzania</value>
+  </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Producenci</value>
   </data>
   <data name="Many" xml:space="preserve">
     <value>Wiele</value>
   </data>
+  <data name="March" xml:space="preserve">
+    <value>Marzec</value>
+  </data>
   <data name="MaxLength" xml:space="preserve">
     <value>{0} musi mieć nie więcej niż {1} znaków</value>
   </data>
   <data name="MaxLength1" xml:space="preserve">
     <value>{0} musi mieć nie więcej niż {1} znaków</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>Maj</value>
   </data>
   <data name="Measure" xml:space="preserve">
     <value>Miary</value>
@@ -558,11 +747,23 @@
   <data name="MinLength1" xml:space="preserve">
     <value>{0} musi mieć co najmniej {1} znaków</value>
   </data>
+  <data name="MissingOrIncorrectDataInColumn" xml:space="preserve">
+    <value>Brak lub niepoprawne dane w kolumnie {0}</value>
+  </data>
   <data name="ModifyAccount" xml:space="preserve">
     <value>Zmień ustawienia konta</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>Miesiąc</value>
+  </data>
+  <data name="Month1" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="MonthsIfDataType2Error" xml:space="preserve">
+    <value>Niepoprawne dane, dla typu danych moc dla przyłącza wartość w kolumnach od E do P musi być większa od 0.</value>
+  </data>
+  <data name="MonthsIfDataTypeError" xml:space="preserve">
+    <value>Niepoprawne dane, dla typu danych współczynnik jednoczesności wartość w kolumnach od E do P musi być w przedziale od 0 do 1.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nazwa</value>
@@ -582,11 +783,17 @@
   <data name="NewsletterBackgroundColor" xml:space="preserve">
     <value>Kolor tła newslettera</value>
   </data>
+  <data name="NextImport" xml:space="preserve">
+    <value>Import wykonany w dniu {0} przez {1}</value>
+  </data>
   <data name="NIP" xml:space="preserve">
     <value>NIP</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>nie</value>
+  </data>
+  <data name="No1" xml:space="preserve">
+    <value>Nie</value>
   </data>
   <data name="NoDataLoaded" xml:space="preserve">
     <value>Brak wczytanych danych</value>
@@ -600,17 +807,29 @@
   <data name="Nones" xml:space="preserve">
     <value>Brak informacji</value>
   </data>
+  <data name="NoRequiredPermissions" xml:space="preserve">
+    <value>Brak wymaganych uprawnień, skontaktuj się z Administratorem Hurtowni Danych</value>
+  </data>
   <data name="NotAvailable" xml:space="preserve">
     <value>Niedostępny</value>
   </data>
   <data name="NotDefine" xml:space="preserve">
     <value>Nie zdefiniowano</value>
   </data>
+  <data name="November" xml:space="preserve">
+    <value>Listopad</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Numer</value>
   </data>
   <data name="NumberOfTasks" xml:space="preserve">
     <value>Ilość zadań</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>Październik</value>
+  </data>
+  <data name="Odśwież" xml:space="preserve">
+    <value>Odśwież</value>
   </data>
   <data name="OnlyNotBinded" xml:space="preserve">
     <value>Tylko nieprzypisane</value>
@@ -626,6 +845,9 @@
   </data>
   <data name="OriginalName" xml:space="preserve">
     <value>Nazwa oryginalna</value>
+  </data>
+  <data name="OwnNeedsDifference" xml:space="preserve">
+    <value>Różnica na potrzebach własnych</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Hasło</value>
@@ -651,11 +873,20 @@
   <data name="Please" xml:space="preserve">
     <value>Proszę</value>
   </data>
+  <data name="Ppe" xml:space="preserve">
+    <value>PPE</value>
+  </data>
   <data name="PriceList" xml:space="preserve">
     <value>Cenniki</value>
   </data>
   <data name="Priority" xml:space="preserve">
     <value>Priorytet</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Prywatność</value>
+  </data>
+  <data name="Privacy1" xml:space="preserve">
+    <value>Prywatność</value>
   </data>
   <data name="Product" xml:space="preserve">
     <value>Produkty</value>
@@ -666,14 +897,32 @@
   <data name="ProductImage" xml:space="preserve">
     <value>Zdjęcia produktów</value>
   </data>
+  <data name="ProductionType" xml:space="preserve">
+    <value>Rodzaj produkcji</value>
+  </data>
   <data name="ProductRelated" xml:space="preserve">
     <value>Artykuły powiązane</value>
+  </data>
+  <data name="ProperName" xml:space="preserve">
+    <value>Nazwa własna</value>
   </data>
   <data name="ProviderKey" xml:space="preserve">
     <value>Klucz dostawcy</value>
   </data>
+  <data name="PurchaseCostDifference" xml:space="preserve">
+    <value>Różnica na koszcie zakupu</value>
+  </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Przeznaczenie</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>Ilość</value>
+  </data>
+  <data name="Quantity1" xml:space="preserve">
+    <value>Ilość</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>Pytanie</value>
   </data>
   <data name="Range" xml:space="preserve">
     <value>{0} musi przyjmować wartość z zakresu od {1} do  {2}</value>
@@ -687,11 +936,20 @@
   <data name="Refresh" xml:space="preserve">
     <value>Odśwież</value>
   </data>
+  <data name="Region" xml:space="preserve">
+    <value>Rejon</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Zarejestruj się</value>
   </data>
   <data name="RegisterAsNew" xml:space="preserve">
     <value>Zarejestruj się jako nowy użytkownik</value>
+  </data>
+  <data name="RegisterConfirmation" xml:space="preserve">
+    <value>Potwierdzenie rejestracji</value>
+  </data>
+  <data name="RegisterConfirmation1" xml:space="preserve">
+    <value>Potwierdzenie rejestracji</value>
   </data>
   <data name="Registration" xml:space="preserve">
     <value>Rejestracja</value>
@@ -735,6 +993,9 @@
   <data name="ResourceNotFound" xml:space="preserve">
     <value>zasób nie został odnaleziony</value>
   </data>
+  <data name="Rozlicz" xml:space="preserve">
+    <value>Rozlicz</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Zapisz</value>
   </data>
@@ -750,6 +1011,9 @@
   <data name="Send" xml:space="preserve">
     <value>Wyślij</value>
   </data>
+  <data name="September" xml:space="preserve">
+    <value>Wrzesień</value>
+  </data>
   <data name="ServedReceivedFollowingData" xml:space="preserve">
     <value>Serwer otrzymał następujące dane</value>
   </data>
@@ -759,8 +1023,17 @@
   <data name="Service" xml:space="preserve">
     <value>Usługa</value>
   </data>
+  <data name="SessionEnded" xml:space="preserve">
+    <value>Strona została odświeżona z powodu zakończenia sesji</value>
+  </data>
   <data name="Sessions" xml:space="preserve">
     <value>sesji</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="Settings1" xml:space="preserve">
+    <value>Ustawienia</value>
   </data>
   <data name="ShortName" xml:space="preserve">
     <value>Skrót</value>
@@ -810,6 +1083,36 @@
   <data name="Success" xml:space="preserve">
     <value>Sukces</value>
   </data>
+  <data name="Supplier" xml:space="preserve">
+    <value>Dostawca</value>
+  </data>
+  <data name="SupplierIfProductionTypeError" xml:space="preserve">
+    <value>Niepoprawne dane, dla produkcji własnej musi być spółka ESV</value>
+  </data>
+  <data name="Survey" xml:space="preserve">
+    <value>Ankieta</value>
+  </data>
+  <data name="Survey1" xml:space="preserve">
+    <value>Ankieta</value>
+  </data>
+  <data name="SurveyConfirmation" xml:space="preserve">
+    <value>Potwierdzenie rozpoczęcia tworzenia sklepu</value>
+  </data>
+  <data name="SurveyConfirmation1" xml:space="preserve">
+    <value>Potwierdzenie rozpoczęcia tworzenia sklepu</value>
+  </data>
+  <data name="SurveyResult" xml:space="preserve">
+    <value>Wynik ankiety</value>
+  </data>
+  <data name="SurveyResult1" xml:space="preserve">
+    <value>Wynik ankiety</value>
+  </data>
+  <data name="Surveys" xml:space="preserve">
+    <value>Ankiety</value>
+  </data>
+  <data name="Surveys1" xml:space="preserve">
+    <value>Ankiety</value>
+  </data>
   <data name="SynchronizationPlan" xml:space="preserve">
     <value>Plany synchronizacji</value>
   </data>
@@ -834,11 +1137,23 @@
   <data name="taken" xml:space="preserve">
     <value>zajęty</value>
   </data>
+  <data name="TariffGroup" xml:space="preserve">
+    <value>Grupa taryfowa</value>
+  </data>
   <data name="Task" xml:space="preserve">
     <value>Zadanie</value>
   </data>
   <data name="TaxRate" xml:space="preserve">
     <value>Stawki VAT</value>
+  </data>
+  <data name="TempPassword" xml:space="preserve">
+    <value>Hasło tymczasowe</value>
+  </data>
+  <data name="TempPassword1" xml:space="preserve">
+    <value>Hasło tymczasowe</value>
+  </data>
+  <data name="ThereIsNoDataInColumn" xml:space="preserve">
+    <value>Brak danych w kolumnie {0}</value>
   </data>
   <data name="TodayOnly" xml:space="preserve">
     <value>Tylko dzisiaj</value>
@@ -852,6 +1167,9 @@
   <data name="Type1" xml:space="preserve">
     <value>Typ</value>
   </data>
+  <data name="UnauthorizedError" xml:space="preserve">
+    <value>Nie podano prawidłowych danych uwierzytelniających dla żądanego zasobu</value>
+  </data>
   <data name="Unknown" xml:space="preserve">
     <value>Nieznany</value>
   </data>
@@ -860,6 +1178,12 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>Użytkownik</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Użytkownicy</value>
+  </data>
+  <data name="Users1" xml:space="preserve">
+    <value>Użytkownicy</value>
   </data>
   <data name="Value" xml:space="preserve">
     <value>Wartość</value>
@@ -870,7 +1194,13 @@
   <data name="Year" xml:space="preserve">
     <value>Rok</value>
   </data>
+  <data name="Year1" xml:space="preserve">
+    <value>Rok</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>tak</value>
+  </data>
+  <data name="Yes1" xml:space="preserve">
+    <value>Tak</value>
   </data>
 </root>

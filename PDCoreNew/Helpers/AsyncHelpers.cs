@@ -8,9 +8,9 @@ namespace PDCoreNew.Helpers
     public static class AsyncHelpers
     {
         /// <summary>
-        /// Execute's an async Task<T> method which has a void return value synchronously
+        /// Execute's an async TaskT method which has a void return value synchronously
         /// </summary>
-        /// <param name="task">Task<T> method to execute</param>
+        /// <param name="task">TaskT method to execute</param>
         public static void RunSync(Func<Task> task)
         {
             var oldContext = SynchronizationContext.Current;
@@ -38,17 +38,17 @@ namespace PDCoreNew.Helpers
         }
 
         /// <summary>
-        /// Execute's an async Task<T> method which has a T return type synchronously
+        /// Execute's an async TaskT method which has a T return type synchronously
         /// </summary>
         /// <typeparam name="T">Return Type</typeparam>
-        /// <param name="task">Task<T> method to execute</param>
+        /// <param name="task">TaskT method to execute</param>
         /// <returns></returns>
         public static T RunSync<T>(Func<Task<T>> task)
         {
             var oldContext = SynchronizationContext.Current;
             var synch = new ExclusiveSynchronizationContext();
             SynchronizationContext.SetSynchronizationContext(synch);
-            T ret = default(T);
+            T ret = default;
             synch.Post(async _ =>
             {
                 try
@@ -87,14 +87,14 @@ namespace PDCoreNew.Helpers
 
         public static async Task<T> DoSomethingAsync<T>(Func<T, Task> resultBody) where T : Result, new()
         {
-            T result = new T();
+            T result = new();
             await resultBody(result);
             return result;
         }
 
         public static Task<T> DoSomethingAsync<T>(Action<T> resultBody) where T : Result, new()
         {
-            T result = new T();
+            T result = new();
             resultBody(result);
 
             return Task.FromResult(result);
@@ -110,9 +110,9 @@ namespace PDCoreNew.Helpers
         {
             private bool done;
             public Exception InnerException { get; set; }
-            readonly AutoResetEvent workItemsWaiting = new AutoResetEvent(false);
+            readonly AutoResetEvent workItemsWaiting = new(false);
             readonly Queue<Tuple<SendOrPostCallback, object>> items =
-                new Queue<Tuple<SendOrPostCallback, object>>();
+                new();
 
             public override void Send(SendOrPostCallback d, object state)
             {

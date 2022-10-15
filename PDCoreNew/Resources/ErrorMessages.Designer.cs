@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ErrorMessages {
@@ -39,7 +39,7 @@ namespace Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PDCoreNewNew.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PDCoreNew.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -102,6 +102,42 @@ namespace Resources {
         public static string ErrorOccuredOnRequest {
             get {
                 return ResourceManager.GetString("ErrorOccuredOnRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} field may have the following extensions: {1}.
+        /// </summary>
+        public static string FileExtensionsAttribute_ValidationError {
+            get {
+                return ResourceManager.GetString("FileExtensionsAttribute_ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid maximum file size.
+        /// </summary>
+        public static string FileSizeAttribute_InvalidMaxSize {
+            get {
+                return ResourceManager.GetString("FileSizeAttribute_InvalidMaxSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} field is larger than {1}.
+        /// </summary>
+        public static string FileSizeAttribute_ValidationError {
+            get {
+                return ResourceManager.GetString("FileSizeAttribute_ValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} field can be from {2} to {1}.
+        /// </summary>
+        public static string FileSizeAttribute_ValidationErrorIncludingMinimum {
+            get {
+                return ResourceManager.GetString("FileSizeAttribute_ValidationErrorIncludingMinimum", resourceCulture);
             }
         }
         
@@ -183,6 +219,15 @@ namespace Resources {
         public static string PasswordUppercaseRequired {
             get {
                 return ResourceManager.GetString("PasswordUppercaseRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The minimum value {1} is greater than the maximum {0}.
+        /// </summary>
+        public static string RangeAttribute_MinGreaterThanMax {
+            get {
+                return ResourceManager.GetString("RangeAttribute_MinGreaterThanMax", resourceCulture);
             }
         }
         
