@@ -9,7 +9,7 @@ namespace PDCore.Models
     [Table("File", Schema = "dbo")]
     [DataContract(Name = "file", Namespace = "")]
     public class FileModel : FileBrief, IModificationHistory
-    {       
+    {
         //[Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 0, ErrorMessageResourceName = "StringLength_GreaterAndLess", ErrorMessageResourceType = typeof(Resources.ErrorMessages))]

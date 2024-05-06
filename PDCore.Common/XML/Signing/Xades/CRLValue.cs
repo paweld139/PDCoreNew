@@ -28,15 +28,15 @@ namespace Microsoft.Xades
     /// DER-encoded X509 CRL.
     /// </summary>
     public class CRLValue : EncapsulatedPKIData
-	{
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public CRLValue()
-		{
-			this.TagName = "EncapsulatedCRLValue";
-		}
-		#endregion
-	}
+    {
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CRLValue()
+        {
+            this.TagName = "EncapsulatedCRLValue";
+        }
+        #endregion
+    }
 }

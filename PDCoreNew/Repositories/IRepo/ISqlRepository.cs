@@ -18,7 +18,7 @@ namespace PDCoreNew.Repositories.IRepo
 
         int GetCountByWhere(string where);
 
-        DataTable GetDataTableByWhere(string where);         
+        DataTable GetDataTableByWhere(string where);
     }
 
     public interface ISqlRepository

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace PDCoreNew.Services.Serv
 {
-    public abstract class ElasticSearchService<TItem, TEntity, TKey, TCriteria> : 
+    public abstract class ElasticSearchService<TItem, TEntity, TKey, TCriteria> :
             IElasticSearchService<TItem, TKey, TCriteria> where TEntity : class, IModificationHistory where TItem : class
     {
         private readonly ElasticClient elasticClient;

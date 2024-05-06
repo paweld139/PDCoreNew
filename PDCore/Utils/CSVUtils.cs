@@ -72,7 +72,7 @@ namespace PDCore.Utils
                     var t = new T();
                     t.ParseFromCSV(x);
                     return t;
-                }, 
+                },
                 encoding,
                 cultureInfo,
                 skipFirstLine, delimiter, shouldSkipRecord); //Przetworzenie pliku na kolekcję obiektów. Przekazano metodę do przetwarzania pól z danej linii na obiekt. Wybór linii następuje wg wskazanych warunków.
@@ -87,7 +87,7 @@ namespace PDCore.Utils
             }
         }
 
-        public static DataTable ParseCSVToDataTable(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true, 
+        public static DataTable ParseCSVToDataTable(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true,
             bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
             var dt = new DataTable();

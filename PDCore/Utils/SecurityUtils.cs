@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PDCore.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using PDCore.Extensions;
 
 namespace PDCore.Utils
 {

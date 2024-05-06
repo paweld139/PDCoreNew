@@ -1,6 +1,6 @@
-﻿using System;
+﻿using PDCore.Extensions;
+using System;
 using System.Windows.Data;
-using PDCore.Extensions;
 
 namespace PDCore.WPF.Helpers.Converters
 {

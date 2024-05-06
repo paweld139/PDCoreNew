@@ -338,7 +338,7 @@ namespace PDCore.Utils
         /// <param name="tzi">Timezone to adjust for</param>
         /// <returns></returns>
         public static DateTime AdjustTimeZoneOffset(DateTime localTime, TimeZoneInfo tzi = null)
-        {  
+        {
             var offset = tzi.GetUtcOffset(localTime).TotalHours;
             var offset2 = TimeZoneInfo.Local.GetUtcOffset(localTime).TotalHours;
 

@@ -5,7 +5,7 @@ using System.Xml;
 namespace PDCore.Helpers.Soap.SoapMessageSigning
 {
     public class SoapMessage
-    {       
+    {
         public XmlElement Header { get; set; }
 
         public XmlElement Body { get; set; }
@@ -37,7 +37,7 @@ namespace PDCore.Helpers.Soap.SoapMessageSigning
             else
             {
                 XmlNode imported = doc.ImportNode(Body, true);
-                soapBodyXml.AppendChild(imported);                
+                soapBodyXml.AppendChild(imported);
             }
 
             soapEnvelopeXml.AppendChild(soapBodyXml);

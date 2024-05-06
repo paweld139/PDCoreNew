@@ -235,7 +235,7 @@ namespace PDCore.Utils
         /// <param name="delimiter">Znak oddzielający dane w liniach pliku CSV</param>
         /// <param name="shouldSkipRecord">Warunek. który musi spełnić dana linia, by została wzięta pod uwagę</param>
         /// <param name="horizontalTextAlignment">Sposób wyrównania tekstu w poziomie, domyślnie jest do lewej</param>
-        public static void WriteTableFromCSV(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true, 
+        public static void WriteTableFromCSV(string filePath, Encoding encoding = null, CultureInfo cultureInfo = null, bool hasHeader = true,
             bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null, HorizontalTextAlignment horizontalTextAlignment = HorizontalTextAlignment.Left)
         {
             List<string[]> rowsFields = CSVUtils.ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord).ToList(); //Zwrócenie kolekcji pól dla wybranych linii pliku CSV

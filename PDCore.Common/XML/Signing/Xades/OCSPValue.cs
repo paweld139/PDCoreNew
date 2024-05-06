@@ -28,15 +28,15 @@ namespace Microsoft.Xades
     /// DER-encoded OCSP Response
     /// </summary>
     public class OCSPValue : EncapsulatedPKIData
-	{
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public OCSPValue()
-		{
-			this.TagName = "EncapsulatedOCSPValue";
-		}
-		#endregion
-	}
+    {
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public OCSPValue()
+        {
+            this.TagName = "EncapsulatedOCSPValue";
+        }
+        #endregion
+    }
 }

@@ -1,15 +1,15 @@
 ﻿using FirmaXadesNet;
 using FirmaXadesNet.Crypto;
 using FirmaXadesNet.Signature.Parameters;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using PDCore.Extensions;
-using System.Xml;
 using Microsoft.Xades;
-using System.Security.Cryptography.Xml;
-using System.Security.Cryptography;
+using PDCore.Extensions;
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
+using System.Text;
+using System.Xml;
 
 namespace PDCore.Common.Utils
 {

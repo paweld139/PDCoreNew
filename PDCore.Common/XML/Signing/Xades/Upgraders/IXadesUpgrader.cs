@@ -28,6 +28,6 @@ namespace FirmaXadesNet.Upgraders
 {
     interface IXadesUpgrader
     {
-        void Upgrade(SignatureDocument signatureDocument, UpgradeParameters parameters);        
+        void Upgrade(SignatureDocument signatureDocument, UpgradeParameters parameters);
     }
 }

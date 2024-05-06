@@ -37,7 +37,7 @@ namespace FirmaXadesNet.Signature
 
         private XadesSignedXml _xadesSignedXml;
         private XmlDocument _document;
-        
+
         #endregion
 
         #region Public properties
@@ -67,7 +67,7 @@ namespace FirmaXadesNet.Signature
                 _xadesSignedXml = value;
             }
         }
-        
+
         #endregion
 
         #region Public methods
@@ -181,7 +181,7 @@ namespace FirmaXadesNet.Signature
             {
                 throw new ArgumentNullException("sigDocument");
             }
-            
+
             if (sigDocument.Document == null || sigDocument.XadesSignature == null)
             {
                 throw new Exception("No existe información sobre la firma");

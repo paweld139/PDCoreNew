@@ -27,15 +27,15 @@ namespace Microsoft.Xades
     /// certificates for the signer
     /// </summary>
     public class CertifiedRole : EncapsulatedPKIData
-	{
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public CertifiedRole()
-		{
-			this.TagName = "CertifiedRole";
-		}
-		#endregion
-	}
+    {
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CertifiedRole()
+        {
+            this.TagName = "CertifiedRole";
+        }
+        #endregion
+    }
 }

@@ -38,7 +38,7 @@ using System.Xml;
 namespace FirmaXadesNet
 {
 
-    public class XadesService 
+    public class XadesService
     {
 
         #region Private variables
@@ -272,7 +272,7 @@ namespace FirmaXadesNet
         /// <param name="input"></param>
         /// <returns></returns>
         public SignatureDocument[] Load(Stream input)
-        {           
+        {
             return Load(XMLUtil.LoadDocument(input));
         }
 
@@ -314,7 +314,7 @@ namespace FirmaXadesNet
 
                 firmas.Add(sigDocument);
             }
-            
+
             return firmas.ToArray();
         }
 
@@ -330,7 +330,7 @@ namespace FirmaXadesNet
         public ValidationResult Validate(SignatureDocument sigDocument)
         {
             SignatureDocument.CheckSignatureDocument(sigDocument);
-            
+
             XadesValidator validator = new XadesValidator();
 
             return validator.Validate(sigDocument);
@@ -450,7 +450,7 @@ namespace FirmaXadesNet
                         input.CopyTo(ms);
                         contentElement.InnerText = Convert.ToBase64String(ms.ToArray());
                     }
-                    
+
                 }
             }
 
@@ -493,7 +493,7 @@ namespace FirmaXadesNet
 
             _refContent.Id = "Reference-" + Guid.NewGuid().ToString();
             _refContent.Uri = "#" + dataObjectId;
-            _refContent.Type = XadesSignedXml.XmlDsigObjectType; 
+            _refContent.Type = XadesSignedXml.XmlDsigObjectType;
 
             XmlDsigC14NTransform transform = new XmlDsigC14NTransform();
             _refContent.AddTransform(transform);
@@ -696,7 +696,7 @@ namespace FirmaXadesNet
 
 
         private void AddCertificateInfo(SignatureDocument sigDocument, SignatureParameters parameters)
-        {            
+        {
             sigDocument.XadesSignature.SigningKey = parameters.Signer.SigningKey;
 
             KeyInfo keyInfo = new KeyInfo();

@@ -20,8 +20,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
-using System.Xml;
 using System.Collections;
+using System.Xml;
 
 namespace Microsoft.Xades
 {
@@ -30,82 +30,82 @@ namespace Microsoft.Xades
     /// new formats of certificates
     /// </summary>
     public class OtherCertificate : ArrayList
-	{
-		#region Private variables
-		private XmlElement anyXmlElement;
-		#endregion
+    {
+        #region Private variables
+        private XmlElement anyXmlElement;
+        #endregion
 
-		#region Public properties
-		/// <summary>
-		/// The generic XML element that represents any certificate
-		/// </summary>
-		public XmlElement AnyXmlElement
-		{
-			get
-			{
-				return this.anyXmlElement;
-			}
-			set
-			{
-				this.anyXmlElement = value;
-			}
-		}
-		#endregion
+        #region Public properties
+        /// <summary>
+        /// The generic XML element that represents any certificate
+        /// </summary>
+        public XmlElement AnyXmlElement
+        {
+            get
+            {
+                return this.anyXmlElement;
+            }
+            set
+            {
+                this.anyXmlElement = value;
+            }
+        }
+        #endregion
 
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public OtherCertificate()
-		{
-		}
-		#endregion
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public OtherCertificate()
+        {
+        }
+        #endregion
 
-		#region Public methods
-		/// <summary>
-		/// Check to see if something has changed in this instance and needs to be serialized
-		/// </summary>
-		/// <returns>Flag indicating if a member needs serialization</returns>
-		public bool HasChanged()
-		{
-			bool retVal = false;
+        #region Public methods
+        /// <summary>
+        /// Check to see if something has changed in this instance and needs to be serialized
+        /// </summary>
+        /// <returns>Flag indicating if a member needs serialization</returns>
+        public bool HasChanged()
+        {
+            bool retVal = false;
 
-			if (this.anyXmlElement != null)
-			{
-				retVal = true;
-			}
+            if (this.anyXmlElement != null)
+            {
+                retVal = true;
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Load state from an XML element
-		/// </summary>
-		/// <param name="xmlElement">XML element containing new state</param>
-		public void LoadXml(System.Xml.XmlElement xmlElement)
-		{
-			this.anyXmlElement = xmlElement;
-		}
+        /// <summary>
+        /// Load state from an XML element
+        /// </summary>
+        /// <param name="xmlElement">XML element containing new state</param>
+        public void LoadXml(System.Xml.XmlElement xmlElement)
+        {
+            this.anyXmlElement = xmlElement;
+        }
 
-		/// <summary>
-		/// Returns the XML representation of the this object
-		/// </summary>
-		/// <returns>XML element containing the state of this object</returns>
-		public XmlElement GetXml()
-		{
-			XmlDocument creationXmlDocument;
-			XmlElement retVal;
+        /// <summary>
+        /// Returns the XML representation of the this object
+        /// </summary>
+        /// <returns>XML element containing the state of this object</returns>
+        public XmlElement GetXml()
+        {
+            XmlDocument creationXmlDocument;
+            XmlElement retVal;
 
-			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement("OtherCertificate", XadesSignedXml.XadesNamespaceUri);
+            creationXmlDocument = new XmlDocument();
+            retVal = creationXmlDocument.CreateElement("OtherCertificate", XadesSignedXml.XadesNamespaceUri);
 
-			if (this.anyXmlElement != null)
-			{
-				retVal.AppendChild(creationXmlDocument.ImportNode(this.anyXmlElement, true));
-			}
+            if (this.anyXmlElement != null)
+            {
+                retVal.AppendChild(creationXmlDocument.ImportNode(this.anyXmlElement, true));
+            }
 
-			return retVal;
-		}
-		#endregion
-	}
+            return retVal;
+        }
+        #endregion
+    }
 }

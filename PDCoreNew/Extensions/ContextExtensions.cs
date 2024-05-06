@@ -449,7 +449,7 @@ namespace PDCoreNew.Extensions
             Func<string, IEnumerable<TElement>, IEnumerable<TEntity>> func)
             where TEntity : class
         {
-            return context.AddFromJson<TEntity, Dictionary<string, IEnumerable<TElement>>>(path, 
+            return context.AddFromJson<TEntity, Dictionary<string, IEnumerable<TElement>>>(path,
                 d => ValueTask.FromResult(d.SelectMany(v => func(v.Key, d[v.Key]))));
         }
 

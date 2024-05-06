@@ -21,8 +21,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
 using System;
-using System.Xml;
 using System.Security.Cryptography.Xml;
+using System.Xml;
 
 namespace Microsoft.Xades
 {
@@ -36,134 +36,134 @@ namespace Microsoft.Xades
     /// contain at most one CompleteCertificateRefs element.
     /// </summary>
     public class CompleteCertificateRefs
-	{
-		#region Private variables
-		private string id;
-		private CertRefs certRefs;
-		#endregion
+    {
+        #region Private variables
+        private string id;
+        private CertRefs certRefs;
+        #endregion
 
-		#region Public properties
-		/// <summary>
-		/// The optional Id attribute can be used to make a reference to the CompleteCertificateRefs element
-		/// </summary>
-		public string Id
-		{
-			get
-			{
-				return this.id;
-			}
-			set
-			{
-				this.id = value;
-			}
-		}
+        #region Public properties
+        /// <summary>
+        /// The optional Id attribute can be used to make a reference to the CompleteCertificateRefs element
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+            }
+        }
 
-		/// <summary>
-		/// The CertRefs element contains a sequence of Cert elements, incorporating the
-		/// digest of each certificate and optionally the issuer and serial number identifier.
-		/// </summary>
-		public CertRefs CertRefs
-		{
-			get
-			{
-				return this.certRefs;
-			}
-			set
-			{
-				this.certRefs = value;
-			}
-		}
-		#endregion
+        /// <summary>
+        /// The CertRefs element contains a sequence of Cert elements, incorporating the
+        /// digest of each certificate and optionally the issuer and serial number identifier.
+        /// </summary>
+        public CertRefs CertRefs
+        {
+            get
+            {
+                return this.certRefs;
+            }
+            set
+            {
+                this.certRefs = value;
+            }
+        }
+        #endregion
 
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public CompleteCertificateRefs()
-		{
-			this.certRefs = new CertRefs();
-		}
-		#endregion
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CompleteCertificateRefs()
+        {
+            this.certRefs = new CertRefs();
+        }
+        #endregion
 
-		#region Public methods
-		/// <summary>
-		/// Check to see if something has changed in this instance and needs to be serialized
-		/// </summary>
-		/// <returns>Flag indicating if a member needs serialization</returns>
-		public bool HasChanged()
-		{
-			bool retVal = false;
+        #region Public methods
+        /// <summary>
+        /// Check to see if something has changed in this instance and needs to be serialized
+        /// </summary>
+        /// <returns>Flag indicating if a member needs serialization</returns>
+        public bool HasChanged()
+        {
+            bool retVal = false;
 
-			if (!String.IsNullOrEmpty(this.id))
-			{
-				retVal = true;
-			}
-			if (this.certRefs != null && this.certRefs.HasChanged())
-			{
-				retVal = true;
-			}
+            if (!String.IsNullOrEmpty(this.id))
+            {
+                retVal = true;
+            }
+            if (this.certRefs != null && this.certRefs.HasChanged())
+            {
+                retVal = true;
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Load state from an XML element
-		/// </summary>
-		/// <param name="xmlElement">XML element containing new state</param>
-		public void LoadXml(System.Xml.XmlElement xmlElement)
-		{
-			XmlNamespaceManager xmlNamespaceManager;
-			XmlNodeList xmlNodeList;
-			
-			if (xmlElement == null)
-			{
-				throw new ArgumentNullException("xmlElement");
-			}
-			if (xmlElement.HasAttribute("Id"))
-			{
-				this.id = xmlElement.GetAttribute("Id");
-			}
-			else
-			{
-				this.id = "";
-			}
+        /// <summary>
+        /// Load state from an XML element
+        /// </summary>
+        /// <param name="xmlElement">XML element containing new state</param>
+        public void LoadXml(System.Xml.XmlElement xmlElement)
+        {
+            XmlNamespaceManager xmlNamespaceManager;
+            XmlNodeList xmlNodeList;
 
-			xmlNamespaceManager = new XmlNamespaceManager(xmlElement.OwnerDocument.NameTable);
-			xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
+            if (xmlElement == null)
+            {
+                throw new ArgumentNullException("xmlElement");
+            }
+            if (xmlElement.HasAttribute("Id"))
+            {
+                this.id = xmlElement.GetAttribute("Id");
+            }
+            else
+            {
+                this.id = "";
+            }
 
-			xmlNodeList = xmlElement.SelectNodes("xsd:CertRefs", xmlNamespaceManager);
-			if (xmlNodeList.Count != 0)
-			{
-				this.certRefs = new CertRefs();
-				this.certRefs.LoadXml((XmlElement)xmlNodeList.Item(0));
-			}
-		}
+            xmlNamespaceManager = new XmlNamespaceManager(xmlElement.OwnerDocument.NameTable);
+            xmlNamespaceManager.AddNamespace("xsd", XadesSignedXml.XadesNamespaceUri);
 
-		/// <summary>
-		/// Returns the XML representation of the this object
-		/// </summary>
-		/// <returns>XML element containing the state of this object</returns>
-		public XmlElement GetXml()
-		{
-			XmlDocument creationXmlDocument;
-			XmlElement retVal;
+            xmlNodeList = xmlElement.SelectNodes("xsd:CertRefs", xmlNamespaceManager);
+            if (xmlNodeList.Count != 0)
+            {
+                this.certRefs = new CertRefs();
+                this.certRefs.LoadXml((XmlElement)xmlNodeList.Item(0));
+            }
+        }
 
-			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement(XadesSignedXml.XmlXadesPrefix, "CompleteCertificateRefs", XadesSignedXml.XadesNamespaceUri);
+        /// <summary>
+        /// Returns the XML representation of the this object
+        /// </summary>
+        /// <returns>XML element containing the state of this object</returns>
+        public XmlElement GetXml()
+        {
+            XmlDocument creationXmlDocument;
+            XmlElement retVal;
+
+            creationXmlDocument = new XmlDocument();
+            retVal = creationXmlDocument.CreateElement(XadesSignedXml.XmlXadesPrefix, "CompleteCertificateRefs", XadesSignedXml.XadesNamespaceUri);
             retVal.SetAttribute("xmlns:ds", SignedXml.XmlDsigNamespaceUrl);
 
-			if (!String.IsNullOrEmpty(this.id))
-			{
-				retVal.SetAttribute("Id", this.id);
-			}
+            if (!String.IsNullOrEmpty(this.id))
+            {
+                retVal.SetAttribute("Id", this.id);
+            }
 
-			if (this.certRefs != null && this.certRefs.HasChanged())
-			{
-				retVal.AppendChild(creationXmlDocument.ImportNode(this.certRefs.GetXml(), true));
-			}
+            if (this.certRefs != null && this.certRefs.HasChanged())
+            {
+                retVal.AppendChild(creationXmlDocument.ImportNode(this.certRefs.GetXml(), true));
+            }
 
-			return retVal;
-		}
-		#endregion
-	}
+            return retVal;
+        }
+        #endregion
+    }
 }

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace PDCore.Utils
 {
-    public  static class PythonUtils
+    public static class PythonUtils
     {
         public static string Run(string cmd, string args = "")
         {

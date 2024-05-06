@@ -55,7 +55,7 @@ namespace FirmaXadesNet.Clients
         /// <param name="url"></param>
         /// <returns></returns>
         public byte[] QueryBinary(X509Certificate eeCert, X509Certificate issuerCert, string url)
-        {            
+        {
             OcspReq req = GenerateOcspRequest(issuerCert, eeCert.SerialNumber);
 
             byte[] binaryResp = PostData(url, req.GetEncoded(), "application/ocsp-request", "application/ocsp-response");
@@ -117,7 +117,7 @@ namespace FirmaXadesNet.Clients
             {
                 return CertificateStatus.Unknown;
             }
-            
+
             OcspResp r = new OcspResp(binaryResp);
             CertificateStatus cStatus = CertificateStatus.Unknown;
 
@@ -129,14 +129,14 @@ namespace FirmaXadesNet.Clients
                     _nonceAsn1OctetString.ToString())
                 {
                     throw new Exception("Bad nonce value");
-                }                               
-                
+                }
+
                 if (or.Responses.Length == 1)
                 {
                     SingleResp resp = or.Responses[0];
 
                     object certificateStatus = resp.GetCertStatus();
-                                        
+
                     if (certificateStatus == Org.BouncyCastle.Ocsp.CertificateStatus.Good)
                     {
                         cStatus = CertificateStatus.Good;
@@ -192,9 +192,9 @@ namespace FirmaXadesNet.Clients
                 resp = ms.ToArray();
                 respStream.Close();
             }
-                        
+
             return resp;
-        }       
+        }
 
 
         protected static Asn1Object GetExtensionValue(X509Certificate cert,

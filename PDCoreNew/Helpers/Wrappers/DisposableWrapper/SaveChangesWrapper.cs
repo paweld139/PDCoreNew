@@ -8,7 +8,7 @@ namespace PDCoreNew.Helpers
     {
         private readonly bool withoutValidation;
 
-        public SaveChangesWrapper(ISqlRepositoryEntityFramework<TModel> repo, bool withoutValidation) : base(repo) 
+        public SaveChangesWrapper(ISqlRepositoryEntityFramework<TModel> repo, bool withoutValidation) : base(repo)
         {
             this.withoutValidation = withoutValidation;
         }

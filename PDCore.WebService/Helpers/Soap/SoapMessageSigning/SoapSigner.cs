@@ -13,8 +13,8 @@ namespace PDCore.Helpers.Soap.SoapMessageSigning
     }
 
     public class SoapSigner
-    {        
-               
+    {
+
         public XmlDocument SignMessage(XmlDocument xmlDoc, X509Certificate2 certificate, SignAlgorithm signAlgorithm)
         {
             XmlNamespaceManager ns = new XmlNamespaceManager(xmlDoc.NameTable);
@@ -34,7 +34,7 @@ namespace PDCore.Helpers.Soap.SoapMessageSigning
             XmlElement binarySecurityToken = xmlDoc.CreateElement("wse", "BinarySecurityToken", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd");
             binarySecurityToken.SetAttribute("EncodingType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary");
             binarySecurityToken.SetAttribute("ValueType", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3");
-            binarySecurityToken.SetAttribute("Id", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", "BinaryToken1");            
+            binarySecurityToken.SetAttribute("Id", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd", "BinaryToken1");
 
             binarySecurityToken.InnerText = Convert.ToBase64String(certificate.GetRawCertData());
 
@@ -64,9 +64,9 @@ namespace PDCore.Helpers.Soap.SoapMessageSigning
                 var key = (RSACryptoServiceProvider)certificate.PrivateKey;
                 var enhCsp = new RSACryptoServiceProvider().CspKeyContainerInfo;
                 var cspparams = new CspParameters(enhCsp.ProviderType, enhCsp.ProviderName, key.CspKeyContainerInfo.KeyContainerName);
-                rsaKey = new RSACryptoServiceProvider(cspparams);            
+                rsaKey = new RSACryptoServiceProvider(cspparams);
             }
-            
+
             signedXml.SigningKey = rsaKey;
 
             KeyInfo keyInfo = new KeyInfo();
@@ -99,7 +99,7 @@ namespace PDCore.Helpers.Soap.SoapMessageSigning
             {
                 soapHeader = xmlDoc.CreateElement("s:Header", "");
                 xmlDoc.DocumentElement.InsertBefore(soapHeader, xmlDoc.DocumentElement.ChildNodes[0]);
-            }           
+            }
 
             return xmlDoc;
         }

@@ -31,9 +31,9 @@ namespace FirmaXadesNet.Utils
     static class X509Certificate2Extensions
     {
         public static string GetSerialNumberAsDecimalString(this X509Certificate2 certificate)
-        {            
+        {
             List<int> dec = new List<int> { 0 };
-            
+
             foreach (char c in certificate.SerialNumber)
             {
                 int carry = Convert.ToInt32(c.ToString(), 16);

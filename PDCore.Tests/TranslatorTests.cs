@@ -12,8 +12,8 @@ namespace PDCore.Tests
         {
             ErrorTranslator errorTranslator = new ErrorTranslator();
 
-            var actual = new[] 
-            { 
+            var actual = new[]
+            {
                 "Passwords must have at least one digit ('0'-'9').",
                 "Passwords must have at least one non letter or digit character.",
                 "Invalid token.",

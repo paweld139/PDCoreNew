@@ -1,5 +1,5 @@
-﻿using System;
-using PDCore.Utils;
+﻿using PDCore.Utils;
+using System;
 
 namespace PDCore.Helpers.Calculation
 {

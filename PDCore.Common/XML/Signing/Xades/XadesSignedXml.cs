@@ -758,7 +758,7 @@ namespace Microsoft.Xades
                 else if (this.SignedInfo.SignatureMethod == "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512")
                 {
                     CryptoConfig2.AddAlgorithm(typeof(Microsoft.Xades.RSAPKCS1SHA512SignatureDescription), "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512");
-                }                
+                }
             }
 
             retVal = this.CheckDigestedReferences();
@@ -766,7 +766,7 @@ namespace Microsoft.Xades
             if (retVal == false)
             {
                 throw new CryptographicException("CheckXmldsigSignature() failed");
-            }                       
+            }
 
             var key = this.GetPublicKey();
             retVal = this.CheckSignedInfo(key);
@@ -774,7 +774,7 @@ namespace Microsoft.Xades
             if (retVal == false)
             {
                 throw new CryptographicException("CheckXmldsigSignature() failed");
-            }                       
+            }
 
             return retVal;
         }
@@ -1800,7 +1800,7 @@ namespace Microsoft.Xades
             return Convert.ToBoolean(SignedXml_Type_CheckDigestedReferences.Invoke(this, null));
         }
 
-       
+
         private bool CheckSignedInfo(AsymmetricAlgorithm key)
         {
             if (key == null)
@@ -1820,7 +1820,7 @@ namespace Microsoft.Xades
             HashAlgorithm hashAlgorithm = signatureDescription.CreateDigest();
             if (hashAlgorithm == null)
                 throw new CryptographicException("signature description can't be created");
-            
+
             /// NECESARIO PARA EL CALCULO CORRECTO
             byte[] hashval = GetC14NDigest(hashAlgorithm, "ds");
 
@@ -1828,14 +1828,14 @@ namespace Microsoft.Xades
 
             return asymmetricSignatureDeformatter.VerifySignature(hashval, m_signature.SignatureValue);
         }
-        
-        
+
+
         /// <summary>
         /// We won't call System.Security.Cryptography.Xml.SignedXml.GetC14NDigest(), as we want to use our own.
         /// </summary>
         private byte[] GetC14NDigest(HashAlgorithm hash)
         {
-            return null;            
+            return null;
         }
 
         /// <summary>

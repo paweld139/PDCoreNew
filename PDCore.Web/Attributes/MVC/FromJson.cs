@@ -23,7 +23,7 @@ namespace PDCore.Web.Attributes.MVC
                     // Swap this out with whichever Json deserializer you prefer.
                     return JsonConvert.DeserializeObject(json, bindingContext.ModelType);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     LogService.Error("Błąd podczas ładowaniu modelu z JSON", ex);
 

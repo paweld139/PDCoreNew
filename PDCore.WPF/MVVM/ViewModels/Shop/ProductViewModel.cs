@@ -45,28 +45,32 @@ namespace PDCore.WPF.MVVM.ViewModels.Shop
                     product);
 
             AddToCartCommand = new RelayCommand2(
-                    execute: () => {
+                    execute: () =>
+                    {
                         addToCartCommand.Execute();
                         shoppingCartViewModel.Refresh();
                     },
                     canExecute: () => addToCartCommand.CanExecute());
 
             IncreaseQuantityCommand = new RelayCommand2(
-                execute: () => {
+                execute: () =>
+                {
                     increaseQuantityCommand.Execute();
                     shoppingCartViewModel.Refresh();
                 },
                 canExecute: () => increaseQuantityCommand.CanExecute());
 
             DecreaseQuantityCommand = new RelayCommand2(
-                execute: () => {
+                execute: () =>
+                {
                     decreaseQuantityCommand.Execute();
                     shoppingCartViewModel.Refresh();
                 },
                 canExecute: () => decreaseQuantityCommand.CanExecute());
 
             RemoveFromCartCommand = new RelayCommand2(
-                execute: () => {
+                execute: () =>
+                {
                     removeFromCartCommand.Execute();
                     shoppingCartViewModel.Refresh();
                 },

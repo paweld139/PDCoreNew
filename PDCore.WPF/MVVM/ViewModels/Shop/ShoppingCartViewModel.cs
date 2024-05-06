@@ -42,7 +42,8 @@ namespace PDCore.WPF.MVVM.ViewModels.Shop
                 );
 
             CheckoutCommand = new RelayCommand2(
-                    execute: () => {
+                    execute: () =>
+                    {
                         var total = LineItems.Sum(x => x.Product.Price * x.Quantity);
                         MessageBox.Show($"Shopping cart total: ${total}");
                     },

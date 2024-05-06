@@ -160,7 +160,7 @@ namespace PDCore.Extensions
             rows.ForEach(x => dt.Rows.Add(x));
         }
 
-        public static void WriteCsv(this DataTable dt, string filePath, Encoding encoding, CultureInfo cultureInfo, 
+        public static void WriteCsv(this DataTable dt, string filePath, Encoding encoding, CultureInfo cultureInfo,
             bool csvHasHeader = true, bool skipFirstLine = false, string delimiter = ",", ShouldSkipRecord shouldSkipRecord = null)
         {
             IEnumerable<string[]> linesFields = CSVUtils.ParseCSVLines(filePath, encoding, cultureInfo, skipFirstLine, delimiter, shouldSkipRecord);

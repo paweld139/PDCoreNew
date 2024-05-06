@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿using PDCore.Extensions;
+using PDCore.Utils;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using PDCore.Extensions;
-using PDCore.Utils;
 
 namespace PDCore.Helpers.Seo
 {

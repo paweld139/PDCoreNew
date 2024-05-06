@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PDCoreNew.Extensions;
+using System.Collections.Generic;
 using System.Linq;
-using PDCoreNew.Extensions;
 
 namespace PDCoreNew.Helpers.Translation
 {
@@ -64,7 +64,7 @@ namespace PDCoreNew.Helpers.Translation
             }
             else //Jeżeli kolekcja nie zawiera zdań, tylko wyrazy
             {
-                result =  errors.Any(e => customErrorsSub.ContainsKey(e)); //Określenie czy słownik zawiera tłumaczenie dla jakiegokolwiek wyrazu
+                result = errors.Any(e => customErrorsSub.ContainsKey(e)); //Określenie czy słownik zawiera tłumaczenie dla jakiegokolwiek wyrazu
             }
 
             return result; //Zwrócenie rezultatu
@@ -150,7 +150,7 @@ namespace PDCoreNew.Helpers.Translation
             List<string> words = error.GetWords().ToList(); //Utworzenie kolekcji wyrazów dla danego zdania
 
             if (CanCustomize(words, true)) //Czy można przetłumaczyć jakikolwiek wyraz w zdaniu
-            {               
+            {
                 ChangeErrors(words, true); //Przetłumaczenie wyrazów w zdaniu
 
                 return string.Join(" ", words); //Połączenie przetłumaczonych wyrazów z powrotem w zdanie i zwrócenie ich 

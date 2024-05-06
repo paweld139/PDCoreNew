@@ -1,6 +1,5 @@
 ﻿using PDCoreNew.Extensions;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
 
 namespace PDCoreNew.Models
@@ -42,12 +41,12 @@ namespace PDCoreNew.Models
 
             if (!string.IsNullOrEmpty(smtpSettingsModel.DisplayName))
                 message.From = new MailAddress(smtpSettingsModel.Email, smtpSettingsModel.DisplayName);
-            else if(!string.IsNullOrEmpty(smtpSettingsModel.Email))
+            else if (!string.IsNullOrEmpty(smtpSettingsModel.Email))
                 message.From = new MailAddress(smtpSettingsModel.Email);
 
             message.To.Add(ReceiverEmails);
 
-            if(AttachmentPaths != null)
+            if (AttachmentPaths != null)
             {
                 AttachmentPaths.ForEach(a => message.Attachments.Add(new Attachment(a)));
             }

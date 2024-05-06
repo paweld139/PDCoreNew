@@ -41,7 +41,7 @@ namespace PDCore.Utils
         {
             var type = typeof(T);
 
-            if (!type.IsEnum) 
+            if (!type.IsEnum)
                 throw new InvalidOperationException();
 
             foreach (var field in type.GetFields())

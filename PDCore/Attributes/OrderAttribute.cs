@@ -17,7 +17,7 @@ namespace PDCore.Attributes
         {
             Order = order;
         }
-        
+
         /// <summary>
         /// Można ustawić tylko poprzez konstruktor, ale można pobrać z każdego miejsca
         /// </summary>

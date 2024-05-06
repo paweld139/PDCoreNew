@@ -30,42 +30,42 @@ namespace Microsoft.Xades
     /// elements through a custom indexer.
     /// </summary>
     public class SigPolicyQualifierCollection : ArrayList
-	{
-		/// <summary>
-		/// New typed indexer for the collection
-		/// </summary>
-		/// <param name="index">Index of the object to retrieve from collection</param>
-		public new SigPolicyQualifier this[int index]
-		{
-			get
-			{
-				return (SigPolicyQualifier)base[index];
-			}
-			set
-			{
-				base[index] = value;
-			}
-		}
+    {
+        /// <summary>
+        /// New typed indexer for the collection
+        /// </summary>
+        /// <param name="index">Index of the object to retrieve from collection</param>
+        public new SigPolicyQualifier this[int index]
+        {
+            get
+            {
+                return (SigPolicyQualifier)base[index];
+            }
+            set
+            {
+                base[index] = value;
+            }
+        }
 
-		/// <summary>
-		/// Add typed object to the collection
-		/// </summary>
-		/// <param name="objectToAdd">Typed object to be added to collection</param>
-		/// <returns>The object that has been added to collection</returns>
-		public SigPolicyQualifier Add(SigPolicyQualifier objectToAdd)
-		{
-			base.Add(objectToAdd);
+        /// <summary>
+        /// Add typed object to the collection
+        /// </summary>
+        /// <param name="objectToAdd">Typed object to be added to collection</param>
+        /// <returns>The object that has been added to collection</returns>
+        public SigPolicyQualifier Add(SigPolicyQualifier objectToAdd)
+        {
+            base.Add(objectToAdd);
 
-			return objectToAdd;
-		}
+            return objectToAdd;
+        }
 
-		/// <summary>
-		/// Add new typed object to the collection
-		/// </summary>
-		/// <returns>The newly created object that has been added to collection</returns>
-		public SigPolicyQualifier Add()
-		{
-			return this.Add(new SigPolicyQualifier());
-		}
-	}
+        /// <summary>
+        /// Add new typed object to the collection
+        /// </summary>
+        /// <returns>The newly created object that has been added to collection</returns>
+        public SigPolicyQualifier Add()
+        {
+            return this.Add(new SigPolicyQualifier());
+        }
+    }
 }

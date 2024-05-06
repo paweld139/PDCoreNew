@@ -21,8 +21,8 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/. 
 
 using System;
-using System.Xml;
 using System.Security.Cryptography.Xml;
+using System.Xml;
 
 namespace Microsoft.Xades
 {
@@ -34,150 +34,150 @@ namespace Microsoft.Xades
     /// attribute certificates and time-stamps.
     /// </summary>
     public class EncapsulatedPKIData
-	{
-		#region Private variables
-		private string tagName;
-		private string id;
-		private byte[] pkiData;
-		#endregion
-			
-		#region Public properties
-		/// <summary>
-		/// The name of the element when serializing
-		/// </summary>
-		public string TagName
-		{
-			get
-			{
-				return this.tagName;
-			}
-			set
-			{
-				this.tagName = value;
-			}
-		}
+    {
+        #region Private variables
+        private string tagName;
+        private string id;
+        private byte[] pkiData;
+        #endregion
 
-		/// <summary>
-		/// The optional ID attribute can be used to make a reference to an element
-		/// of this data type.
-		/// </summary>
-		public string Id
-		{
-			get
-			{
-				return this.id;
-			}
-			set
-			{
-				this.id = value;
-			}
-		}
+        #region Public properties
+        /// <summary>
+        /// The name of the element when serializing
+        /// </summary>
+        public string TagName
+        {
+            get
+            {
+                return this.tagName;
+            }
+            set
+            {
+                this.tagName = value;
+            }
+        }
 
-		/// <summary>
-		/// Base64 encoded content of this data type 
-		/// </summary>
-		public byte[] PkiData
-		{
-			get
-			{
-				return this.pkiData;
-			}
-			set
-			{
-				this.pkiData = value;
-			}
-		}
-		#endregion
+        /// <summary>
+        /// The optional ID attribute can be used to make a reference to an element
+        /// of this data type.
+        /// </summary>
+        public string Id
+        {
+            get
+            {
+                return this.id;
+            }
+            set
+            {
+                this.id = value;
+            }
+        }
 
-		#region Constructors
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public EncapsulatedPKIData()
-		{
-		}
+        /// <summary>
+        /// Base64 encoded content of this data type 
+        /// </summary>
+        public byte[] PkiData
+        {
+            get
+            {
+                return this.pkiData;
+            }
+            set
+            {
+                this.pkiData = value;
+            }
+        }
+        #endregion
 
-		/// <summary>
-		/// Constructor with TagName
-		/// </summary>
-		/// <param name="tagName">Name of the tag when serializing with GetXml</param>
-		public EncapsulatedPKIData(string tagName)
-		{
-			this.tagName = tagName;
-		}
-		#endregion
+        #region Constructors
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public EncapsulatedPKIData()
+        {
+        }
 
-		#region Public methods
-		/// <summary>
-		/// Check to see if something has changed in this instance and needs to be serialized
-		/// </summary>
-		/// <returns>Flag indicating if a member needs serialization</returns>
-		public bool HasChanged()
-		{
-			bool retVal = false;
+        /// <summary>
+        /// Constructor with TagName
+        /// </summary>
+        /// <param name="tagName">Name of the tag when serializing with GetXml</param>
+        public EncapsulatedPKIData(string tagName)
+        {
+            this.tagName = tagName;
+        }
+        #endregion
+
+        #region Public methods
+        /// <summary>
+        /// Check to see if something has changed in this instance and needs to be serialized
+        /// </summary>
+        /// <returns>Flag indicating if a member needs serialization</returns>
+        public bool HasChanged()
+        {
+            bool retVal = false;
 
             if (!String.IsNullOrEmpty(this.id))
-			{
-				retVal = true;
-			}
+            {
+                retVal = true;
+            }
 
-			if (this.pkiData != null && this.pkiData.Length > 0)
-			{
-				retVal = true;
-			}
+            if (this.pkiData != null && this.pkiData.Length > 0)
+            {
+                retVal = true;
+            }
 
-			return retVal;
-		}
+            return retVal;
+        }
 
-		/// <summary>
-		/// Load state from an XML element
-		/// </summary>
-		/// <param name="xmlElement">XML element containing new state</param>
-		public void LoadXml(System.Xml.XmlElement xmlElement)
-		{
-			if (xmlElement == null)
-			{
-				throw new ArgumentNullException("xmlElement");
-			}
+        /// <summary>
+        /// Load state from an XML element
+        /// </summary>
+        /// <param name="xmlElement">XML element containing new state</param>
+        public void LoadXml(System.Xml.XmlElement xmlElement)
+        {
+            if (xmlElement == null)
+            {
+                throw new ArgumentNullException("xmlElement");
+            }
 
-			if (xmlElement.HasAttribute("Id"))
-			{
-				this.id = xmlElement.GetAttribute("Id");
-			}
-			else
-			{
-				this.id = "";
-			}
+            if (xmlElement.HasAttribute("Id"))
+            {
+                this.id = xmlElement.GetAttribute("Id");
+            }
+            else
+            {
+                this.id = "";
+            }
 
-			this.pkiData = Convert.FromBase64String(xmlElement.InnerText);
-		}
+            this.pkiData = Convert.FromBase64String(xmlElement.InnerText);
+        }
 
-		/// <summary>
-		/// Returns the XML representation of the this object
-		/// </summary>
-		/// <returns>XML element containing the state of this object</returns>
-		public XmlElement GetXml()
-		{
-			XmlDocument creationXmlDocument;
-			XmlElement retVal;
+        /// <summary>
+        /// Returns the XML representation of the this object
+        /// </summary>
+        /// <returns>XML element containing the state of this object</returns>
+        public XmlElement GetXml()
+        {
+            XmlDocument creationXmlDocument;
+            XmlElement retVal;
 
-			creationXmlDocument = new XmlDocument();
-			retVal = creationXmlDocument.CreateElement(XadesSignedXml.XmlXadesPrefix, this.tagName, XadesSignedXml.XadesNamespaceUri);
+            creationXmlDocument = new XmlDocument();
+            retVal = creationXmlDocument.CreateElement(XadesSignedXml.XmlXadesPrefix, this.tagName, XadesSignedXml.XadesNamespaceUri);
             retVal.SetAttribute("xmlns:ds", SignedXml.XmlDsigNamespaceUrl);
             retVal.SetAttribute("Encoding", "http://uri.etsi.org/01903/v1.2.2#DER");
 
             if (!String.IsNullOrEmpty(this.id))
-			{
-				retVal.SetAttribute("Id", this.id);
-			}
+            {
+                retVal.SetAttribute("Id", this.id);
+            }
 
-			if (this.pkiData != null && this.pkiData.Length > 0)
-			{
-				retVal.InnerText = Convert.ToBase64String(this.pkiData);
-			}
+            if (this.pkiData != null && this.pkiData.Length > 0)
+            {
+                retVal.InnerText = Convert.ToBase64String(this.pkiData);
+            }
 
-			return retVal;
-		}
-		#endregion
-	}
+            return retVal;
+        }
+        #endregion
+    }
 }

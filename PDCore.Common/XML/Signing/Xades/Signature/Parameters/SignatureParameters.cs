@@ -34,7 +34,7 @@ namespace FirmaXadesNet.Signature.Parameters
         ENVELOPED,
         ENVELOPING
     }
-   
+
     public class SignatureParameters
     {
         #region Private variables

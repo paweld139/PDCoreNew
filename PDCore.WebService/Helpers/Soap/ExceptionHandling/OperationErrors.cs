@@ -10,7 +10,7 @@ namespace PDCore.WebService.Helpers.Soap.ExceptionHandling
 {
     public abstract class OperationErrors<T> : IOperationErrors where T : class, new()
     {
-        private void FillErrors (MessageFault messageFault)
+        private void FillErrors(MessageFault messageFault)
         {
             var reader = messageFault.GetReaderAtDetailContents();
 
@@ -29,7 +29,7 @@ namespace PDCore.WebService.Helpers.Soap.ExceptionHandling
 
         public override string ToString()
         {
-            if(Errors == null)
+            if (Errors == null)
             {
                 return Error ?? string.Empty;
             }
@@ -67,7 +67,7 @@ namespace PDCore.WebService.Helpers.Soap.ExceptionHandling
             {
                 SetError("Upłynął limit czasu operacji usługi. " + ex.Message);
             }
-            else if(ex is CommunicationException)
+            else if (ex is CommunicationException)
             {
                 SetError("Wystąpił problem z komunikacją. " + ex.Message + ex.StackTrace);
             }

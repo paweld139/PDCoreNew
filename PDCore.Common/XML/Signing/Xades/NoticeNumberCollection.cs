@@ -30,42 +30,42 @@ namespace Microsoft.Xades
     /// elements through a custom indexer.
     /// </summary>
     public class NoticeNumberCollection : ArrayList
-	{
-		/// <summary>
-		/// New typed indexer for the collection
-		/// </summary>
-		/// <param name="index">Index of the object to retrieve from collection</param>
-		public new int this[int index]
-		{
-			get
-			{
-				return (int)base[index];
-			}
-			set
-			{
-				base[index] = value;
-			}
-		}
+    {
+        /// <summary>
+        /// New typed indexer for the collection
+        /// </summary>
+        /// <param name="index">Index of the object to retrieve from collection</param>
+        public new int this[int index]
+        {
+            get
+            {
+                return (int)base[index];
+            }
+            set
+            {
+                base[index] = value;
+            }
+        }
 
-		/// <summary>
-		/// Add typed object to the collection
-		/// </summary>
-		/// <param name="objectToAdd">Typed object to be added to collection</param>
-		/// <returns>The object that has been added to collection</returns>
-		public int Add(int objectToAdd)
-		{
-			base.Add(objectToAdd);
+        /// <summary>
+        /// Add typed object to the collection
+        /// </summary>
+        /// <param name="objectToAdd">Typed object to be added to collection</param>
+        /// <returns>The object that has been added to collection</returns>
+        public int Add(int objectToAdd)
+        {
+            base.Add(objectToAdd);
 
-			return objectToAdd;
-		}
+            return objectToAdd;
+        }
 
-		/// <summary>
-		/// Add new typed object to the collection
-		/// </summary>
-		/// <returns>The newly created object that has been added to collection</returns>
-		public int Add()
-		{
-			return this.Add(new int());
-		}
-	}
+        /// <summary>
+        /// Add new typed object to the collection
+        /// </summary>
+        /// <returns>The newly created object that has been added to collection</returns>
+        public int Add()
+        {
+            return this.Add(new int());
+        }
+    }
 }

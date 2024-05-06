@@ -94,7 +94,7 @@ namespace FirmaXadesNet.Upgraders
             {
                 byKey = false;
 
-                return new X500DistinguishedName(dt.GetObject().GetEncoded()).Name;                
+                return new X500DistinguishedName(dt.GetObject().GetEncoded()).Name;
             }
             else if (dt.TagNo == 2)
             {

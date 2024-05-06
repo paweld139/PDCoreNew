@@ -36,7 +36,7 @@ namespace FirmaXadesNet.Upgraders.Parameters
         private List<string> _ocspServers;
 
         private List<X509Crl> _crls;
-        
+
         private DigestMethod _digestMethod;
 
         private TimeStampClient _timeStampClient;
@@ -108,7 +108,7 @@ namespace FirmaXadesNet.Upgraders.Parameters
         #region Public methods
 
         public void AddCRL(Stream stream)
-        {            
+        {
             var x509crl = _crlParser.ReadCrl(stream);
 
             _crls.Add(x509crl);

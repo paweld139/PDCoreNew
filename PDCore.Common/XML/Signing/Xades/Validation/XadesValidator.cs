@@ -47,11 +47,11 @@ namespace FirmaXadesNet.Validation
              * 
              * La validación de perfiles -C, -X, -XL y -A esta fuera del ámbito de este proyecto.
              */
-            
+
             ValidationResult result = new ValidationResult();
-                       
+
             try
-            {                
+            {
                 // Verifica las huellas de las referencias y la firma
                 sigDocument.XadesSignature.CheckXmldsigSignature();
             }
@@ -62,7 +62,7 @@ namespace FirmaXadesNet.Validation
 
                 return result;
             }
-            
+
             if (sigDocument.XadesSignature.UnsignedProperties.UnsignedSignatureProperties.SignatureTimeStampCollection.Count > 0)
             {
                 // Se comprueba el sello de tiempo

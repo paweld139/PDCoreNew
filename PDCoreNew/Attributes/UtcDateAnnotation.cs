@@ -53,7 +53,7 @@ namespace PDCoreNew.Attributes
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited =  true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class IsUtcAttribute : Attribute
     {
         public IsUtcAttribute(bool isUtc = true) => IsUtc = isUtc;

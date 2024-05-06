@@ -215,7 +215,7 @@ namespace PDCore.Utils
             xElement.Name = xNamespace + xElement.Name.LocalName;
 
 
-            foreach(XElement element in xElement.Descendants())
+            foreach (XElement element in xElement.Descendants())
             {
                 element.Name = xNamespace + element.Name.LocalName;
             }

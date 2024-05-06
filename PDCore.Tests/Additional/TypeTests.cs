@@ -82,8 +82,8 @@ namespace PDCore.Tests.Additional
         {
             _ = book;
 
-            book = new InMemoryBook(name);  
-            
+            book = new InMemoryBook(name);
+
             _ = book;
         }
 
