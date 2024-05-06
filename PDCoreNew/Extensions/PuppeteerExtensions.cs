@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using PDCoreNew.Configuration;
 using PDCoreNew.Utils;
 using PuppeteerSharp;
+using PuppeteerSharp.BrowserData;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -35,9 +36,9 @@ namespace PDCoreNew.Extensions
 
             using var browserFetcher = new BrowserFetcher(browserFetcherOptions);
 
-            var revisionInfo = await browserFetcher.DownloadAsync(BrowserFetcher.DefaultChromiumRevision);
+            var revisionInfo = await browserFetcher.DownloadAsync(Chrome.DefaultBuildId);
 
-            ExecutablePath = revisionInfo.ExecutablePath;
+            ExecutablePath = revisionInfo.GetExecutablePath();
         }
 
         public static string ExecutablePath { get; private set; }

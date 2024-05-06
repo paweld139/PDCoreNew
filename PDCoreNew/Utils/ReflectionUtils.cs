@@ -143,12 +143,12 @@ namespace PDCoreNew.Utils
 
         public static Dictionary<string, object> GetObjectPropertyDictionary<T>(T entity)
         {
-            return GetObjectPropertyKeyValuePairs(entity).ToDictionary();
+            return Enumerable.ToDictionary(GetObjectPropertyKeyValuePairs(entity));
         }
 
         public static Dictionary<string, string> GetObjectPropertyDictionaryString<T>(T entity)
         {
-            return GetObjectPropertyKeyValuePairsString(entity).ToDictionary();
+            return Enumerable.ToDictionary(GetObjectPropertyKeyValuePairsString(entity));
         }
 
         public static SortedDictionary<string, object> GetObjectPropertySortedDictionary<T>(T entity)

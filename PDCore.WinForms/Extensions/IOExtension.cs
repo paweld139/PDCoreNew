@@ -41,7 +41,7 @@ namespace PDCore.WinForms.Extensions
 
             string fileName = name + "." + extension; //Utworzenie nazwy pliku na podstawie przekazanej nazwy i otrzymanego roszerzenia
 
-            string path = SecurityUtils.TemplateDirPath() + fileName; //Utworzenie ścieżki w jakiej zostanie zapisany plik, na podstawie pobranej ścieżki plików tymczasowych i otrzymanej nazwy pliku
+            string path = SecurityUtils.TempDirPath() + fileName; //Utworzenie ścieżki w jakiej zostanie zapisany plik, na podstawie pobranej ścieżki plików tymczasowych i otrzymanej nazwy pliku
 
             File.WriteAllBytes(path, image.GetBuffer(imageFormat)); //Pobranie tablicy bajtów dla zadanego zdjęcia i zapisanie zdjęcia w zadanej lokalizacji
 

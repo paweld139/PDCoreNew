@@ -139,7 +139,7 @@ namespace PDCoreNew.Utils
 
         public static Dictionary<string, int> GetProcessesWithThreadsDictionary()
         {
-            return GetProcessesWithThreads().ToDictionary();
+            return Enumerable.ToDictionary(GetProcessesWithThreads());
         }
 
         public static SortedDictionary<string, int> GetProcessesWithThreadsSortedDictionary()

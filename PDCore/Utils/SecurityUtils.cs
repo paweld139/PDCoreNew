@@ -177,7 +177,7 @@ namespace PDCore.Utils
         /// Ścieżka do katalogu danych tymczasowych
         /// </summary>
         /// <returns></returns>
-        public static string TemplateDirPath()
+        public static string TempDirPath()
         {
             string path = CorrectDirectoryPath(Environment.GetEnvironmentVariable("TEMP"));
 
